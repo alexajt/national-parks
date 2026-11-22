@@ -208,6 +208,7 @@ ul.task-list li input[type="checkbox"] {
 
     <div class="d-flex flex-wrap gap-2 mb-3">
       <span id="park-art-category-badge" style="display:inline-block;font-size:0.77rem;font-weight:600;padding:3px 10px;border-radius:999px;background:#E2EAE3;color:#1E382B;border:1px solid #BFCFC2;"></span>
+      <span id="park-location-badge" style="display:inline-block;font-size:0.77rem;font-weight:600;padding:3px 10px;border-radius:999px;background:#F3EFE4;color:#5A4320;border:1px solid #D8C9A8;"></span>
     </div>
 
     <div style="background:#FAF7F0;border:1px solid #DFDBD0;border-radius:10px;padding:12px 16px;">
@@ -870,6 +871,20 @@ ul.task-list li input[type="checkbox"] {
     const motif = classifyMotif(d.park, d.park_type);
     document.getElementById("info-park-title").textContent = d.park;
     document.getElementById("park-art-category-badge").textContent = d.park_type;
+
+    const locParts = [];
+    if (d.state && d.state.trim()) locParts.push(d.state.trim());
+    if (d.region && d.region.trim()) locParts.push(d.region.trim());
+    if (d.city && d.city.trim()) locParts.push(d.city.trim());
+    const locBadge = document.getElementById("park-location-badge");
+    if (locBadge) {
+      if (locParts.length > 0) {
+        locBadge.textContent = locParts.join(" · ");
+        locBadge.style.display = "inline-block";
+      } else {
+        locBadge.style.display = "none";
+      }
+    }
 
     let activeYear = null;
 

@@ -111,6 +111,7 @@ ui <- HTML(paste0(
 
     <div class="d-flex flex-wrap gap-2 mb-3">
       <span id="park-art-category-badge" style="display:inline-block;font-size:0.77rem;font-weight:600;padding:3px 10px;border-radius:999px;background:#E2EAE3;color:#1E382B;border:1px solid #BFCFC2;"></span>
+      <span id="park-location-badge" style="display:inline-block;font-size:0.77rem;font-weight:600;padding:3px 10px;border-radius:999px;background:#F3EFE4;color:#5A4320;border:1px solid #D8C9A8;"></span>
     </div>
 
     <div style="background:#FAF7F0;border:1px solid #DFDBD0;border-radius:10px;padding:12px 16px;">
@@ -754,6 +755,20 @@ ui <- HTML(paste0(
     document.getElementById("info-park-title").textContent = d.park;
     document.getElementById("park-art-category-badge").textContent = d.park_type;
 
+    const locParts = [];
+    if (d.state && d.state.trim()) locParts.push(d.state.trim());
+    if (d.region && d.region.trim()) locParts.push(d.region.trim());
+    if (d.city && d.city.trim()) locParts.push(d.city.trim());
+    const locBadge = document.getElementById("park-location-badge");
+    if (locBadge) {
+      if (locParts.length > 0) {
+        locBadge.textContent = locParts.join(" · ");
+        locBadge.style.display = "inline-block";
+      } else {
+        locBadge.style.display = "none";
+      }
+    }
+
     let activeYear = null;
 
     if (isAll) {
@@ -955,4 +970,134 @@ ui <- HTML(paste0(
 ))
 
 attachDependencies(ui, list(plotly:::plotlyMainBundle()))
+```
+
+## Explore Monthly Visitation
+
+This export currently contains **January** records for 2000–2025. The charts
+below show January recreation visits; other months will appear here when they
+are included in the data.
+
+```{r}
+#| label: monthly-visitation-explorer
+#| column: page-inset
+
+monthly_visits <- read_csv(
+  "monthly_data/Query Builder for Public Use Statistics (1979 - Last Calendar Year).csv",
+  show_col_types = FALSE
+) |>
+  transmute(
+    park = ParkName,
+    year = as.integer(Year),
+    month = as.integer(Month),
+    visits = parse_number(as.character(RecreationVisits))
+  ) |>
+  filter(!is.na(year), !is.na(month), !is.na(visits))
+
+monthly_json <- toJSON(
+  monthly_visits,
+  dataframe = "rows",
+  auto_unbox = TRUE
+)
+
+monthly_ui <- HTML(paste0(
+'
+<div style="background:#FAF7F0;border:1px solid #D5D2C4;border-radius:14px;padding:18px 20px;margin-top:8px;box-shadow:0 4px 16px rgba(30,56,43,0.04);">
+  <div class="row g-3 align-items-end mb-3">
+    <div class="col-md-4">
+      <label for="monthly-month" class="form-label fw-semibold">Month</label>
+      <select id="monthly-month" class="form-select"></select>
+    </div>
+    <div class="col-md-4">
+      <label for="monthly-year" class="form-label fw-semibold">Year for park comparison</label>
+      <select id="monthly-year" class="form-select"></select>
+    </div>
+    <div class="col-md-4">
+      <label for="monthly-park" class="form-label fw-semibold">Park trend</label>
+      <select id="monthly-park" class="form-select"></select>
+    </div>
+  </div>
+  <div class="row g-3">
+    <div class="col-lg-7"><div id="monthly-trend-chart" style="height:380px;"></div></div>
+    <div class="col-lg-5"><div id="monthly-ranking-chart" style="height:380px;"></div></div>
+  </div>
+  <p style="font-size:0.83rem;color:#5A6B60;margin:6px 0 0 4px;">
+    Hover over a point or bar for exact recreation visits. Park rankings include
+    only units reporting data for the selected month and year.
+  </p>
+</div>
+<script>
+(() => {
+  const rows = ', monthly_json, ';
+  const monthNames = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const monthSelect = document.getElementById("monthly-month");
+  const yearSelect = document.getElementById("monthly-year");
+  const parkSelect = document.getElementById("monthly-park");
+  const fmt = new Intl.NumberFormat("en-US");
+
+  function fillSelect(select, values, label = String) {
+    select.replaceChildren(...values.map(value => new Option(label(value), String(value))));
+  }
+
+  function renderMonthlyCharts() {
+    const month = Number(monthSelect.value);
+    const year = Number(yearSelect.value);
+    const park = parkSelect.value;
+    const monthRows = rows.filter(row => row.month === month);
+    const parkRows = monthRows
+      .filter(row => row.park === park)
+      .sort((a, b) => a.year - b.year);
+    const rankedRows = monthRows
+      .filter(row => row.year === year)
+      .sort((a, b) => b.visits - a.visits)
+      .slice(0, 10)
+      .reverse();
+
+    Plotly.react("monthly-trend-chart", [{
+      x: parkRows.map(row => row.year),
+      y: parkRows.map(row => row.visits),
+      type: "scatter",
+      mode: "lines+markers",
+      line: { color: "#2F6B48", width: 3 },
+      marker: { color: "#D89E44", size: 8 },
+      hovertemplate: "%{x}: %{y:,.0f} visits<extra></extra>"
+    }], {
+      title: { text: `${monthNames[month]} visits at ${park}`, x: 0, font: { color: "#1E382B", size: 16 } },
+      paper_bgcolor: "#FAF7F0",
+      plot_bgcolor: "#FAF7F0",
+      margin: { t: 55, r: 20, b: 45, l: 70 },
+      xaxis: { title: "Year", dtick: 5, showgrid: false },
+      yaxis: { title: "Recreation visits", rangemode: "tozero", gridcolor: "#E6E1D2" }
+    }, { responsive: true, displaylogo: false });
+
+    Plotly.react("monthly-ranking-chart", [{
+      x: rankedRows.map(row => row.visits),
+      y: rankedRows.map(row => row.park),
+      type: "bar",
+      orientation: "h",
+      marker: { color: rankedRows.map(row => row.park === park ? "#D89E44" : "#426B53") },
+      hovertemplate: "%{y}<br>%{x:,.0f} visits<extra></extra>"
+    }], {
+      title: { text: `Top 10 parks — ${monthNames[month]} ${year}`, x: 0, font: { color: "#1E382B", size: 16 } },
+      paper_bgcolor: "#FAF7F0",
+      plot_bgcolor: "#FAF7F0",
+      margin: { t: 55, r: 20, b: 45, l: 150 },
+      xaxis: { title: "Recreation visits", rangemode: "tozero", gridcolor: "#E6E1D2" },
+      yaxis: { automargin: true }
+    }, { responsive: true, displaylogo: false });
+  }
+
+  fillSelect(monthSelect, [...new Set(rows.map(row => row.month))].sort((a, b) => a - b), month => monthNames[month]);
+  fillSelect(yearSelect, [...new Set(rows.map(row => row.year))].sort((a, b) => b - a));
+  fillSelect(parkSelect, [...new Set(rows.map(row => row.park))].sort());
+  monthSelect.addEventListener("change", renderMonthlyCharts);
+  yearSelect.addEventListener("change", renderMonthlyCharts);
+  parkSelect.addEventListener("change", renderMonthlyCharts);
+  renderMonthlyCharts();
+})();
+</script>
+'
+))
+
+attachDependencies(monthly_ui, list(plotly:::plotlyMainBundle()))
 ```

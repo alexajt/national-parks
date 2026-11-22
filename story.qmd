@@ -1,6 +1,6 @@
 ---
-title: "Visitation After 2020"
-subtitle: "Among 372 Continuously Reporting NPS Units, Parks & Parkways Rebounded Above 2019 While Monuments & Historic Sites Lagged"
+title: "Visitation Shifts After 2020"
+subtitle: "Category recovery trajectories and the individual park units with the largest post-2019 shifts"
 execute:
   echo: false
   warning: false
@@ -9,13 +9,9 @@ toc: false
 ---
 
 ```{r}
-#| label: fig-balanced-divergence
-#| fig-cap: "Annual recreation visits across the 372 NPS units that reported in every calendar year from 2015 through 2025, summed by designation category and indexed so each category's 2019 total equals 100."
-#| fig-width: 9.5
-#| fig-height: 5.8
-#| fig-dpi: 300
-
+#| label: setup-story-combined
 library(tidyverse)
+library(htmltools)
 
 annual_visits <- read_csv(
   "nps_annual_visits_1979_2025.csv",
@@ -40,6 +36,7 @@ annual_visits <- read_csv(
     )
   )
 
+# 1. Balanced panel for category recovery index (2015-2025)
 balanced_index <- annual_visits |>
   filter(year >= 2015) |>
   group_by(park) |>
@@ -71,6 +68,73 @@ palette_cols <- c(
   "Historic Sites, Battlefields & Memorials" = "#C48347",
   "National Monuments" = "#A45D57"
 )
+
+# 2. Individual park shift data (2019 vs 2025)
+change_data <- annual_visits |>
+  filter(year %in% c(2019, 2025)) |>
+  pivot_wider(
+    names_from = year,
+    values_from = recreation_visits,
+    names_prefix = "year_"
+  ) |>
+  filter(!is.na(year_2019), !is.na(year_2025)) |>
+  mutate(
+    absolute_change = year_2025 - year_2019,
+    percent_change = 100 * absolute_change / year_2019
+  )
+
+rising <- change_data |>
+  slice_max(absolute_change, n = 10, with_ties = FALSE) |>
+  mutate(group = "Largest increases (+)")
+
+falling <- change_data |>
+  slice_min(absolute_change, n = 10, with_ties = FALSE) |>
+  mutate(group = "Largest decreases (-)")
+
+change_sample <- bind_rows(rising, falling) |>
+  mutate(
+    park = forcats::fct_reorder(park, absolute_change),
+    label_text = ifelse(
+      absolute_change > 0,
+      paste0("+", scales::label_comma(scale_cut = scales::cut_short_scale())(absolute_change)),
+      scales::label_comma(scale_cut = scales::cut_short_scale())(absolute_change)
+    ),
+    label_hjust = ifelse(absolute_change > 0, -0.15, 1.15)
+  )
+
+rising_rows <- rising |>
+  arrange(desc(absolute_change)) |>
+  mutate(
+    row_html = sprintf(
+      "<tr><td class='fw-semibold'>%s</td><td class='text-end'>%s</td><td class='text-end'>%s</td><td class='text-end'><span style='display:inline-block;padding:2px 8px;border-radius:999px;font-size:0.8rem;font-weight:600;background:#E2EAE3;color:#1E382B;'>+%s (+%.1f%%)</span></td></tr>",
+      park, scales::comma(year_2019), scales::comma(year_2025), scales::comma(absolute_change), percent_change
+    )
+  ) |>
+  pull(row_html) |>
+  paste(collapse = "\n")
+
+falling_rows <- falling |>
+  arrange(absolute_change) |>
+  mutate(
+    row_html = sprintf(
+      "<tr><td class='fw-semibold'>%s</td><td class='text-end'>%s</td><td class='text-end'>%s</td><td class='text-end'><span style='display:inline-block;padding:2px 8px;border-radius:999px;font-size:0.8rem;font-weight:600;background:#FBEAE5;color:#8F3820;'>%s (%.1f%%)</span></td></tr>",
+      park, scales::comma(year_2019), scales::comma(year_2025), scales::comma(absolute_change), percent_change
+    )
+  ) |>
+  pull(row_html) |>
+  paste(collapse = "\n")
+```
+
+The 2020 pandemic triggered sharp, uneven disruptions across the National Park System. Open outdoor destinations like scenic parkways and flagship national parks rebounded quickly—surpassing pre-pandemic benchmarks by 2025. In contrast, urban monuments and historic sites took deeper hits and still trail 2019 attendance by roughly 14%. Below, trace the category-wide recovery trajectories followed by the individual park units with the largest post-2019 volume shifts.
+
+## Category Recovery Trajectories (2015–2025)
+
+```{r}
+#| label: fig-balanced-divergence
+#| fig-cap: "Annual recreation visits across 372 continuously reporting NPS units, summed by category and indexed so each category's 2019 total equals 100."
+#| fig-width: 9.5
+#| fig-height: 5.6
+#| fig-dpi: 300
 
 ggplot(balanced_index, aes(x = year, y = index_2019, color = park_type)) +
   geom_hline(yintercept = 100, linetype = "dashed", color = "#667085", linewidth = 0.7) +
@@ -119,12 +183,12 @@ ggplot(balanced_index, aes(x = year, y = index_2019, color = park_type)) +
     color = "#7A2E3A"
   ) +
   labs(
-    title = "After 2020, Parks & Parkways Passed 2019 Levels While Monuments & Historic Sites Trailed",
-    subtitle = "Annual visits across 372 continuously reporting NPS units, indexed to each category's 2019 total (= 100)",
+    title = "Parks & Parkways Passed 2019 While Monuments & Historic Sites Trailed",
+    subtitle = "Annual visits across 372 continuously reporting units, indexed to 2019 total (= 100)",
     x = "Calendar Year",
-    y = "Annual visitation index (2019 = 100)",
+    y = "Visitation index (2019 = 100)",
     color = "Park Unit Category",
-    caption = "Source: National Park Service Visitor Use Statistics (nps_annual_visits_1979_2025.csv, 2015–2025 balanced panel)."
+    caption = "Source: NPS Visitor Use Statistics (2015–2025 balanced panel)."
   ) +
   guides(color = guide_legend(nrow = 2, byrow = TRUE)) +
   theme_minimal(base_size = 13) +
@@ -140,11 +204,97 @@ ggplot(balanced_index, aes(x = year, y = index_2019, color = park_type)) +
   )
 ```
 
-## The 2020 Drop and Divergent Recovery
+## 2019 to 2025: Largest Park Shifts
 
-The 2020 pandemic caused sharp, unequal attendance drops across the 372 continuously reporting NPS units (indexed so 2019 = 100):
+```{r}
+#| label: fig-rising-falling
+#| fig-cap: "Top 10 absolute increases and decreases in annual recreation visits between 2019 and 2025 among units reporting in both years."
+#| fig-width: 11
+#| fig-height: 8.2
 
-- **Indoor & urban sites fell steepest in 2020:** National Monuments plunged to **44.0%** of 2019 visits, and Historic Sites & Memorials dropped to **53.8%**. By 2025, both categories remain roughly **14% below** pre-pandemic levels (86.2% and 86.3%).
-- **Open outdoor destinations rebounded past 2019:** Recreation Areas & Parkways proved most resilient in 2020 (**92.9%**), while flagship National Parks fell to **75.3%**. By 2025, both surpassed pre-pandemic attendance (**101.8%** and **103.8%**).
+ggplot(change_sample, aes(x = absolute_change, y = park, fill = group)) +
+  geom_col(width = 0.72) +
+  geom_vline(xintercept = 0, color = "#1E382B", linewidth = 0.9) +
+  geom_text(
+    aes(label = label_text, hjust = label_hjust),
+    size = 3.6,
+    fontface = "bold",
+    color = "#1E382B"
+  ) +
+  scale_fill_manual(
+    values = c(
+      "Largest increases (+)" = "#2F6B48",
+      "Largest decreases (-)" = "#B06242"
+    )
+  ) +
+  scale_x_continuous(
+    labels = scales::label_comma(scale_cut = scales::cut_short_scale()),
+    limits = c(-3350000, 2750000),
+    expand = expansion(mult = c(0.04, 0.08))
+  ) +
+  labs(
+    x = "Net change in annual recreation visits (2019 to 2025)",
+    y = NULL,
+    fill = NULL,
+    caption = "Source: NPS Visitor Use Statistics. Units reporting in both 2019 and 2025."
+  ) +
+  theme_minimal(base_size = 12.5) +
+  theme(
+    plot.background = element_rect(fill = "#FAF7F0", color = NA),
+    panel.background = element_rect(fill = "#FAF7F0", color = NA),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_line(color = "#E6E1D2", linewidth = 0.5),
+    legend.position = "top",
+    legend.justification = "left",
+    legend.text = element_text(size = 11, face = "bold", color = "#1E382B"),
+    axis.text.y = element_text(size = 10, face = "bold", color = "#1E382B"),
+    axis.text.x = element_text(color = "#4A5B51", size = 10.5)
+  )
+```
 
-*Note: Based on a balanced panel of 372 units continuously reporting each year from 2015 through 2025.*
+## Detailed Breakdown: Top 10 Gainers & Decliners
+
+::: {.row .g-4 .mt-2}
+::: {.col-lg-6}
+::: {.card style="background-color:#FAF7F0; border:1px solid #D5D2C4; border-top:4px solid #2F6B48; border-radius:12px; padding:18px 20px; box-shadow:0 3px 12px rgba(30,56,43,0.04);"}
+<h4 style="margin:0 0 12px 0; font-size:1.1rem; color:#1E382B; font-family:Georgia,serif;">Top 10 Attendance Increases</h4>
+<div class="table-responsive">
+<table class="table table-sm table-borderless mb-0" style="font-size:0.86rem; color:#223028;">
+  <thead>
+    <tr style="border-bottom:1.5px solid #DFDBD0; color:#4A5B51;">
+      <th>Park Unit</th>
+      <th class="text-end">2019</th>
+      <th class="text-end">2025</th>
+      <th class="text-end">Change</th>
+    </tr>
+  </thead>
+  <tbody>
+    `r HTML(rising_rows)`
+  </tbody>
+</table>
+</div>
+:::
+:::
+
+::: {.col-lg-6}
+::: {.card style="background-color:#FAF7F0; border:1px solid #D5D2C4; border-top:4px solid #B06242; border-radius:12px; padding:18px 20px; box-shadow:0 3px 12px rgba(30,56,43,0.04);"}
+<h4 style="margin:0 0 12px 0; font-size:1.1rem; color:#1E382B; font-family:Georgia,serif;">Top 10 Attendance Decreases</h4>
+<div class="table-responsive">
+<table class="table table-sm table-borderless mb-0" style="font-size:0.86rem; color:#223028;">
+  <thead>
+    <tr style="border-bottom:1.5px solid #DFDBD0; color:#4A5B51;">
+      <th>Park Unit</th>
+      <th class="text-end">2019</th>
+      <th class="text-end">2025</th>
+      <th class="text-end">Change</th>
+    </tr>
+  </thead>
+  <tbody>
+    `r HTML(falling_rows)`
+  </tbody>
+</table>
+</div>
+:::
+:::
+:::

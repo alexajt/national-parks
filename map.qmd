@@ -1,0 +1,239 @@
+---
+title: "Explore Park Visitation Across the U.S."
+subtitle: "Compare monthly National Park Service attendance by state"
+execute:
+  echo: false
+  warning: false
+  message: false
+toc: false
+---
+
+Choose a month and year to see where visits were recorded across the country.
+Hover over a state for its total visits, reporting units, region, and most-visited park.
+The uploaded export currently contains January records only, so January is the only month available.
+
+```{r}
+#| label: state-map-explorer
+#| column: page-inset
+
+library(tidyverse)
+library(plotly)
+library(jsonlite)
+library(htmltools)
+
+state_lookup <- tibble(
+  state_code = c(state.abb, "DC"),
+  state = c(state.name, "District of Columbia")
+)
+
+monthly_state_data <- read_csv(
+  "monthly_data/Query Builder for Public Use Statistics (1979 - Last Calendar Year).csv",
+  show_col_types = FALSE
+) |>
+  transmute(
+    park = ParkName,
+    region = str_trim(Region),
+    state_code = str_to_upper(State),
+    year = as.integer(Year),
+    month = as.integer(Month),
+    visits = parse_number(as.character(RecreationVisits))
+  ) |>
+  filter(!is.na(year), !is.na(month), !is.na(visits)) |>
+  inner_join(state_lookup, by = "state_code") |>
+  group_by(year, month, state_code, state, region) |>
+  summarize(
+    total_visits = sum(visits),
+    n_parks = n_distinct(park),
+    top_park = park[which.max(visits)],
+    top_park_visits = max(visits),
+    .groups = "drop"
+  ) |>
+  arrange(year, month, state)
+
+state_map_json <- toJSON(
+  monthly_state_data,
+  dataframe = "rows",
+  auto_unbox = TRUE
+)
+
+ui <- HTML(paste0(
+'
+<div class="row g-3 align-items-end mb-3">
+  <div class="col-sm-6 col-md-4">
+    <label for="state-map-month" class="form-label fw-semibold" style="color:#1E382B;">Month</label>
+    <select id="state-map-month" class="form-select" aria-label="Select month"></select>
+  </div>
+  <div class="col-sm-6 col-md-4">
+    <label for="state-map-year" class="form-label fw-semibold" style="color:#1E382B;">Year</label>
+    <select id="state-map-year" class="form-select" aria-label="Select year"></select>
+  </div>
+  <div class="col-md-4">
+    <p id="state-map-coverage" class="mb-2" style="font-size:0.88rem;color:#5A6B60;"></p>
+  </div>
+</div>
+
+<div class="row g-3 mb-3">
+  <div class="col-sm-6 col-xl-3"><div class="h-100" style="background:#F3EFE4;border:1px solid #D5D2C4;border-top:4px solid #2F6B48;border-radius:10px;padding:14px 16px;">
+    <div style="font-size:0.78rem;text-transform:uppercase;letter-spacing:0.05em;font-weight:700;color:#4A5B51;">Busiest State</div>
+    <div id="map-busiest-state" style="font-size:1.35rem;font-weight:700;color:#1E382B;margin:2px 0;"></div>
+    <div id="map-busiest-detail" style="font-size:0.83rem;color:#4A5B51;"></div>
+  </div></div>
+  <div class="col-sm-6 col-xl-3"><div class="h-100" style="background:#F3EFE4;border:1px solid #D5D2C4;border-top:4px solid #4A7C82;border-radius:10px;padding:14px 16px;">
+    <div style="font-size:0.78rem;text-transform:uppercase;letter-spacing:0.05em;font-weight:700;color:#4A5B51;">Visits Shown</div>
+    <div id="map-total-visits" style="font-size:1.35rem;font-weight:700;color:#1E382B;margin:2px 0;"></div>
+    <div style="font-size:0.83rem;color:#4A5B51;">Across states with reported data</div>
+  </div></div>
+  <div class="col-sm-6 col-xl-3"><div class="h-100" style="background:#F3EFE4;border:1px solid #D5D2C4;border-top:4px solid #C48347;border-radius:10px;padding:14px 16px;">
+    <div style="font-size:0.78rem;text-transform:uppercase;letter-spacing:0.05em;font-weight:700;color:#4A5B51;">Reporting Units</div>
+    <div id="map-unit-count" style="font-size:1.35rem;font-weight:700;color:#1E382B;margin:2px 0;"></div>
+    <div style="font-size:0.83rem;color:#4A5B51;">Park units reporting visits</div>
+  </div></div>
+  <div class="col-sm-6 col-xl-3"><div class="h-100" style="background:#F3EFE4;border:1px solid #D5D2C4;border-top:4px solid #A45D57;border-radius:10px;padding:14px 16px;">
+    <div style="font-size:0.78rem;text-transform:uppercase;letter-spacing:0.05em;font-weight:700;color:#4A5B51;">Top Park in Busiest State</div>
+    <div id="map-top-park" style="font-size:1.02rem;font-weight:700;color:#1E382B;margin:4px 0 2px;line-height:1.25;"></div>
+    <div id="map-top-park-detail" style="font-size:0.83rem;color:#4A5B51;"></div>
+  </div></div>
+</div>
+
+<div style="background:#FAF7F0;border:1px solid #D5D2C4;border-radius:14px;padding:12px 16px 8px;box-shadow:0 4px 16px rgba(30,56,43,0.04);">
+  <div id="state-choropleth" style="width:100%;height:min(68vh,620px);min-height:430px;" role="img" aria-label="Map of monthly National Park Service recreation visits by state"></div>
+  <p style="font-size:0.83rem;color:#5A6B60;margin:0 0 6px 4px;">
+    Darker green indicates more recreation visits. This state map includes the 50 states and D.C.; U.S. territories are not shown.
+  </p>
+</div>
+
+<h2 id="state-ranking-title" class="mt-4">Top States</h2>
+<div class="table-responsive" style="background:#FAF7F0;border:1px solid #D5D2C4;border-radius:12px;padding:10px 16px;">
+  <table class="table table-sm table-hover mb-0" style="font-size:0.9rem;color:#223028;">
+    <thead><tr style="border-bottom:2px solid #DFDBD0;color:#1E382B;">
+      <th scope="col">Rank</th><th scope="col">State</th><th scope="col">Region</th>
+      <th scope="col" class="text-end">Recreation Visits</th><th scope="col" class="text-end">Units</th>
+      <th scope="col">Most-visited Park</th>
+    </tr></thead>
+    <tbody id="state-ranking-body"></tbody>
+  </table>
+</div>
+
+<p style="font-size:0.82rem;color:#5A6B60;margin-top:12px;">
+  Source: NPS Visitor Use Statistics monthly export. Values reflect reported recreation visits; states without reported data for the selected period are omitted.
+</p>
+
+<script>
+(() => {
+  const rows = ', state_map_json, ';
+  const monthNames = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const monthSelect = document.getElementById("state-map-month");
+  const yearSelect = document.getElementById("state-map-year");
+  const fmt = new Intl.NumberFormat("en-US");
+
+  function setText(id, value) {
+    document.getElementById(id).textContent = value;
+  }
+
+  function addCell(row, value, className = "") {
+    const cell = document.createElement("td");
+    cell.textContent = value;
+    if (className) cell.className = className;
+    row.appendChild(cell);
+  }
+
+  function fillYears() {
+    const previousYear = yearSelect.value;
+    const monthsRows = rows.filter(row => row.month === Number(monthSelect.value));
+    const years = [...new Set(monthsRows.map(row => row.year))].sort((a, b) => b - a);
+    yearSelect.replaceChildren(...years.map(year => new Option(String(year), String(year))));
+    if (years.includes(Number(previousYear))) yearSelect.value = previousYear;
+  }
+
+  function renderMap() {
+    const month = Number(monthSelect.value);
+    const year = Number(yearSelect.value);
+    const selected = rows
+      .filter(row => row.month === month && row.year === year)
+      .sort((a, b) => b.total_visits - a.total_visits);
+    if (!selected.length) return;
+
+    const busiest = selected[0];
+    const totalVisits = selected.reduce((sum, row) => sum + row.total_visits, 0);
+    const unitCount = selected.reduce((sum, row) => sum + row.n_parks, 0);
+    const monthLabel = monthNames[month];
+
+    setText("map-busiest-state", busiest.state);
+    setText("map-busiest-detail", `${fmt.format(busiest.total_visits)} visits across ${fmt.format(busiest.n_parks)} units`);
+    setText("map-total-visits", fmt.format(totalVisits));
+    setText("map-unit-count", fmt.format(unitCount));
+    setText("map-top-park", busiest.top_park);
+    setText("map-top-park-detail", `${fmt.format(busiest.top_park_visits)} visits in ${busiest.state}`);
+    setText("state-ranking-title", `Top States — ${monthLabel} ${year}`);
+    setText("state-map-coverage", `${monthLabel} ${year} · ${selected.length} states reporting`);
+
+    const topStates = [...selected].slice(0, 10);
+    const tableBody = document.getElementById("state-ranking-body");
+    tableBody.replaceChildren(...topStates.map((row, index) => {
+      const tr = document.createElement("tr");
+      addCell(tr, `#${index + 1}`, "fw-semibold text-muted");
+      addCell(tr, row.state, "fw-semibold");
+      addCell(tr, row.region, "text-muted");
+      addCell(tr, fmt.format(row.total_visits), "text-end");
+      addCell(tr, fmt.format(row.n_parks), "text-end");
+      addCell(tr, row.top_park);
+      return tr;
+    }));
+
+    Plotly.react("state-choropleth", [{
+      type: "choropleth",
+      locationmode: "USA-states",
+      locations: selected.map(row => row.state_code),
+      z: selected.map(row => row.total_visits),
+      text: selected.map(row => row.state),
+      customdata: selected.map(row => [row.n_parks, row.top_park, row.top_park_visits, row.region]),
+      colorscale: [
+        [0, "#FAF7F0"],
+        [0.12, "#E0ECE2"],
+        [0.35, "#8BB197"],
+        [0.65, "#2F6B48"],
+        [1, "#163122"]
+      ],
+      marker: { line: { color: "#FAF7F0", width: 1.2 } },
+      hovertemplate:
+        "<b>%{text} (%{location})</b><br>" +
+        `${monthLabel} ${year} visits: <b>%{z:,.0f}</b><br>` +
+        "NPS units: <b>%{customdata[0]}</b><br>" +
+        "Top park: <b>%{customdata[1]}</b> (%{customdata[2]:,.0f} visits)<br>" +
+        "Region: <b>%{customdata[3]}</b><extra></extra>",
+      colorbar: {
+        title: { text: "Recreation visits", font: { family: "Georgia, serif", color: "#1E382B", size: 13 } },
+        tickformat: "~s",
+        tickfont: { color: "#4A5B51", size: 11 }
+      }
+    }], {
+      title: { text: `${monthLabel} ${year} Recreation Visits by State`, x: 0.04, font: { family: "Georgia, serif", color: "#1E382B", size: 18 } },
+      geo: {
+        scope: "usa",
+        projection: { type: "albers usa" },
+        showlakes: true,
+        lakecolor: "#FAF7F0",
+        bgcolor: "#FAF7F0"
+      },
+      paper_bgcolor: "#FAF7F0",
+      plot_bgcolor: "#FAF7F0",
+      margin: { t: 55, b: 10, l: 10, r: 10 }
+    }, { responsive: true, displaylogo: false });
+  }
+
+  const months = [...new Set(rows.map(row => row.month))].sort((a, b) => a - b);
+  monthSelect.replaceChildren(...months.map(month => new Option(monthNames[month], String(month))));
+  fillYears();
+  monthSelect.addEventListener("change", () => {
+    fillYears();
+    renderMap();
+  });
+  yearSelect.addEventListener("change", renderMap);
+  renderMap();
+})();
+</script>
+'
+))
+
+attachDependencies(ui, list(plotly:::plotlyMainBundle()))
+```
