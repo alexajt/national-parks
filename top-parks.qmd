@@ -34,9 +34,9 @@ top_by_year <- annual_visits |>
   arrange(year, rank)
 ```
 
-## Which parks lead the system?
+## Compare the Annual Top 10
 
-Use the year slider to compare the **10 busiest reporting units**. The ranking is based on each year's total recreation visits, so annual counts are not adjusted for park size or number of days open.
+Move the year slider to compare the **10 reporting units with the most visits** in each year. Hover over a bar for its count. Rankings use annual totals, not visits per day or park size.
 
 ```{r}
 #| label: fig-top-parks
@@ -98,7 +98,3 @@ plot_ly(
   ) |>
   config(displayModeBar = FALSE)
 ```
-
-## How to read this view
-
-The order changes from year to year, but **Great Smoky Mountains, Blue Ridge Parkway, Golden Gate, and other high-volume units** often remain among the leaders. Because the plot uses an absolute visit count, a large urban or scenic recreation area can rank above a smaller National Park even though it may offer a very different visitor experience.

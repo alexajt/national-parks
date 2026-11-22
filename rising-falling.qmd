@@ -127,7 +127,7 @@ ggplot(change_sample, aes(x = absolute_change, y = park, fill = group)) +
 
 ## Detailed Breakdown: Top 10 Gainers & Decliners
 
-Absolute changes identify which units drove the biggest aggregate volume shifts across the National Park System. Natural seashores and scenic corridors gained substantial post-2019 volume, whereas several high-profile historical and urban parks experienced attendance drops.
+Bars show absolute changes; the tables also give percent changes. Only units with reports in both 2019 and 2025 are included. These comparisons show what changed, not why.
 
 ::: {.row .g-4 .mt-2}
 ::: {.col-lg-6}

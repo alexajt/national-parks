@@ -1,6 +1,6 @@
 ---
 title: "National Parks, Year by Year: Visitation, 2000–2025"
-subtitle: "How Park Designation Shapes Annual Attendance Across 9,612 Park-Year Observations"
+subtitle: "Annual visitation patterns across 9,612 park-year observations"
 execute:
   echo: false
   warning: false
@@ -46,13 +46,13 @@ n_obs <- nrow(annual_visits)
 n_parks <- n_distinct(annual_visits$park)
 ```
 
-## Does Park Designation Shape Annual Crowd Size?
+## How Do Visits Vary Across Park Categories?
 
-Each dot below is **one National Park Service unit in one calendar year** from **2000 to 2025** (**`r scales::comma(n_obs)` annual observations** across **`r n_parks` units**). Hover over any dot to see which park it represents, explore individual parks on the **[Park Attendance](explore.qmd)** tab, or read the fixed comparison on the **[Visitation After 2020](story.qmd)** tab.
+Each dot is one NPS unit-year. Hover for the unit and visit count; drag horizontally to zoom. Lines show category medians. Use [Park Attendance](explore.qmd) to inspect a unit or [Visitation After 2020](story.qmd) for a fixed-period comparison.
 
 ```{r}
 #| label: fig-park-visitation-by-type
-#| fig-cap: "9,612 annual park-year observations (2000–2025) colored by NPS designation, with solid lines showing each category's yearly median. Hover any dot for park details (drag horizontally to zoom into specific years; double-click to reset). Plotted on a pseudo-log vertical scale so smaller sites remain visible alongside multi-million-visit parks. Source: NPS Visitor Use Statistics."
+#| fig-cap: "Annual recreation visits by NPS unit category, 2000–2025. Lines show category medians; the log scale keeps small and large units visible. Source: NPS Visitor Use Statistics."
 #| column: page-inset
 
 type_medians <- annual_visits |>
@@ -179,32 +179,42 @@ p |>
 ## Key Takeaways (2000–2025)
 
 ::: {.row .g-3 .mt-2}
-::: {.col-md-4}
+::: {.col-sm-6 .col-lg-3}
 ::: {.card .h-100 style="background-color:#F3EFE4; border:1px solid #D5D2C4; border-top:4px solid #4A7C82; border-radius:10px; padding:16px 18px;"}
-<h4 style="font-size:1.05rem; margin-top:0; color:#1E382B;">Recreation Areas & Parkways</h4>
-<p style="font-size:1.6rem; font-weight:700; color:#4A7C82; margin:4px 0 8px 0;">1.09M</p>
-<p style="font-size:0.88rem; color:#4A5B51; margin-bottom:0;">
-Median annual visits across 1,109 park-year observations (44 units). High-capacity scenic parkways and urban shorelines lead the system in typical volume.
+<h4 style="font-size:1rem; margin-top:0; color:#1E382B;">Recreation Areas & Parkways</h4>
+<p style="font-size:1.55rem; font-weight:700; color:#4A7C82; margin:4px 0 6px 0;">1.09M</p>
+<p style="font-size:0.84rem; color:#4A5B51; margin-bottom:0;">
+Median annual visits across 44 units (1,109 observations). Open scenic parkways and shorelines lead the system in typical volume.
 </p>
 :::
 :::
 
-::: {.col-md-4}
+::: {.col-sm-6 .col-lg-3}
 ::: {.card .h-100 style="background-color:#F3EFE4; border:1px solid #D5D2C4; border-top:4px solid #2F6B48; border-radius:10px; padding:16px 18px;"}
-<h4 style="font-size:1.05rem; margin-top:0; color:#1E382B;">National Parks & Preserves</h4>
-<p style="font-size:1.6rem; font-weight:700; color:#2F6B48; margin:4px 0 8px 0;">520K</p>
-<p style="font-size:0.88rem; color:#4A5B51; margin-bottom:0;">
-Median annual visits across 1,953 park-year observations (76 units). Flagship natural parks sustain strong 21st-century attendance, with top units exceeding 10M visits.
+<h4 style="font-size:1rem; margin-top:0; color:#1E382B;">National Parks & Preserves</h4>
+<p style="font-size:1.55rem; font-weight:700; color:#2F6B48; margin:4px 0 6px 0;">520K</p>
+<p style="font-size:0.84rem; color:#4A5B51; margin-bottom:0;">
+Median annual visits across 76 units (1,953 observations). Flagship natural parks draw sustained crowds, with leaders exceeding 10M visits.
 </p>
 :::
 :::
 
-::: {.col-md-4}
+::: {.col-sm-6 .col-lg-3}
 ::: {.card .h-100 style="background-color:#F3EFE4; border:1px solid #D5D2C4; border-top:4px solid #C48347; border-radius:10px; padding:16px 18px;"}
-<h4 style="font-size:1.05rem; margin-top:0; color:#1E382B;">Historic Sites & Monuments</h4>
-<p style="font-size:1.6rem; font-weight:700; color:#C48347; margin:4px 0 8px 0;">~105K</p>
-<p style="font-size:0.88rem; color:#4A5B51; margin-bottom:0;">
-Median annual visits across 6,550 park-year observations. These sites comprise over two-thirds of all system units, offering focused, community-scale visitor experiences.
+<h4 style="font-size:1rem; margin-top:0; color:#1E382B;">Historic Sites & Memorials</h4>
+<p style="font-size:1.55rem; font-weight:700; color:#C48347; margin:4px 0 6px 0;">113K</p>
+<p style="font-size:0.84rem; color:#4A5B51; margin-bottom:0;">
+Median annual visits across 208 units (4,922 observations). Over half of all reporting units preserve focused historical and memorial heritage.
+</p>
+:::
+:::
+
+::: {.col-sm-6 .col-lg-3}
+::: {.card .h-100 style="background-color:#F3EFE4; border:1px solid #D5D2C4; border-top:4px solid #A45D57; border-radius:10px; padding:16px 18px;"}
+<h4 style="font-size:1rem; margin-top:0; color:#1E382B;">National Monuments</h4>
+<p style="font-size:1.55rem; font-weight:700; color:#A45D57; margin:4px 0 6px 0;">97K</p>
+<p style="font-size:0.84rem; color:#4A5B51; margin-bottom:0;">
+Median annual visits across 72 units (1,628 observations). Protects landmark geological, archaeological, and cultural sites across the nation.
 </p>
 :::
 :::

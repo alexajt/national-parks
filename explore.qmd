@@ -1,12 +1,16 @@
 ---
 title: "Explore by Park: Annual Visitation, 2000–2025"
-subtitle: "Choose a National Park Service unit, filter by category, or select a single year or all years to inspect summary statistics and yearly attendance"
+subtitle: "Compare annual visitation and system rank for individual NPS units"
 execute:
   echo: false
   warning: false
   message: false
 toc: false
 ---
+
+Choose a category and park to view its annual trend. Select a year to highlight
+that point; choose **All Years** to see range summaries. Hover over the chart
+for visit counts and national rank. Only years with reported data are shown.
 
 ```{r}
 #| label: unified-park-explorer

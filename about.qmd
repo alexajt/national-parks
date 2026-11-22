@@ -13,7 +13,7 @@ This project was created by **Alexa Titherington** as a final data science proje
 :::
 
 ::: {.card style="background-color:#F3EFE4; border:1px solid #D5D2C4; border-radius:12px; padding:22px 26px; box-shadow:0 3px 12px rgba(30,56,43,0.04);"}
-### About the Data
+### Data and Purpose
 
-All visitation records used in this project come from the official National Park Service Visitor Use Statistics program, accessible through the [NPS IRMA Stats Portal](https://irma.nps.gov/Stats/) and the [NPS Visitor Use Statistics Dashboard](https://www.nps.gov/subjects/socialscience/visitor-use-statistics-dashboard.htm). The dataset covers calendar-year recreation visits from 2000 through 2025 across 400 reporting units in the National Park System, providing 9,612 verified park-year observations. Annual recreation visits measure entries into park units recorded by NPS field staff, permit systems, and automated counters.
+This project uses NPS-reported annual recreation visits to compare visitation across units and years. The 2000–2025 dataset contains 9,612 park-year records from 400 units. Counts represent reported visits, not unique people; reporting units and counting methods can vary. Data: [NPS IRMA Stats Portal](https://irma.nps.gov/Stats/) and [NPS Visitor Use Statistics Dashboard](https://www.nps.gov/subjects/socialscience/visitor-use-statistics-dashboard.htm).
 :::

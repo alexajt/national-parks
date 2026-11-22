@@ -1,0 +1,116 @@
+/* Lighter natural palette (warm cream, sand, sage, muted green) + local editorial typography */
+:root {
+  --np-cream: #FAF7F0;
+  --np-sand: #F3EFE4;
+  --np-sage-light: #EAE6DA;
+  --np-border: #D5D2C4;
+  --np-pine: #1E382B;
+  --np-muted-green: #2F6B48;
+  --np-ink: #223028;
+  --np-muted-ink: #4A5B51;
+}
+
+body {
+  background-color: var(--np-cream);
+  color: var(--np-ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.65;
+}
+
+h1, h2, h3, h4, .title, .navbar-brand {
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  color: var(--np-pine);
+  letter-spacing: -0.01em;
+}
+
+h1.title {
+  font-weight: 700;
+  color: var(--np-pine);
+}
+
+p.subtitle, .quarto-title .subtitle {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--np-muted-ink);
+  font-size: 1.08rem;
+}
+
+/* Light sage-sand navbar replacing dark Sandstone bar */
+.navbar {
+  background-color: var(--np-sage-light) !important;
+  border-bottom: 1px solid var(--np-border);
+  padding-top: 0.65rem;
+  padding-bottom: 0.65rem;
+}
+
+.navbar .navbar-brand,
+.navbar .nav-link {
+  color: var(--np-pine) !important;
+  text-transform: none !important;
+  font-size: 0.98rem;
+}
+
+.navbar .navbar-brand {
+  font-weight: 700;
+  font-size: 1.12rem;
+}
+
+.navbar .nav-link {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-weight: 500;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus,
+.navbar .nav-link.active {
+  color: var(--np-muted-green) !important;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-thickness: 2px;
+}
+
+a {
+  color: var(--np-muted-green);
+}
+
+a:hover {
+  color: var(--np-pine);
+}
+
+.np-explore-controls {
+  background-color: var(--np-sand);
+  border: 1px solid var(--np-border);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 18px;
+}
+
+.np-explore-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 22px;
+  align-items: center;
+  background-color: var(--np-sand);
+  border: 1px solid var(--np-border);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 6px 20px rgba(30, 56, 43, 0.06);
+}
+
+@media (max-width: 640px) {
+  .np-explore-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+.figure-caption, figcaption {
+  color: var(--np-muted-ink);
+}
+
+#TOC .nav-link {
+  color: var(--np-muted-ink);
+}
+
+#TOC .nav-link.active {
+  color: var(--np-muted-green);
+  border-left-color: var(--np-muted-green);
+}
