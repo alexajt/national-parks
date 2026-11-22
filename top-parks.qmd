@@ -19,11 +19,19 @@ annual_visits <- read_csv(
 ) |>
   filter(year >= 2000, year <= 2025)
 
-top_by_year <- annual_visits |>
+# Keep the consistent pool of all parks that ever entered the top 10 so Plotly smoothly interpolates every bar
+ever_top10 <- annual_visits |>
   group_by(year) |>
   slice_max(recreation_visits, n = 10, with_ties = FALSE) |>
+  pull(park) |>
+  unique()
+
+top_by_year <- annual_visits |>
+  filter(park %in% ever_top10) |>
+  group_by(year) |>
   mutate(rank = row_number(desc(recreation_visits))) |>
-  ungroup()
+  ungroup() |>
+  arrange(year, rank)
 ```
 
 ## Which parks lead the system?
@@ -43,6 +51,7 @@ plot_ly(
   orientation = "h",
   height = 500,
   frame = ~year,
+  ids = ~park,
   hovertext = ~paste0(
     "<b>#", rank, " · ", park, "</b><br>",
     scales::comma(recreation_visits), " visits in ", year
@@ -70,14 +79,20 @@ plot_ly(
     ),
     yaxis = list(
       title = "",
-      autorange = "reversed",
+      autorange = FALSE,
+      range = c(10.5, 0.5),
       tickmode = "array",
       tickvals = 1:10,
       ticktext = paste0("#", 1:10),
       fixedrange = TRUE
     )
   ) |>
-  animation_opts(frame = 900, transition = 350, redraw = TRUE) |>
+  animation_opts(
+    frame = 1000,
+    transition = 800,
+    easing = "cubic-in-out",
+    redraw = FALSE
+  ) |>
   animation_slider(
     currentvalue = list(prefix = "Year: ", font = list(color = "#1E382B"))
   ) |>
