@@ -1,0 +1,148 @@
+---
+title: "Visitation After 2020"
+subtitle: "Among 372 Continuously Reporting NPS Units, Parks & Parkways Rebounded Above 2019 While Monuments & Historic Sites Lagged"
+execute:
+  echo: false
+  warning: false
+  message: false
+toc: false
+---
+
+```{r}
+#| label: fig-balanced-divergence
+#| fig-cap: "Annual recreation visits across the 372 NPS units that reported in every calendar year from 2015 through 2025, summed by designation category and indexed so each category's 2019 total equals 100."
+#| fig-width: 9.5
+#| fig-height: 5.8
+#| fig-dpi: 300
+
+library(tidyverse)
+
+annual_visits <- read_csv(
+  "nps_annual_visits_1979_2025.csv",
+  show_col_types = FALSE
+) |>
+  mutate(
+    suffix = word(park, -1),
+    park_type = case_when(
+      suffix %in% c("NP", "NPRES", "PRES") ~ "National Parks & Preserves",
+      suffix %in% c("NRA", "NS", "NL", "PKWY", "NR", "NSR", "W&SR", "NRRA") ~ "Recreation Areas, Seashores & Parkways",
+      suffix %in% c("NM", "Monument") ~ "National Monuments",
+      TRUE ~ "Historic Sites, Battlefields & Memorials"
+    ),
+    park_type = factor(
+      park_type,
+      levels = c(
+        "National Parks & Preserves",
+        "Recreation Areas, Seashores & Parkways",
+        "Historic Sites, Battlefields & Memorials",
+        "National Monuments"
+      )
+    )
+  )
+
+balanced_index <- annual_visits |>
+  filter(year >= 2015) |>
+  group_by(park) |>
+  filter(n() == 11) |>
+  ungroup() |>
+  group_by(park_type, year) |>
+  summarize(total_visits = sum(recreation_visits), .groups = "drop") |>
+  group_by(park_type) |>
+  mutate(
+    index_2019 = 100 * total_visits / total_visits[year == 2019]
+  ) |>
+  ungroup()
+
+end_labels <- balanced_index |>
+  filter(year == 2025) |>
+  mutate(
+    label_y = case_when(
+      park_type == "National Parks & Preserves" ~ index_2019 + 1.6,
+      park_type == "Recreation Areas, Seashores & Parkways" ~ index_2019 - 1.6,
+      park_type == "Historic Sites, Battlefields & Memorials" ~ index_2019 + 1.8,
+      park_type == "National Monuments" ~ index_2019 - 1.8
+    ),
+    label_text = sprintf("%.1f", index_2019)
+  )
+
+palette_cols <- c(
+  "Recreation Areas, Seashores & Parkways" = "#4A7C82",
+  "National Parks & Preserves" = "#2F6B48",
+  "Historic Sites, Battlefields & Memorials" = "#C48347",
+  "National Monuments" = "#A45D57"
+)
+
+ggplot(balanced_index, aes(x = year, y = index_2019, color = park_type)) +
+  geom_hline(yintercept = 100, linetype = "dashed", color = "#667085", linewidth = 0.7) +
+  geom_vline(xintercept = 2020, linetype = "dotted", color = "#8C4A58", linewidth = 0.7) +
+  geom_line(linewidth = 1.2) +
+  geom_point(size = 2.4) +
+  geom_label(
+    data = end_labels,
+    aes(x = 2025.14, y = label_y, label = label_text),
+    hjust = 0,
+    size = 3.5,
+    fontface = "bold",
+    fill = "#FAF7F0",
+    label.size = 0,
+    label.padding = unit(0.1, "lines"),
+    show.legend = FALSE
+  ) +
+  scale_color_manual(values = palette_cols) +
+  scale_x_continuous(
+    breaks = 2015:2025,
+    limits = c(2015, 2025.85)
+  ) +
+  scale_y_continuous(
+    limits = c(38, 114),
+    breaks = seq(40, 110, by = 10)
+  ) +
+  annotate(
+    "label",
+    x = 2018.85,
+    y = 103.5,
+    label = "2019 baseline = 100",
+    hjust = 1,
+    size = 3.2,
+    color = "#4A5B51",
+    fill = "#FAF7F0",
+    label.size = 0
+  ) +
+  annotate(
+    "text",
+    x = 2020.12,
+    y = 40.5,
+    label = "2020 drop",
+    hjust = 0,
+    size = 3.2,
+    fontface = "italic",
+    color = "#7A2E3A"
+  ) +
+  labs(
+    title = "After 2020, Parks & Parkways Passed 2019 Levels While Monuments & Historic Sites Trailed",
+    subtitle = "Annual visits across 372 continuously reporting NPS units, indexed to each category's 2019 total (= 100)",
+    x = "Calendar Year",
+    y = "Annual visitation index (2019 = 100)",
+    color = "Park Unit Category",
+    caption = "Source: National Park Service Visitor Use Statistics (nps_annual_visits_1979_2025.csv, 2015–2025 balanced panel)."
+  ) +
+  guides(color = guide_legend(nrow = 2, byrow = TRUE)) +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.background = element_rect(fill = "#FAF7F0", color = NA),
+    panel.background = element_rect(fill = "#FAF7F0", color = NA),
+    plot.title = element_text(face = "bold", color = "#1E382B", size = 14.2),
+    plot.subtitle = element_text(color = "#4A5B51"),
+    plot.caption = element_text(color = "#5A6B60", hjust = 0),
+    legend.position = "top",
+    legend.title = element_text(face = "bold"),
+    panel.grid.minor = element_blank()
+  )
+```
+
+The chart above tracks combined annual recreation visits for the **372 National Park Service units** that reported attendance in every single year from 2015 through 2025, indexed so each category's 2019 total equals **100.0**. In 2020, all four categories declined, but by very different margins: **Recreation Areas, Seashores & Parkways** (43 units) edged down to **92.9** and **National Parks & Preserves** (75 units) fell to **75.3**, whereas **Historic Sites, Battlefields & Memorials** (191 units) dropped to **53.8** and **National Monuments** (63 units) fell to **44.0**. By 2021, both National Parks & Preserves (**102.9**) and Recreation Areas, Seashores & Parkways (**101.2**) had already exceeded their 2019 totals and remained above that benchmark in 2025 (**103.8** and **101.8**). In contrast, Historic Sites (**86.3** in 2025) and National Monuments (**86.2** in 2025) stayed below their 2019 baselines in every post-2020 year.
+
+This split is worth examining because system-wide totals make post-2020 attendance look nearly flat: across these same 372 continuously reporting units, total annual visits moved from **325.0 million** in 2019 down to **236.4 million** in 2020, back up to **326.7 million** in 2024, and to **314.1 million** in 2025. Holding the set of reporting units constant shows that the near-return to 2019 aggregate volume is not a uniform recovery across the park system, nor an artifact of newly added park units—higher post-2020 totals at flagship parks and recreation corridors offset persistent shortfalls across more than 250 monuments, battlefields, memorials, and historic sites.
+
+**Data source and limitations:** Figures come from National Park Service Visitor Use Statistics annual reports compiled in `nps_annual_visits_1979_2025.csv`. Three limitations apply to this comparison: first, restricting to the 372 continuously reporting units (out of 400 units active at some point during 2015–2025) keeps the panel consistent over time but excludes 28 newer or intermittently reporting units; second, unit categories are grouped from official NPS name suffixes; and third, annual visit counts are purely descriptive—they cannot separate changes in visitor demand from operational factors such as facility closures, construction, timed-entry rules, or counting-method updates, and they provide no information on monthly or seasonal visitation within a year.
+
