@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>About This Project – National Parks, Year by Year: Visitation, 2000–2025</title>
+<title>About – National Parks, Year by Year: Visitation, 2000–2025</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -104,8 +104,16 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Park Attendance</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="./map.html"> 
+<span class="menu-text">Park Map</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./top-parks.html"> 
+<span class="menu-text">Top Parks Over Time</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="./story.html"> 
-<span class="menu-text">Visitation After 2020</span></a>
+<span class="menu-text">Shifts After 2020</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./about.html" aria-current="page"> 
@@ -127,9 +135,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#project-overview" id="toc-project-overview" class="nav-link active" data-scroll-target="#project-overview">Project Overview</a></li>
-  <li><a href="#data-sources" id="toc-data-sources" class="nav-link" data-scroll-target="#data-sources">Data Sources</a></li>
-  <li><a href="#key-limitations" id="toc-key-limitations" class="nav-link" data-scroll-target="#key-limitations">Key Limitations</a></li>
+  <li><a href="#about-the-author" id="toc-about-the-author" class="nav-link active" data-scroll-target="#about-the-author">About the Author</a></li>
+  <li><a href="#data-and-purpose" id="toc-data-and-purpose" class="nav-link" data-scroll-target="#data-and-purpose">Data and Purpose</a></li>
   </ul>
 </nav>
     </div>
@@ -138,7 +145,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">About This Project</h1>
+<h1 class="title">About</h1>
 </div>
 
 
@@ -155,28 +162,21 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="project-overview" class="level2">
-<h2 class="anchored" data-anchor-id="project-overview">Project Overview</h2>
-<p><strong>National Parks, Year by Year: Visitation, 2000–2025</strong> examines annual attendance patterns, park designation differences, and post-2020 recovery shifts across the United States National Park System.</p>
-</section>
-<section id="data-sources" class="level2">
-<h2 class="anchored" data-anchor-id="data-sources">Data Sources</h2>
+<section id="about-the-author" class="level3 card" style="background-color:#F3EFE4; border:1px solid #D5D2C4; border-radius:12px; padding:22px 26px; margin-bottom:24px; box-shadow:0 3px 12px rgba(30,56,43,0.04);">
+<h3 class="anchored" data-anchor-id="about-the-author">About the Author</h3>
+<p>This project was created by <strong>Alexa Titherington</strong> as a final data science project at <a href="https://www.ncf.edu">New College of Florida</a>.</p>
 <ul>
-<li><a href="https://irma.nps.gov/Stats/">NPS Visitor Use Statistics Portal</a></li>
-<li><a href="https://www.nps.gov/subjects/socialscience/visitor-use-statistics-dashboard.htm">NPS Visitor Use Statistics Dashboard</a></li>
+<li><strong>Contact:</strong> <a href="mailto:a.titherington30@ncf.edu">a.titherington30@ncf.edu</a></li>
+<li><strong>GitHub:</strong> <a href="https://github.com/alexajt">github.com/alexajt</a></li>
+<li><strong>Project Repository:</strong> <a href="https://github.com/alexajt/national-parks">github.com/alexajt/national-parks</a></li>
 </ul>
-<p>The repository CSV (<code>nps_annual_visits_1979_2025.csv</code>) preserves the full compiled 1979–2025 National Park Service annual visitation series (16,095 park-year rows) unchanged. For consistent 21st-century comparisons across the website, pages filter that CSV in R to <strong>2000–2025</strong>, yielding <strong>9,612 verified park-year observations</strong> across <strong>400 reporting NPS units</strong>.</p>
 </section>
-<section id="key-limitations" class="level2">
-<h2 class="anchored" data-anchor-id="key-limitations">Key Limitations</h2>
-<ul>
-<li><strong>Annual granularity only:</strong> Each observation records one park unit’s calendar-year total recreation visits; monthly, seasonal, and holiday-level patterns cannot be inferred from this dataset.</li>
-<li><strong>Changing unit counts:</strong> Active reporting units grew from <strong>343</strong> in 2000 to <strong>400</strong> in 2025, so the <strong>Visitation After 2020</strong> tab restricts its 2015–2025 comparison to the <strong>372 units</strong> that reported in every year of that window.</li>
-<li><strong>Descriptive figures &amp; grouping:</strong> Unit categories are grouped from official NPS name suffixes (<code>NP</code>/<code>NPRES</code>, <code>NRA</code>/<code>PKWY</code>/<code>NS</code>/<code>NL</code>, <code>NM</code>, and historic/memorial designations), and annual counts alone do not separate visitor demand from temporary closures, reservation systems, or NPS counting updates.</li>
-</ul>
+<section id="data-and-purpose" class="level3 card" style="background-color:#F3EFE4; border:1px solid #D5D2C4; border-radius:12px; padding:22px 26px; box-shadow:0 3px 12px rgba(30,56,43,0.04);">
+<h3 class="anchored" data-anchor-id="data-and-purpose">Data and Purpose</h3>
+<p>This project uses NPS-reported annual recreation visits to compare visitation across units and years. The 2000–2025 dataset contains 9,612 park-year records from 400 units. Counts represent reported visits, not unique people; reporting units and counting methods can vary. Data: <a href="https://irma.nps.gov/Stats/">NPS IRMA Stats Portal</a> and <a href="https://www.nps.gov/subjects/socialscience/visitor-use-statistics-dashboard.htm">NPS Visitor Use Statistics Dashboard</a>.</p>
+</section>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

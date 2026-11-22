@@ -2,18 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://alexajt.github.io/national-parks/about.html</loc>
-    <lastmod>2026-11-13T23:47:15.579Z</lastmod>
+    <lastmod>2026-11-22T03:26:50.173Z</lastmod>
+  </url>
+  <url>
+    <loc>https://alexajt.github.io/national-parks/top-parks.html</loc>
+    <lastmod>2026-11-22T03:30:50.542Z</lastmod>
   </url>
   <url>
     <loc>https://alexajt.github.io/national-parks/explore.html</loc>
-    <lastmod>2026-11-13T23:12:06.443Z</lastmod>
+    <lastmod>2026-11-22T04:13:40.163Z</lastmod>
   </url>
   <url>
     <loc>https://alexajt.github.io/national-parks/index.html</loc>
-    <lastmod>2026-11-13T23:47:20.475Z</lastmod>
+    <lastmod>2026-11-22T03:46:35.995Z</lastmod>
+  </url>
+  <url>
+    <loc>https://alexajt.github.io/national-parks/map.html</loc>
+    <lastmod>2026-11-22T04:19:25.412Z</lastmod>
   </url>
   <url>
     <loc>https://alexajt.github.io/national-parks/story.html</loc>
-    <lastmod>2026-11-13T23:48:42.845Z</lastmod>
+    <lastmod>2026-11-22T04:14:13.338Z</lastmod>
   </url>
 </urlset>

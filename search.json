@@ -2,64 +2,92 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About This Project",
+    "title": "About",
     "section": "",
-    "text": "National Parks, Year by Year: Visitation, 2000–2025 examines annual attendance patterns, park designation differences, and post-2020 recovery shifts across the United States National Park System."
+    "text": "About the Author\nThis project was created by Alexa Titherington as a final data science project at New College of Florida.\n\nContact: a.titherington30@ncf.edu\nGitHub: github.com/alexajt\nProject Repository: github.com/alexajt/national-parks\n\n\n\nData and Purpose\nThis project uses NPS-reported annual recreation visits to compare visitation across units and years. The 2000–2025 dataset contains 9,612 park-year records from 400 units. Counts represent reported visits, not unique people; reporting units and counting methods can vary. Data: NPS IRMA Stats Portal and NPS Visitor Use Statistics Dashboard."
   },
   {
-    "objectID": "about.html#project-overview",
-    "href": "about.html#project-overview",
-    "title": "About This Project",
+    "objectID": "top-parks.html",
+    "href": "top-parks.html",
+    "title": "Top Parks Over Time",
     "section": "",
-    "text": "National Parks, Year by Year: Visitation, 2000–2025 examines annual attendance patterns, park designation differences, and post-2020 recovery shifts across the United States National Park System."
+    "text": "Move the year slider to compare the 10 reporting units with the most visits in each year. Hover over a bar for its count. Rankings use annual totals, not visits per day or park size.\n\n\n\n\n\n\n\n\nFigure 1: The 10 National Park Service units with the highest reported recreation visitation in each year, 2000–2025."
   },
   {
-    "objectID": "about.html#data-sources",
-    "href": "about.html#data-sources",
-    "title": "About This Project",
-    "section": "Data Sources",
-    "text": "Data Sources\n\nNPS Visitor Use Statistics Portal\nNPS Visitor Use Statistics Dashboard\n\nThe repository CSV (nps_annual_visits_1979_2025.csv) preserves the full compiled 1979–2025 National Park Service annual visitation series (16,095 park-year rows) unchanged. For consistent 21st-century comparisons across the website, pages filter that CSV in R to 2000–2025, yielding 9,612 verified park-year observations across 400 reporting NPS units."
-  },
-  {
-    "objectID": "about.html#key-limitations",
-    "href": "about.html#key-limitations",
-    "title": "About This Project",
-    "section": "Key Limitations",
-    "text": "Key Limitations\n\nAnnual granularity only: Each observation records one park unit’s calendar-year total recreation visits; monthly, seasonal, and holiday-level patterns cannot be inferred from this dataset.\nChanging unit counts: Active reporting units grew from 343 in 2000 to 400 in 2025, so the Visitation After 2020 tab restricts its 2015–2025 comparison to the 372 units that reported in every year of that window.\nDescriptive figures & grouping: Unit categories are grouped from official NPS name suffixes (NP/NPRES, NRA/PKWY/NS/NL, NM, and historic/memorial designations), and annual counts alone do not separate visitor demand from temporary closures, reservation systems, or NPS counting updates."
+    "objectID": "top-parks.html#compare-the-annual-top-10",
+    "href": "top-parks.html#compare-the-annual-top-10",
+    "title": "Top Parks Over Time",
+    "section": "",
+    "text": "Move the year slider to compare the 10 reporting units with the most visits in each year. Hover over a bar for its count. Rankings use annual totals, not visits per day or park size.\n\n\n\n\n\n\n\n\nFigure 1: The 10 National Park Service units with the highest reported recreation visitation in each year, 2000–2025."
   },
   {
     "objectID": "explore.html",
     "href": "explore.html",
     "title": "Explore by Park: Annual Visitation, 2000–2025",
     "section": "",
-    "text": "Choose Park (400 NPS Units)\n      \n      \n    \n\n    \n      \n        Filter Category\n      \n      \n        All Categories\n        National Parks & Preserves\n        Recreation Areas, Seashores & Parkways\n        Historic Sites, Battlefields & Memorials\n        National Monuments\n      \n    \n\n    \n      \n        Start Year\n      \n      \n    \n\n    \n      \n        End Year\n      \n      \n    \n  \n\n\n\n\n  \n    \n      \n        National Park illustrated overview\n        Horizontal screenprint illustration for the selected park.\n      \n    \n  \n\n  \n    \n\n    \n      \n      \n    \n\n    \n      \n\n\n\nYears Shown\n\n\n\nEnd-Year Visits\n\n\n\nPeak Year in Range\n\n\n\nLowest Year in Range\n\n\n\nMedian Annual Visits\n\n\n\nTotal Visits in Range\n\n\n\n\n\n    \n    \n      Stylized park-symbol emblem: the distant sage ridge traces yearly visits across the selected span, and the sun aligns with the peak year.\n    \n  \n\n\n\n\n  \n  \n    Each point shows one calendar year's total recreation visits for the selected unit (hover any point for exact visits and national rank that year). Source: NPS Visitor Use Statistics (2000–2025)."
+    "text": "Choose a category and park to view its annual trend. Select a year to highlight that point; choose All Years to see range summaries. Hover over the chart for visit counts and national rank. Only years with reported data are shown.\nChoose Park (400 NPS Units)\n      \n      \n    \n\n    \n      \n        Filter Category\n      \n      \n        All Categories\n        National Parks & Preserves\n        Recreation Areas, Seashores & Parkways\n        Historic Sites, Battlefields & Memorials\n        National Monuments\n      \n    \n\n    \n      \n        Year\n      \n      \n        All Years (2000–2025)\n      \n    \n  \n\n\n\n\n  \n    \n      \n        National Park illustrated overview\n        Horizontal screenprint illustration for the selected park.\n      \n    \n  \n\n  \n    \n\n    \n      \n      \n    \n\n    \n      \n\n\n\nYears Shown\n\n\n\nEnd-Year Visits\n\n\n\nPeak Year in Range\n\n\n\nLowest Year in Range\n\n\n\nMedian Annual Visits\n\n\n\nTotal Visits in Range\n\n\n\n\n\n    \n  \n\n\n\n\n  \n  \n    Each point shows one calendar year's total recreation visits for the selected unit (hover any point for exact visits and national rank that year). Source: NPS Visitor Use Statistics (2000–2025)."
+  },
+  {
+    "objectID": "explore.html#explore-monthly-visitation",
+    "href": "explore.html#explore-monthly-visitation",
+    "title": "Explore by Park: Annual Visitation, 2000–2025",
+    "section": "Explore Monthly Visitation",
+    "text": "Explore Monthly Visitation\nThis export currently contains January records for 2000–2025. The charts below show January recreation visits; other months will appear here when they are included in the data.\n\n\n\n\n  \n    \n      Month\n      \n    \n    \n      Year for park comparison\n      \n    \n    \n      Park trend\n      \n    \n  \n  \n    \n    \n  \n  \n    Hover over a point or bar for exact recreation visits. Park rankings include\n    only units reporting data for the selected month and year."
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "National Parks, Year by Year: Visitation, 2000–2025",
     "section": "",
-    "text": "Each dot below is one National Park Service unit in one calendar year from 2000 to 2025 (9,612 annual observations across 400 units). Hover over any dot to see which park it represents, explore individual parks on the Park Attendance tab, or read the fixed comparison on the Visitation After 2020 tab.\n\n\n\n\n\n\n\n\nFigure 1: 9,612 annual park-year observations (2000–2025) colored by NPS designation, with solid lines showing each category’s yearly median. Hover any dot for park details (drag horizontally to zoom into specific years; double-click to reset). Plotted on a pseudo-log vertical scale so smaller sites remain visible alongside multi-million-visit parks. Source: NPS Visitor Use Statistics."
+    "text": "Each dot is one NPS unit-year. Hover for the unit and visit count; drag horizontally to zoom. Lines show category medians. Use Park Attendance to inspect a unit or Visitation After 2020 for a fixed-period comparison.\n\n\n\n\n\n\n\n\nFigure 1: Annual recreation visits by NPS unit category, 2000–2025. Lines show category medians; the log scale keeps small and large units visible. Source: NPS Visitor Use Statistics."
   },
   {
-    "objectID": "index.html#does-park-designation-shape-annual-crowd-size",
-    "href": "index.html#does-park-designation-shape-annual-crowd-size",
+    "objectID": "index.html#how-do-visits-vary-across-park-categories",
+    "href": "index.html#how-do-visits-vary-across-park-categories",
     "title": "National Parks, Year by Year: Visitation, 2000–2025",
     "section": "",
-    "text": "Each dot below is one National Park Service unit in one calendar year from 2000 to 2025 (9,612 annual observations across 400 units). Hover over any dot to see which park it represents, explore individual parks on the Park Attendance tab, or read the fixed comparison on the Visitation After 2020 tab.\n\n\n\n\n\n\n\n\nFigure 1: 9,612 annual park-year observations (2000–2025) colored by NPS designation, with solid lines showing each category’s yearly median. Hover any dot for park details (drag horizontally to zoom into specific years; double-click to reset). Plotted on a pseudo-log vertical scale so smaller sites remain visible alongside multi-million-visit parks. Source: NPS Visitor Use Statistics."
+    "text": "Each dot is one NPS unit-year. Hover for the unit and visit count; drag horizontally to zoom. Lines show category medians. Use Park Attendance to inspect a unit or Visitation After 2020 for a fixed-period comparison.\n\n\n\n\n\n\n\n\nFigure 1: Annual recreation visits by NPS unit category, 2000–2025. Lines show category medians; the log scale keeps small and large units visible. Source: NPS Visitor Use Statistics."
   },
   {
     "objectID": "index.html#key-takeaways-20002025",
     "href": "index.html#key-takeaways-20002025",
     "title": "National Parks, Year by Year: Visitation, 2000–2025",
     "section": "Key Takeaways (2000–2025)",
-    "text": "Key Takeaways (2000–2025)\n\nRecreation Areas, Seashores & Parkways lead in typical annual crowd size: Across 1,109 park-year observations (44 units), scenic roadways, seashores, and urban recreation corridors record a median of 1.09 million annual visits.\nNational Parks & Preserves sustain strong 21st-century attendance: Across 1,953 park-year observations (76 units), flagship National Parks and Preserves hold a median of 520,171 annual visits, with top units exceeding 10 million visits per year.\nHistoric Sites & National Monuments form the numerical majority of the system: Over two-thirds of all 2000–2025 observations (6,550 of 9,612) belong to historic sites, battlefields, memorials, and monuments, welcoming medians of roughly 97,000 to 113,000 annual visits."
+    "text": "Key Takeaways (2000–2025)\n\n\n\n\nRecreation Areas & Parkways\n\n\n1.09M\n\n\nMedian annual visits across 44 units (1,109 observations). Open scenic parkways and shorelines lead the system in typical volume.\n\n\n\n\n\n\nNational Parks & Preserves\n\n\n520K\n\n\nMedian annual visits across 76 units (1,953 observations). Flagship natural parks draw sustained crowds, with leaders exceeding 10M visits.\n\n\n\n\n\n\nHistoric Sites & Memorials\n\n\n113K\n\n\nMedian annual visits across 208 units (4,922 observations). Over half of all reporting units preserve focused historical and memorial heritage.\n\n\n\n\n\n\nNational Monuments\n\n\n97K\n\n\nMedian annual visits across 72 units (1,628 observations). Protects landmark geological, archaeological, and cultural sites across the nation."
+  },
+  {
+    "objectID": "map.html",
+    "href": "map.html",
+    "title": "Explore Park Visitation Across the U.S.",
+    "section": "",
+    "text": "Choose a month and year to see where visits were recorded across the country. Hover over a state for its total visits, reporting units, region, and most-visited park. The uploaded export currently contains January records only, so January is the only month available.\n\n\n\n  \n    Month\n    \n  \n  \n    Year\n    \n  \n  \n    \n  \n\n\n\n  \n    Busiest State\n    \n    \n  \n  \n    Visits Shown\n    \n    Across states with reported data\n  \n  \n    Reporting Units\n    \n    Park units reporting visits\n  \n  \n    Top Park in Busiest State\n    \n    \n  \n\n\n\n  \n  \n    Darker green indicates more recreation visits. This state map includes the 50 states and D.C.; U.S. territories are not shown.\n  \n\n\nTop States\n\n  \n\n\n\nRank\nState\nRegion\nRecreation Visits\nUnits\nMost-visited Park\n\n\n\n\n\n\n\n\n\n  Source: NPS Visitor Use Statistics monthly export. Values reflect reported recreation visits; states without reported data for the selected period are omitted."
   },
   {
     "objectID": "story.html",
     "href": "story.html",
-    "title": "Visitation After 2020",
+    "title": "Visitation Shifts After 2020",
     "section": "",
-    "text": "Figure 1: Annual recreation visits across the 372 NPS units that reported in every calendar year from 2015 through 2025, summed by designation category and indexed so each category’s 2019 total equals 100.\n\n\n\n\n\nThe chart above tracks combined annual recreation visits for the 372 National Park Service units that reported attendance in every single year from 2015 through 2025, indexed so each category’s 2019 total equals 100.0. In 2020, all four categories declined, but by very different margins: Recreation Areas, Seashores & Parkways (43 units) edged down to 92.9 and National Parks & Preserves (75 units) fell to 75.3, whereas Historic Sites, Battlefields & Memorials (191 units) dropped to 53.8 and National Monuments (63 units) fell to 44.0. By 2021, both National Parks & Preserves (102.9) and Recreation Areas, Seashores & Parkways (101.2) had already exceeded their 2019 totals and remained above that benchmark in 2025 (103.8 and 101.8). In contrast, Historic Sites (86.3 in 2025) and National Monuments (86.2 in 2025) stayed below their 2019 baselines in every post-2020 year.\nThis split is worth examining because system-wide totals make post-2020 attendance look nearly flat: across these same 372 continuously reporting units, total annual visits moved from 325.0 million in 2019 down to 236.4 million in 2020, back up to 326.7 million in 2024, and to 314.1 million in 2025. Holding the set of reporting units constant shows that the near-return to 2019 aggregate volume is not a uniform recovery across the park system, nor an artifact of newly added park units—higher post-2020 totals at flagship parks and recreation corridors offset persistent shortfalls across more than 250 monuments, battlefields, memorials, and historic sites.\nData source and limitations: Figures come from National Park Service Visitor Use Statistics annual reports compiled in nps_annual_visits_1979_2025.csv. Three limitations apply to this comparison: first, restricting to the 372 continuously reporting units (out of 400 units active at some point during 2015–2025) keeps the panel consistent over time but excludes 28 newer or intermittently reporting units; second, unit categories are grouped from official NPS name suffixes; and third, annual visit counts are purely descriptive—they cannot separate changes in visitor demand from operational factors such as facility closures, construction, timed-entry rules, or counting-method updates, and they provide no information on monthly or seasonal visitation within a year."
+    "text": "The 2020 pandemic triggered sharp, uneven disruptions across the National Park System. Open outdoor destinations like scenic parkways and flagship national parks rebounded quickly—surpassing pre-pandemic benchmarks by 2025. In contrast, urban monuments and historic sites took deeper hits and still trail 2019 attendance by roughly 14%. Below, trace the category-wide recovery trajectories followed by the individual park units with the largest post-2019 volume shifts."
+  },
+  {
+    "objectID": "story.html#category-recovery-trajectories-20152025",
+    "href": "story.html#category-recovery-trajectories-20152025",
+    "title": "Visitation Shifts After 2020",
+    "section": "Category Recovery Trajectories (2015–2025)",
+    "text": "Category Recovery Trajectories (2015–2025)\n\n\n\n\n\n\n\n\nFigure 1: Annual recreation visits across 372 continuously reporting NPS units, summed by category and indexed so each category’s 2019 total equals 100."
+  },
+  {
+    "objectID": "story.html#to-2025-largest-park-shifts",
+    "href": "story.html#to-2025-largest-park-shifts",
+    "title": "Visitation Shifts After 2020",
+    "section": "2019 to 2025: Largest Park Shifts",
+    "text": "2019 to 2025: Largest Park Shifts\n\n\n\n\n\n\n\n\nFigure 2: Top 10 absolute increases and decreases in annual recreation visits between 2019 and 2025 among units reporting in both years."
+  },
+  {
+    "objectID": "story.html#detailed-breakdown-top-10-gainers-decliners",
+    "href": "story.html#detailed-breakdown-top-10-gainers-decliners",
+    "title": "Visitation Shifts After 2020",
+    "section": "Detailed Breakdown: Top 10 Gainers & Decliners",
+    "text": "Detailed Breakdown: Top 10 Gainers & Decliners\n\n\n\n\nTop 10 Attendance Increases\n\n\n\n\n\n\nPark Unit\n\n\n2019\n\n\n2025\n\n\nChange\n\n\n\n\nGulf Islands NS5,600,2407,576,923+1,976,683 (+35.3%) Natchez Trace PKWY6,296,0417,994,783+1,698,742 (+27.0%) Blue Ridge PKWY14,976,08516,533,753+1,557,668 (+10.4%) Big Cypress NPRES1,007,4712,262,731+1,255,260 (+124.6%) Hot Springs NP1,467,1532,494,611+1,027,458 (+70.0%) Cuyahoga Valley NP2,237,9973,025,325+787,328 (+35.2%) New River Gorge NP & PRES1,195,7211,958,440+762,719 (+63.8%) Golden Gate NRA15,002,22715,748,676+746,449 (+5.0%) Yellowstone NP4,020,2884,762,988+742,700 (+18.5%) Redwood NP504,7221,202,480+697,758 (+138.2%)\n\n\n\n\n\n\n\n\nTop 10 Attendance Decreases\n\n\n\n\n\n\nPark Unit\n\n\n2019\n\n\n2025\n\n\nChange\n\n\n\n\nIndependence NHP4,532,4591,926,580-2,605,879 (-57.5%) Stonewall NM2,088,929298,077-1,790,852 (-85.7%) Colonial NHP3,327,2681,582,994-1,744,274 (-52.4%) Gateway NRA9,405,6227,696,939-1,708,683 (-18.2%) Grand Canyon NP5,974,4114,430,653-1,543,758 (-25.8%) Kennesaw Mountain NBP2,621,0501,179,671-1,441,379 (-55.0%) Lake Mead NRA7,499,0496,135,586-1,363,463 (-18.2%) San Francisco Maritime NHP4,016,5982,944,483-1,072,115 (-26.7%) Great Smoky Mountains NP12,547,74311,527,939-1,019,804 (-8.1%) World War II MEM4,831,3273,993,717-837,610 (-17.3%)"
   }
 ]
