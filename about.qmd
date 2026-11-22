@@ -1,20 +1,19 @@
 ---
-title: "About This Project"
+title: "About"
 ---
 
-## Project Overview
+::: {.card style="background-color:#F3EFE4; border:1px solid #D5D2C4; border-radius:12px; padding:22px 26px; margin-bottom:24px; box-shadow:0 3px 12px rgba(30,56,43,0.04);"}
+### About the Author
 
-**National Parks, Year by Year: Visitation, 2000–2025** examines annual attendance patterns, park designation differences, and post-2020 recovery shifts across the United States National Park System.
+This project was created by **Alexa Titherington** as a final data science project at [New College of Florida](https://www.ncf.edu).
 
-## Data Sources
+- **Contact:** [a.titherington30@ncf.edu](mailto:a.titherington30@ncf.edu)
+- **GitHub:** [github.com/alexajt](https://github.com/alexajt)
+- **Project Repository:** [github.com/alexajt/national-parks](https://github.com/alexajt/national-parks)
+:::
 
-- [NPS Visitor Use Statistics Portal](https://irma.nps.gov/Stats/)
-- [NPS Visitor Use Statistics Dashboard](https://www.nps.gov/subjects/socialscience/visitor-use-statistics-dashboard.htm)
+::: {.card style="background-color:#F3EFE4; border:1px solid #D5D2C4; border-radius:12px; padding:22px 26px; box-shadow:0 3px 12px rgba(30,56,43,0.04);"}
+### About the Data
 
-The repository CSV (`nps_annual_visits_1979_2025.csv`) preserves the full compiled 1979–2025 National Park Service annual visitation series (16,095 park-year rows) unchanged. For consistent 21st-century comparisons across the website, pages filter that CSV in R to **2000–2025**, yielding **9,612 verified park-year observations** across **400 reporting NPS units**.
-
-## Key Limitations
-
-- **Annual granularity only:** Each observation records one park unit's calendar-year total recreation visits; monthly, seasonal, and holiday-level patterns cannot be inferred from this dataset.
-- **Changing unit counts:** Active reporting units grew from **343** in 2000 to **400** in 2025, so the **Visitation After 2020** tab restricts its 2015–2025 comparison to the **372 units** that reported in every year of that window.
-- **Descriptive figures & grouping:** Unit categories are grouped from official NPS name suffixes (`NP`/`NPRES`, `NRA`/`PKWY`/`NS`/`NL`, `NM`, and historic/memorial designations), and annual counts alone do not separate visitor demand from temporary closures, reservation systems, or NPS counting updates.
+All visitation records used in this project come from the official National Park Service Visitor Use Statistics program, accessible through the [NPS IRMA Stats Portal](https://irma.nps.gov/Stats/) and the [NPS Visitor Use Statistics Dashboard](https://www.nps.gov/subjects/socialscience/visitor-use-statistics-dashboard.htm). The dataset covers calendar-year recreation visits from 2000 through 2025 across 400 reporting units in the National Park System, providing 9,612 verified park-year observations. Annual recreation visits measure entries into park units recorded by NPS field staff, permit systems, and automated counters.
+:::

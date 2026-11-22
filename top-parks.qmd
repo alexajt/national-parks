@@ -1,0 +1,89 @@
+---
+title: "Top Parks Over Time"
+subtitle: "Watch the ranking of the 10 busiest National Park Service units change from 2000 to 2025"
+execute:
+  echo: false
+  warning: false
+  message: false
+toc: false
+---
+
+```{r}
+#| label: setup-top-parks
+library(tidyverse)
+library(plotly)
+
+annual_visits <- read_csv(
+  "nps_annual_visits_1979_2025.csv",
+  show_col_types = FALSE
+) |>
+  filter(year >= 2000, year <= 2025)
+
+top_by_year <- annual_visits |>
+  group_by(year) |>
+  slice_max(recreation_visits, n = 10, with_ties = FALSE) |>
+  mutate(rank = row_number(desc(recreation_visits))) |>
+  ungroup()
+```
+
+## Which parks lead the system?
+
+Use the year slider to compare the **10 busiest reporting units**. The ranking is based on each year's total recreation visits, so annual counts are not adjusted for park size or number of days open.
+
+```{r}
+#| label: fig-top-parks
+#| fig-cap: "The 10 National Park Service units with the highest reported recreation visitation in each year, 2000–2025."
+#| column: page-inset
+
+plot_ly(
+  data = top_by_year,
+  x = ~recreation_visits,
+  y = ~rank,
+  type = "bar",
+  orientation = "h",
+  height = 500,
+  frame = ~year,
+  hovertext = ~paste0(
+    "<b>#", rank, " · ", park, "</b><br>",
+    scales::comma(recreation_visits), " visits in ", year
+  ),
+  hovertemplate = "%{hovertext}<extra></extra>",
+  text = ~paste0(" ", park),
+  textposition = "outside",
+  cliponaxis = FALSE,
+  textfont = list(color = "#1E382B", size = 12, family = "system-ui, sans-serif"),
+  marker = list(
+    color = "#2F6B48",
+    line = list(color = "#1E382B", width = 1)
+  )
+) |>
+  layout(
+    paper_bgcolor = "#FAF7F0",
+    plot_bgcolor = "#FAF7F0",
+    margin = list(l = 55, r = 190, t = 20, b = 55),
+    xaxis = list(
+      title = "Annual recreation visits",
+      tickformat = "~s",
+      gridcolor = "#E6E1D2",
+      zeroline = FALSE,
+      range = c(0, 23500000)
+    ),
+    yaxis = list(
+      title = "",
+      autorange = "reversed",
+      tickmode = "array",
+      tickvals = 1:10,
+      ticktext = paste0("#", 1:10),
+      fixedrange = TRUE
+    )
+  ) |>
+  animation_opts(frame = 900, transition = 350, redraw = TRUE) |>
+  animation_slider(
+    currentvalue = list(prefix = "Year: ", font = list(color = "#1E382B"))
+  ) |>
+  config(displayModeBar = FALSE)
+```
+
+## How to read this view
+
+The order changes from year to year, but **Great Smoky Mountains, Blue Ridge Parkway, Golden Gate, and other high-volume units** often remain among the leaders. Because the plot uses an absolute visit count, a large urban or scenic recreation area can rank above a smaller National Park even though it may offer a very different visitor experience.

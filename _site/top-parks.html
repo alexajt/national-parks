@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Top Parks Over Time – National Parks, Year by Year: Visitation, 2000–2025</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-cf46361a0d110ebac2db3c1e644cf7fa.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.12.1/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
+<script src="site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="site_libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">National Parks, Year by Year: Visitation, 2000–2025</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./explore.html"> 
+<span class="menu-text">Park Attendance</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./story.html"> 
+<span class="menu-text">Visitation After 2020</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./top-parks.html" aria-current="page"> 
+<span class="menu-text">Top Parks Over Time</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./rising-falling.html"> 
+<span class="menu-text">Rising and Falling</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Top Parks Over Time</h1>
+<p class="subtitle lead">Watch the ranking of the 10 busiest National Park Service units change from 2000 to 2025</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="which-parks-lead-the-system" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="which-parks-lead-the-system">Which parks lead the system?</h2>
+<p>Use the year slider to compare the <strong>10 busiest reporting units</strong>. The ranking is based on each year’s total recreation visits, so annual counts are not adjusted for park size or number of days open.</p>
+<div class="cell column-page-inset">
+<div id="fig-top-parks" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-top-parks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="htmlwidget-5381810b37d9a25f53c4" style="width:100%;height:483px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5381810b37d9a25f53c4">{"x":{"visdat":{"4ae26c15bcca":["function () ","plotlyVisDat"]},"cur_data":"4ae26c15bcca","attrs":{"4ae26c15bcca":{"x":{},"y":{},"orientation":"h","hovertext":{},"hovertemplate":"%{hovertext}<extra><\/extra>","text":{},"textposition":"outside","cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"height":500,"margin":{"b":55,"l":55,"t":20,"r":190},"paper_bgcolor":"#FAF7F0","plot_bgcolor":"#FAF7F0","xaxis":{"domain":[0,1],"automargin":true,"title":"Annual recreation visits","tickformat":"~s","gridcolor":"#E6E1D2","zeroline":false,"range":[0,23500000]},"yaxis":{"domain":[0,1],"automargin":true,"title":"","autorange":"reversed","tickmode":"array","tickvals":[1,2,3,4,5,6,7,8,9,10],"ticktext":["#1","#2","#3","#4","#5","#6","#7","#8","#9","#10"],"fixedrange":true,"range":[0.55000000000000004,10.449999999999999]},"hovermode":"closest","showlegend":false,"sliders":[{"currentvalue":{"prefix":"Year: ","xanchor":"right","font":{"size":16,"color":"#1E382B"}},"steps":[{"method":"animate","args":[["2000"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2000","value":"2000"},{"method":"animate","args":[["2001"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2001","value":"2001"},{"method":"animate","args":[["2002"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2002","value":"2002"},{"method":"animate","args":[["2003"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2003","value":"2003"},{"method":"animate","args":[["2004"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2004","value":"2004"},{"method":"animate","args":[["2005"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2005","value":"2005"},{"method":"animate","args":[["2006"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2006","value":"2006"},{"method":"animate","args":[["2007"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2007","value":"2007"},{"method":"animate","args":[["2008"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2008","value":"2008"},{"method":"animate","args":[["2009"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2009","value":"2009"},{"method":"animate","args":[["2010"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2010","value":"2010"},{"method":"animate","args":[["2011"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2011","value":"2011"},{"method":"animate","args":[["2012"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2012","value":"2012"},{"method":"animate","args":[["2013"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2013","value":"2013"},{"method":"animate","args":[["2014"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2014","value":"2014"},{"method":"animate","args":[["2015"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2015","value":"2015"},{"method":"animate","args":[["2016"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2016","value":"2016"},{"method":"animate","args":[["2017"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2017","value":"2017"},{"method":"animate","args":[["2018"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2018","value":"2018"},{"method":"animate","args":[["2019"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2019","value":"2019"},{"method":"animate","args":[["2020"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2020","value":"2020"},{"method":"animate","args":[["2021"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2021","value":"2021"},{"method":"animate","args":[["2022"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2022","value":"2022"},{"method":"animate","args":[["2023"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2023","value":"2023"},{"method":"animate","args":[["2024"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2024","value":"2024"},{"method":"animate","args":[["2025"],{"transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true},"mode":"immediate"}],"label":"2025","value":"2025"}],"visible":true,"pad":{"t":40}}],"updatemenus":[{"type":"buttons","direction":"right","showactive":false,"y":0,"x":0,"yanchor":"top","xanchor":"right","pad":{"t":60,"r":5},"buttons":[{"label":"Play","method":"animate","args":[null,{"fromcurrent":true,"mode":"immediate","transition":{"duration":350,"easing":"linear"},"frame":{"duration":900,"redraw":true}}]}]}]},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false},"data":[{"x":[19153081,14486065,10175812,8755005,7927567,7897161,5737183,5509706,4900745,4590595],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Blue Ridge PKWY<\/b><br>19,153,081 visits in 2000","<b>#2 · Golden Gate NRA<\/b><br>14,486,065 visits in 2000","<b>#3 · Great Smoky Mountains NP<\/b><br>10,175,812 visits in 2000","<b>#4 · Lake Mead NRA<\/b><br>8,755,005 visits in 2000","<b>#5 · Gateway NRA<\/b><br>7,927,567 visits in 2000","<b>#6 · George Washington MEM PKWY<\/b><br>7,897,161 visits in 2000","<b>#7 · Natchez Trace PKWY<\/b><br>5,737,183 visits in 2000","<b>#8 · Statue of Liberty NM<\/b><br>5,509,706 visits in 2000","<b>#9 · Delaware Water Gap NRA<\/b><br>4,900,745 visits in 2000","<b>#10 · Gulf Islands NS<\/b><br>4,590,595 visits in 2000"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Blue Ridge PKWY"," Golden Gate NRA"," Great Smoky Mountains NP"," Lake Mead NRA"," Gateway NRA"," George Washington MEM PKWY"," Natchez Trace PKWY"," Statue of Liberty NM"," Delaware Water Gap NRA"," Gulf Islands NS"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2000","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"frames":[{"name":"2000","data":[{"x":[19153081,14486065,10175812,8755005,7927567,7897161,5737183,5509706,4900745,4590595],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Blue Ridge PKWY<\/b><br>19,153,081 visits in 2000","<b>#2 · Golden Gate NRA<\/b><br>14,486,065 visits in 2000","<b>#3 · Great Smoky Mountains NP<\/b><br>10,175,812 visits in 2000","<b>#4 · Lake Mead NRA<\/b><br>8,755,005 visits in 2000","<b>#5 · Gateway NRA<\/b><br>7,927,567 visits in 2000","<b>#6 · George Washington MEM PKWY<\/b><br>7,897,161 visits in 2000","<b>#7 · Natchez Trace PKWY<\/b><br>5,737,183 visits in 2000","<b>#8 · Statue of Liberty NM<\/b><br>5,509,706 visits in 2000","<b>#9 · Delaware Water Gap NRA<\/b><br>4,900,745 visits in 2000","<b>#10 · Gulf Islands NS<\/b><br>4,590,595 visits in 2000"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Blue Ridge PKWY"," Golden Gate NRA"," Great Smoky Mountains NP"," Lake Mead NRA"," Gateway NRA"," George Washington MEM PKWY"," Natchez Trace PKWY"," Statue of Liberty NM"," Delaware Water Gap NRA"," Gulf Islands NS"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2000","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2001","data":[{"x":[19969587,13457900,9197697,8465547,8285059,7664091,5552351,4867273,4549900,4391478],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Blue Ridge PKWY<\/b><br>19,969,587 visits in 2001","<b>#2 · Golden Gate NRA<\/b><br>13,457,900 visits in 2001","<b>#3 · Great Smoky Mountains NP<\/b><br>9,197,697 visits in 2001","<b>#4 · Lake Mead NRA<\/b><br>8,465,547 visits in 2001","<b>#5 · Gateway NRA<\/b><br>8,285,059 visits in 2001","<b>#6 · George Washington MEM PKWY<\/b><br>7,664,091 visits in 2001","<b>#7 · Natchez Trace PKWY<\/b><br>5,552,351 visits in 2001","<b>#8 · Delaware Water Gap NRA<\/b><br>4,867,273 visits in 2001","<b>#9 · Gulf Islands NS<\/b><br>4,549,900 visits in 2001","<b>#10 · Cape Cod NS<\/b><br>4,391,478 visits in 2001"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Blue Ridge PKWY"," Golden Gate NRA"," Great Smoky Mountains NP"," Lake Mead NRA"," Gateway NRA"," George Washington MEM PKWY"," Natchez Trace PKWY"," Delaware Water Gap NRA"," Gulf Islands NS"," Cape Cod NS"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2001","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2002","data":[{"x":[21538760,13961267,9316420,9014438,7550284,7419375,5643170,5165415,4561862,4455931],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Blue Ridge PKWY<\/b><br>21,538,760 visits in 2002","<b>#2 · Golden Gate NRA<\/b><br>13,961,267 visits in 2002","<b>#3 · Great Smoky Mountains NP<\/b><br>9,316,420 visits in 2002","<b>#4 · Gateway NRA<\/b><br>9,014,438 visits in 2002","<b>#5 · Lake Mead NRA<\/b><br>7,550,284 visits in 2002","<b>#6 · George Washington MEM PKWY<\/b><br>7,419,375 visits in 2002","<b>#7 · Natchez Trace PKWY<\/b><br>5,643,170 visits in 2002","<b>#8 · Delaware Water Gap NRA<\/b><br>5,165,415 visits in 2002","<b>#9 · Gulf Islands NS<\/b><br>4,561,862 visits in 2002","<b>#10 · Cape Cod NS<\/b><br>4,455,931 visits in 2002"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Blue Ridge PKWY"," Golden Gate NRA"," Great Smoky Mountains NP"," Gateway NRA"," Lake Mead NRA"," George Washington MEM PKWY"," Natchez Trace PKWY"," Delaware Water Gap NRA"," Gulf Islands NS"," Cape Cod NS"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2002","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2003","data":[{"x":[18344051,13854750,9366845,8567769,7915581,6043508,5555984,5059410,4939771,4124900],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Blue Ridge PKWY<\/b><br>18,344,051 visits in 2003","<b>#2 · Golden Gate NRA<\/b><br>13,854,750 visits in 2003","<b>#3 · Great Smoky Mountains NP<\/b><br>9,366,845 visits in 2003","<b>#4 · Gateway NRA<\/b><br>8,567,769 visits in 2003","<b>#5 · Lake Mead NRA<\/b><br>7,915,581 visits in 2003","<b>#6 · George Washington MEM PKWY<\/b><br>6,043,508 visits in 2003","<b>#7 · Natchez Trace PKWY<\/b><br>5,555,984 visits in 2003","<b>#8 · Delaware Water Gap NRA<\/b><br>5,059,410 visits in 2003","<b>#9 · Gulf Islands NS<\/b><br>4,939,771 visits in 2003","<b>#10 · Grand Canyon NP<\/b><br>4,124,900 visits in 2003"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Blue Ridge PKWY"," Golden Gate NRA"," Great Smoky Mountains NP"," Gateway NRA"," Lake Mead NRA"," George Washington MEM PKWY"," Natchez Trace PKWY"," Delaware Water Gap NRA"," Gulf Islands NS"," Grand Canyon NP"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2003","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2004","data":[{"x":[17999116,13270547,9167046,8228573,7819984,7227909,5389227,5382498,5052264,4326234],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Blue Ridge PKWY<\/b><br>17,999,116 visits in 2004","<b>#2 · Golden Gate NRA<\/b><br>13,270,547 visits in 2004","<b>#3 · Great Smoky Mountains NP<\/b><br>9,167,046 visits in 2004","<b>#4 · Gateway NRA<\/b><br>8,228,573 visits in 2004","<b>#5 · Lake Mead NRA<\/b><br>7,819,984 visits in 2004","<b>#6 · George Washington MEM PKWY<\/b><br>7,227,909 visits in 2004","<b>#7 · Natchez Trace PKWY<\/b><br>5,389,227 visits in 2004","<b>#8 · World War II MEM<\/b><br>5,382,498 visits in 2004","<b>#9 · Delaware Water Gap NRA<\/b><br>5,052,264 visits in 2004","<b>#10 · Grand Canyon NP<\/b><br>4,326,234 visits in 2004"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Blue Ridge PKWY"," Golden Gate NRA"," Great Smoky Mountains NP"," Gateway NRA"," Lake Mead NRA"," George Washington MEM PKWY"," Natchez Trace PKWY"," World War II MEM"," Delaware Water Gap NRA"," Grand Canyon NP"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2004","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2005","data":[{"x":[17882567,13602629,9192477,8294353,7692438,7284165,5482282,5052264,4410379,4401522],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Blue Ridge PKWY<\/b><br>17,882,567 visits in 2005","<b>#2 · Golden Gate NRA<\/b><br>13,602,629 visits in 2005","<b>#3 · Great Smoky Mountains NP<\/b><br>9,192,477 visits in 2005","<b>#4 · Gateway NRA<\/b><br>8,294,353 visits in 2005","<b>#5 · Lake Mead NRA<\/b><br>7,692,438 visits in 2005","<b>#6 · George Washington MEM PKWY<\/b><br>7,284,165 visits in 2005","<b>#7 · Natchez Trace PKWY<\/b><br>5,482,282 visits in 2005","<b>#8 · Delaware Water Gap NRA<\/b><br>5,052,264 visits in 2005","<b>#9 · World War II MEM<\/b><br>4,410,379 visits in 2005","<b>#10 · Grand Canyon NP<\/b><br>4,401,522 visits in 2005"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Blue Ridge PKWY"," Golden Gate NRA"," Great Smoky Mountains NP"," Gateway NRA"," Lake Mead NRA"," George Washington MEM PKWY"," Natchez Trace PKWY"," Delaware Water Gap NRA"," World War II MEM"," Grand Canyon NP"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2005","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2006","data":[{"x":[18953478,13486824,9289215,8456456,7777753,6872213,5713583,5254216,4487716,4279439],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Blue Ridge PKWY<\/b><br>18,953,478 visits in 2006","<b>#2 · Golden Gate NRA<\/b><br>13,486,824 visits in 2006","<b>#3 · Great Smoky Mountains NP<\/b><br>9,289,215 visits in 2006","<b>#4 · Gateway NRA<\/b><br>8,456,456 visits in 2006","<b>#5 · Lake Mead NRA<\/b><br>7,777,753 visits in 2006","<b>#6 · George Washington MEM PKWY<\/b><br>6,872,213 visits in 2006","<b>#7 · Natchez Trace PKWY<\/b><br>5,713,583 visits in 2006","<b>#8 · Delaware Water Gap NRA<\/b><br>5,254,216 visits in 2006","<b>#9 · Cape Cod NS<\/b><br>4,487,716 visits in 2006","<b>#10 · Grand Canyon NP<\/b><br>4,279,439 visits in 2006"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Blue Ridge PKWY"," Golden Gate NRA"," Great Smoky Mountains NP"," Gateway NRA"," Lake Mead NRA"," George Washington MEM PKWY"," Natchez Trace PKWY"," Delaware Water Gap NRA"," Cape Cod NS"," Grand Canyon NP"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2006","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2007","data":[{"x":[17352286,14397313,9372253,8813204,7622139,6837139,5777666,4836229,4413668,4351609],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Blue Ridge PKWY<\/b><br>17,352,286 visits in 2007","<b>#2 · Golden Gate NRA<\/b><br>14,397,313 visits in 2007","<b>#3 · Great Smoky Mountains NP<\/b><br>9,372,253 visits in 2007","<b>#4 · Gateway NRA<\/b><br>8,813,204 visits in 2007","<b>#5 · Lake Mead NRA<\/b><br>7,622,139 visits in 2007","<b>#6 · George Washington MEM PKWY<\/b><br>6,837,139 visits in 2007","<b>#7 · Natchez Trace PKWY<\/b><br>5,777,666 visits in 2007","<b>#8 · Delaware Water Gap NRA<\/b><br>4,836,229 visits in 2007","<b>#9 · Grand Canyon NP<\/b><br>4,413,668 visits in 2007","<b>#10 · Cape Cod NS<\/b><br>4,351,609 visits in 2007"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Blue Ridge PKWY"," Golden Gate NRA"," Great Smoky Mountains NP"," Gateway NRA"," Lake Mead NRA"," George Washington MEM PKWY"," Natchez Trace PKWY"," Delaware Water Gap NRA"," Grand Canyon NP"," Cape Cod NS"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2007","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2008","data":[{"x":[16309307,14554750,9431021,9044010,7601863,7009630,5747235,5127074,4678861,4644235],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Blue Ridge PKWY<\/b><br>16,309,307 visits in 2008","<b>#2 · Golden Gate NRA<\/b><br>14,554,750 visits in 2008","<b>#3 · Gateway NRA<\/b><br>9,431,021 visits in 2008","<b>#4 · Great Smoky Mountains NP<\/b><br>9,044,010 visits in 2008","<b>#5 · Lake Mead NRA<\/b><br>7,601,863 visits in 2008","<b>#6 · George Washington MEM PKWY<\/b><br>7,009,630 visits in 2008","<b>#7 · Natchez Trace PKWY<\/b><br>5,747,235 visits in 2008","<b>#8 · Delaware Water Gap NRA<\/b><br>5,127,074 visits in 2008","<b>#9 · Lincoln MEM<\/b><br>4,678,861 visits in 2008","<b>#10 · Cape Cod NS<\/b><br>4,644,235 visits in 2008"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Blue Ridge PKWY"," Golden Gate NRA"," Gateway NRA"," Great Smoky Mountains NP"," Lake Mead NRA"," George Washington MEM PKWY"," Natchez Trace PKWY"," Delaware Water Gap NRA"," Lincoln MEM"," Cape Cod NS"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2008","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2009","data":[{"x":[15936316,15036372,9491437,9010522,7668689,6938309,5934363,5255570,5213030,4437771],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Blue Ridge PKWY<\/b><br>15,936,316 visits in 2009","<b>#2 · Golden Gate NRA<\/b><br>15,036,372 visits in 2009","<b>#3 · Great Smoky Mountains NP<\/b><br>9,491,437 visits in 2009","<b>#4 · Gateway NRA<\/b><br>9,010,522 visits in 2009","<b>#5 · Lake Mead NRA<\/b><br>7,668,689 visits in 2009","<b>#6 · George Washington MEM PKWY<\/b><br>6,938,309 visits in 2009","<b>#7 · Natchez Trace PKWY<\/b><br>5,934,363 visits in 2009","<b>#8 · Lincoln MEM<\/b><br>5,255,570 visits in 2009","<b>#9 · Delaware Water Gap NRA<\/b><br>5,213,030 visits in 2009","<b>#10 · Vietnam Veterans MEM<\/b><br>4,437,771 visits in 2009"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Blue Ridge PKWY"," Golden Gate NRA"," Great Smoky Mountains NP"," Gateway NRA"," Lake Mead NRA"," George Washington MEM PKWY"," Natchez Trace PKWY"," Lincoln MEM"," Delaware Water Gap NRA"," Vietnam Veterans MEM"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2009","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2010","data":[{"x":[14517118,14271503,9463538,8820757,7080758,6925099,6042315,5910950,5285761,4653706],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Blue Ridge PKWY<\/b><br>14,517,118 visits in 2010","<b>#2 · Golden Gate NRA<\/b><br>14,271,503 visits in 2010","<b>#3 · Great Smoky Mountains NP<\/b><br>9,463,538 visits in 2010","<b>#4 · Gateway NRA<\/b><br>8,820,757 visits in 2010","<b>#5 · Lake Mead NRA<\/b><br>7,080,758 visits in 2010","<b>#6 · George Washington MEM PKWY<\/b><br>6,925,099 visits in 2010","<b>#7 · Lincoln MEM<\/b><br>6,042,315 visits in 2010","<b>#8 · Natchez Trace PKWY<\/b><br>5,910,950 visits in 2010","<b>#9 · Delaware Water Gap NRA<\/b><br>5,285,761 visits in 2010","<b>#10 · Cape Cod NS<\/b><br>4,653,706 visits in 2010"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Blue Ridge PKWY"," Golden Gate NRA"," Great Smoky Mountains NP"," Gateway NRA"," Lake Mead NRA"," George Washington MEM PKWY"," Lincoln MEM"," Natchez Trace PKWY"," Delaware Water Gap NRA"," Cape Cod NS"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2010","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2011","data":[{"x":[15382447,14567487,9008830,7697727,7417397,6396682,5971220,5765343,5501872,4986700],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Blue Ridge PKWY<\/b><br>15,382,447 visits in 2011","<b>#2 · Golden Gate NRA<\/b><br>14,567,487 visits in 2011","<b>#3 · Great Smoky Mountains NP<\/b><br>9,008,830 visits in 2011","<b>#4 · Gateway NRA<\/b><br>7,697,727 visits in 2011","<b>#5 · George Washington MEM PKWY<\/b><br>7,417,397 visits in 2011","<b>#6 · Lake Mead NRA<\/b><br>6,396,682 visits in 2011","<b>#7 · Lincoln MEM<\/b><br>5,971,220 visits in 2011","<b>#8 · Natchez Trace PKWY<\/b><br>5,765,343 visits in 2011","<b>#9 · Gulf Islands NS<\/b><br>5,501,872 visits in 2011","<b>#10 · Delaware Water Gap NRA<\/b><br>4,986,700 visits in 2011"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Blue Ridge PKWY"," Golden Gate NRA"," Great Smoky Mountains NP"," Gateway NRA"," George Washington MEM PKWY"," Lake Mead NRA"," Lincoln MEM"," Natchez Trace PKWY"," Gulf Islands NS"," Delaware Water Gap NRA"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2011","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2012","data":[{"x":[15205059,14540338,9685829,7425577,6285439,6191361,5560668,5043863,4973462,4970802],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Blue Ridge PKWY<\/b><br>15,205,059 visits in 2012","<b>#2 · Golden Gate NRA<\/b><br>14,540,338 visits in 2012","<b>#3 · Great Smoky Mountains NP<\/b><br>9,685,829 visits in 2012","<b>#4 · George Washington MEM PKWY<\/b><br>7,425,577 visits in 2012","<b>#5 · Lake Mead NRA<\/b><br>6,285,439 visits in 2012","<b>#6 · Lincoln MEM<\/b><br>6,191,361 visits in 2012","<b>#7 · Natchez Trace PKWY<\/b><br>5,560,668 visits in 2012","<b>#8 · Gateway NRA<\/b><br>5,043,863 visits in 2012","<b>#9 · Gulf Islands NS<\/b><br>4,973,462 visits in 2012","<b>#10 · Delaware Water Gap NRA<\/b><br>4,970,802 visits in 2012"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Blue Ridge PKWY"," Golden Gate NRA"," Great Smoky Mountains NP"," George Washington MEM PKWY"," Lake Mead NRA"," Lincoln MEM"," Natchez Trace PKWY"," Gateway NRA"," Gulf Islands NS"," Delaware Water Gap NRA"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2012","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2013","data":[{"x":[14289121,12877368,9354695,7360392,6546518,6344714,6191246,6012740,4941367,4843350],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Golden Gate NRA<\/b><br>14,289,121 visits in 2013","<b>#2 · Blue Ridge PKWY<\/b><br>12,877,368 visits in 2013","<b>#3 · Great Smoky Mountains NP<\/b><br>9,354,695 visits in 2013","<b>#4 · George Washington MEM PKWY<\/b><br>7,360,392 visits in 2013","<b>#5 · Lincoln MEM<\/b><br>6,546,518 visits in 2013","<b>#6 · Lake Mead NRA<\/b><br>6,344,714 visits in 2013","<b>#7 · Gateway NRA<\/b><br>6,191,246 visits in 2013","<b>#8 · Natchez Trace PKWY<\/b><br>6,012,740 visits in 2013","<b>#9 · Chesapeake & Ohio Canal NHP<\/b><br>4,941,367 visits in 2013","<b>#10 · Delaware Water Gap NRA<\/b><br>4,843,350 visits in 2013"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Golden Gate NRA"," Blue Ridge PKWY"," Great Smoky Mountains NP"," George Washington MEM PKWY"," Lincoln MEM"," Lake Mead NRA"," Gateway NRA"," Natchez Trace PKWY"," Chesapeake & Ohio Canal NHP"," Delaware Water Gap NRA"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2013","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2014","data":[{"x":[15004420,13941749,10099276,7472150,7139072,6942873,6021713,5846474,5066219,4756771],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Golden Gate NRA<\/b><br>15,004,420 visits in 2014","<b>#2 · Blue Ridge PKWY<\/b><br>13,941,749 visits in 2014","<b>#3 · Great Smoky Mountains NP<\/b><br>10,099,276 visits in 2014","<b>#4 · George Washington MEM PKWY<\/b><br>7,472,150 visits in 2014","<b>#5 · Lincoln MEM<\/b><br>7,139,072 visits in 2014","<b>#6 · Lake Mead NRA<\/b><br>6,942,873 visits in 2014","<b>#7 · Gateway NRA<\/b><br>6,021,713 visits in 2014","<b>#8 · Natchez Trace PKWY<\/b><br>5,846,474 visits in 2014","<b>#9 · Chesapeake & Ohio Canal NHP<\/b><br>5,066,219 visits in 2014","<b>#10 · Grand Canyon NP<\/b><br>4,756,771 visits in 2014"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Golden Gate NRA"," Blue Ridge PKWY"," Great Smoky Mountains NP"," George Washington MEM PKWY"," Lincoln MEM"," Lake Mead NRA"," Gateway NRA"," Natchez Trace PKWY"," Chesapeake & Ohio Canal NHP"," Grand Canyon NP"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2014","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2015","data":[{"x":[15054603,14888537,10712674,7941771,7298465,7286463,6392565,5785812,5597077,5520736],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Blue Ridge PKWY<\/b><br>15,054,603 visits in 2015","<b>#2 · Golden Gate NRA<\/b><br>14,888,537 visits in 2015","<b>#3 · Great Smoky Mountains NP<\/b><br>10,712,674 visits in 2015","<b>#4 · Lincoln MEM<\/b><br>7,941,771 visits in 2015","<b>#5 · Lake Mead NRA<\/b><br>7,298,465 visits in 2015","<b>#6 · George Washington MEM PKWY<\/b><br>7,286,463 visits in 2015","<b>#7 · Gateway NRA<\/b><br>6,392,565 visits in 2015","<b>#8 · Natchez Trace PKWY<\/b><br>5,785,812 visits in 2015","<b>#9 · Vietnam Veterans MEM<\/b><br>5,597,077 visits in 2015","<b>#10 · Grand Canyon NP<\/b><br>5,520,736 visits in 2015"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Blue Ridge PKWY"," Golden Gate NRA"," Great Smoky Mountains NP"," Lincoln MEM"," Lake Mead NRA"," George Washington MEM PKWY"," Gateway NRA"," Natchez Trace PKWY"," Vietnam Veterans MEM"," Grand Canyon NP"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2015","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2016","data":[{"x":[15638777,15175578,11312786,10323339,8651770,7915934,7175891,5969811,5891315,5299713],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Golden Gate NRA<\/b><br>15,638,777 visits in 2016","<b>#2 · Blue Ridge PKWY<\/b><br>15,175,578 visits in 2016","<b>#3 · Great Smoky Mountains NP<\/b><br>11,312,786 visits in 2016","<b>#4 · George Washington MEM PKWY<\/b><br>10,323,339 visits in 2016","<b>#5 · Gateway NRA<\/b><br>8,651,770 visits in 2016","<b>#6 · Lincoln MEM<\/b><br>7,915,934 visits in 2016","<b>#7 · Lake Mead NRA<\/b><br>7,175,891 visits in 2016","<b>#8 · Grand Canyon NP<\/b><br>5,969,811 visits in 2016","<b>#9 · Natchez Trace PKWY<\/b><br>5,891,315 visits in 2016","<b>#10 · Vietnam Veterans MEM<\/b><br>5,299,713 visits in 2016"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Golden Gate NRA"," Blue Ridge PKWY"," Great Smoky Mountains NP"," George Washington MEM PKWY"," Gateway NRA"," Lincoln MEM"," Lake Mead NRA"," Grand Canyon NP"," Natchez Trace PKWY"," Vietnam Veterans MEM"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2016","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2017","data":[{"x":[16093765,14981897,11338893,9190610,7956117,7882339,7562793,6326062,6254238,5072589],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Blue Ridge PKWY<\/b><br>16,093,765 visits in 2017","<b>#2 · Golden Gate NRA<\/b><br>14,981,897 visits in 2017","<b>#3 · Great Smoky Mountains NP<\/b><br>11,338,893 visits in 2017","<b>#4 · Gateway NRA<\/b><br>9,190,610 visits in 2017","<b>#5 · Lincoln MEM<\/b><br>7,956,117 visits in 2017","<b>#6 · Lake Mead NRA<\/b><br>7,882,339 visits in 2017","<b>#7 · George Washington MEM PKWY<\/b><br>7,562,793 visits in 2017","<b>#8 · Natchez Trace PKWY<\/b><br>6,326,062 visits in 2017","<b>#9 · Grand Canyon NP<\/b><br>6,254,238 visits in 2017","<b>#10 · Vietnam Veterans MEM<\/b><br>5,072,589 visits in 2017"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Blue Ridge PKWY"," Golden Gate NRA"," Great Smoky Mountains NP"," Gateway NRA"," Lincoln MEM"," Lake Mead NRA"," George Washington MEM PKWY"," Natchez Trace PKWY"," Grand Canyon NP"," Vietnam Veterans MEM"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2017","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2018","data":[{"x":[15223697,14690418,11421200,9243305,7804683,7578958,7288623,6380495,6362439,4719148],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Golden Gate NRA<\/b><br>15,223,697 visits in 2018","<b>#2 · Blue Ridge PKWY<\/b><br>14,690,418 visits in 2018","<b>#3 · Great Smoky Mountains NP<\/b><br>11,421,200 visits in 2018","<b>#4 · Gateway NRA<\/b><br>9,243,305 visits in 2018","<b>#5 · Lincoln MEM<\/b><br>7,804,683 visits in 2018","<b>#6 · Lake Mead NRA<\/b><br>7,578,958 visits in 2018","<b>#7 · George Washington MEM PKWY<\/b><br>7,288,623 visits in 2018","<b>#8 · Grand Canyon NP<\/b><br>6,380,495 visits in 2018","<b>#9 · Natchez Trace PKWY<\/b><br>6,362,439 visits in 2018","<b>#10 · Vietnam Veterans MEM<\/b><br>4,719,148 visits in 2018"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Golden Gate NRA"," Blue Ridge PKWY"," Great Smoky Mountains NP"," Gateway NRA"," Lincoln MEM"," Lake Mead NRA"," George Washington MEM PKWY"," Grand Canyon NP"," Natchez Trace PKWY"," Vietnam Veterans MEM"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2018","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2019","data":[{"x":[15002227,14976085,12547743,9405622,7808182,7499049,7487265,6296041,5974411,5600240],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Golden Gate NRA<\/b><br>15,002,227 visits in 2019","<b>#2 · Blue Ridge PKWY<\/b><br>14,976,085 visits in 2019","<b>#3 · Great Smoky Mountains NP<\/b><br>12,547,743 visits in 2019","<b>#4 · Gateway NRA<\/b><br>9,405,622 visits in 2019","<b>#5 · Lincoln MEM<\/b><br>7,808,182 visits in 2019","<b>#6 · Lake Mead NRA<\/b><br>7,499,049 visits in 2019","<b>#7 · George Washington MEM PKWY<\/b><br>7,487,265 visits in 2019","<b>#8 · Natchez Trace PKWY<\/b><br>6,296,041 visits in 2019","<b>#9 · Grand Canyon NP<\/b><br>5,974,411 visits in 2019","<b>#10 · Gulf Islands NS<\/b><br>5,600,240 visits in 2019"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Golden Gate NRA"," Blue Ridge PKWY"," Great Smoky Mountains NP"," Gateway NRA"," Lincoln MEM"," Lake Mead NRA"," George Washington MEM PKWY"," Natchez Trace PKWY"," Grand Canyon NP"," Gulf Islands NS"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2019","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2020","data":[{"x":[14099485,12400045,12095720,8404728,8016510,6237361,6124808,4888436,4083505,4068529],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Blue Ridge PKWY<\/b><br>14,099,485 visits in 2020","<b>#2 · Golden Gate NRA<\/b><br>12,400,045 visits in 2020","<b>#3 · Great Smoky Mountains NP<\/b><br>12,095,720 visits in 2020","<b>#4 · Gateway NRA<\/b><br>8,404,728 visits in 2020","<b>#5 · Lake Mead NRA<\/b><br>8,016,510 visits in 2020","<b>#6 · George Washington MEM PKWY<\/b><br>6,237,361 visits in 2020","<b>#7 · Natchez Trace PKWY<\/b><br>6,124,808 visits in 2020","<b>#8 · Chesapeake & Ohio Canal NHP<\/b><br>4,888,436 visits in 2020","<b>#9 · Cape Cod NS<\/b><br>4,083,505 visits in 2020","<b>#10 · Delaware Water Gap NRA<\/b><br>4,068,529 visits in 2020"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Blue Ridge PKWY"," Golden Gate NRA"," Great Smoky Mountains NP"," Gateway NRA"," Lake Mead NRA"," George Washington MEM PKWY"," Natchez Trace PKWY"," Chesapeake & Ohio Canal NHP"," Cape Cod NS"," Delaware Water Gap NRA"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2020","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2021","data":[{"x":[15948148,14161548,13712614,9060807,7603474,6821179,6401346,5792331,5458816,5039835],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Blue Ridge PKWY<\/b><br>15,948,148 visits in 2021","<b>#2 · Great Smoky Mountains NP<\/b><br>14,161,548 visits in 2021","<b>#3 · Golden Gate NRA<\/b><br>13,712,614 visits in 2021","<b>#4 · Gateway NRA<\/b><br>9,060,807 visits in 2021","<b>#5 · Lake Mead NRA<\/b><br>7,603,474 visits in 2021","<b>#6 · George Washington MEM PKWY<\/b><br>6,821,179 visits in 2021","<b>#7 · Natchez Trace PKWY<\/b><br>6,401,346 visits in 2021","<b>#8 · Lincoln MEM<\/b><br>5,792,331 visits in 2021","<b>#9 · Gulf Islands NS<\/b><br>5,458,816 visits in 2021","<b>#10 · Zion NP<\/b><br>5,039,835 visits in 2021"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Blue Ridge PKWY"," Great Smoky Mountains NP"," Golden Gate NRA"," Gateway NRA"," Lake Mead NRA"," George Washington MEM PKWY"," Natchez Trace PKWY"," Lincoln MEM"," Gulf Islands NS"," Zion NP"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2021","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2022","data":[{"x":[15711004,15638911,12937633,8728291,7825397,7397120,6543533,5685155,5578226,4886254],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Blue Ridge PKWY<\/b><br>15,711,004 visits in 2022","<b>#2 · Golden Gate NRA<\/b><br>15,638,911 visits in 2022","<b>#3 · Great Smoky Mountains NP<\/b><br>12,937,633 visits in 2022","<b>#4 · Gateway NRA<\/b><br>8,728,291 visits in 2022","<b>#5 · Lincoln MEM<\/b><br>7,825,397 visits in 2022","<b>#6 · George Washington MEM PKWY<\/b><br>7,397,120 visits in 2022","<b>#7 · Natchez Trace PKWY<\/b><br>6,543,533 visits in 2022","<b>#8 · Gulf Islands NS<\/b><br>5,685,155 visits in 2022","<b>#9 · Lake Mead NRA<\/b><br>5,578,226 visits in 2022","<b>#10 · Vietnam Veterans MEM<\/b><br>4,886,254 visits in 2022"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Blue Ridge PKWY"," Golden Gate NRA"," Great Smoky Mountains NP"," Gateway NRA"," Lincoln MEM"," George Washington MEM PKWY"," Natchez Trace PKWY"," Gulf Islands NS"," Lake Mead NRA"," Vietnam Veterans MEM"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2022","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2023","data":[{"x":[16757635,14953882,13297647,8705329,8277857,8099148,7391260,6784853,5798541,5206934],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Blue Ridge PKWY<\/b><br>16,757,635 visits in 2023","<b>#2 · Golden Gate NRA<\/b><br>14,953,882 visits in 2023","<b>#3 · Great Smoky Mountains NP<\/b><br>13,297,647 visits in 2023","<b>#4 · Gateway NRA<\/b><br>8,705,329 visits in 2023","<b>#5 · Gulf Islands NS<\/b><br>8,277,857 visits in 2023","<b>#6 · Lincoln MEM<\/b><br>8,099,148 visits in 2023","<b>#7 · George Washington MEM PKWY<\/b><br>7,391,260 visits in 2023","<b>#8 · Natchez Trace PKWY<\/b><br>6,784,853 visits in 2023","<b>#9 · Lake Mead NRA<\/b><br>5,798,541 visits in 2023","<b>#10 · Glen Canyon NRA<\/b><br>5,206,934 visits in 2023"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Blue Ridge PKWY"," Golden Gate NRA"," Great Smoky Mountains NP"," Gateway NRA"," Gulf Islands NS"," Lincoln MEM"," George Washington MEM PKWY"," Natchez Trace PKWY"," Lake Mead NRA"," Glen Canyon NRA"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2023","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2024","data":[{"x":[17187508,16733639,12191834,8929035,8479349,7801176,7364833,6782717,6412854,5295711],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Golden Gate NRA<\/b><br>17,187,508 visits in 2024","<b>#2 · Blue Ridge PKWY<\/b><br>16,733,639 visits in 2024","<b>#3 · Great Smoky Mountains NP<\/b><br>12,191,834 visits in 2024","<b>#4 · Gateway NRA<\/b><br>8,929,035 visits in 2024","<b>#5 · Lincoln MEM<\/b><br>8,479,349 visits in 2024","<b>#6 · Gulf Islands NS<\/b><br>7,801,176 visits in 2024","<b>#7 · Natchez Trace PKWY<\/b><br>7,364,833 visits in 2024","<b>#8 · George Washington MEM PKWY<\/b><br>6,782,717 visits in 2024","<b>#9 · Lake Mead NRA<\/b><br>6,412,854 visits in 2024","<b>#10 · Vietnam Veterans MEM<\/b><br>5,295,711 visits in 2024"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Golden Gate NRA"," Blue Ridge PKWY"," Great Smoky Mountains NP"," Gateway NRA"," Lincoln MEM"," Gulf Islands NS"," Natchez Trace PKWY"," George Washington MEM PKWY"," Lake Mead NRA"," Vietnam Veterans MEM"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2024","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]},{"name":"2025","data":[{"x":[16533753,15748676,11527939,7994783,7743295,7696939,7576923,6732932,6215118,6135586],"y":[1,2,3,4,5,6,7,8,9,10],"orientation":"h","hovertext":["<b>#1 · Blue Ridge PKWY<\/b><br>16,533,753 visits in 2025","<b>#2 · Golden Gate NRA<\/b><br>15,748,676 visits in 2025","<b>#3 · Great Smoky Mountains NP<\/b><br>11,527,939 visits in 2025","<b>#4 · Natchez Trace PKWY<\/b><br>7,994,783 visits in 2025","<b>#5 · Lincoln MEM<\/b><br>7,743,295 visits in 2025","<b>#6 · Gateway NRA<\/b><br>7,696,939 visits in 2025","<b>#7 · Gulf Islands NS<\/b><br>7,576,923 visits in 2025","<b>#8 · George Washington MEM PKWY<\/b><br>6,732,932 visits in 2025","<b>#9 · Appalachian NST<\/b><br>6,215,118 visits in 2025","<b>#10 · Lake Mead NRA<\/b><br>6,135,586 visits in 2025"],"hovertemplate":["%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>","%{hovertext}<extra><\/extra>"],"text":[" Blue Ridge PKWY"," Golden Gate NRA"," Great Smoky Mountains NP"," Natchez Trace PKWY"," Lincoln MEM"," Gateway NRA"," Gulf Islands NS"," George Washington MEM PKWY"," Appalachian NST"," Lake Mead NRA"],"textposition":["outside","outside","outside","outside","outside","outside","outside","outside","outside","outside"],"cliponaxis":false,"textfont":{"color":"#1E382B","size":12,"family":"system-ui, sans-serif"},"marker":{"color":"#2F6B48","line":{"color":"#1E382B","width":1}},"frame":"2025","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","visible":true}],"traces":[0]}],"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-top-parks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: The 10 National Park Service units with the highest reported recreation visitation in each year, 2000–2025.
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="how-to-read-this-view" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-read-this-view">How to read this view</h2>
+<p>The order changes from year to year, but <strong>Great Smoky Mountains, Blue Ridge Parkway, Golden Gate, and other high-volume units</strong> often remain among the leaders. Because the plot uses an absolute visit count, a large urban or scenic recreation area can rank above a smaller National Park even though it may offer a very different visitor experience.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

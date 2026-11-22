@@ -1,6 +1,6 @@
 ---
 title: "Explore by Park: Annual Visitation, 2000–2025"
-subtitle: "Choose a National Park Service unit, filter by category, or narrow the years shown to inspect its summary statistics and yearly attendance"
+subtitle: "Choose a National Park Service unit, filter by category, or select a single year or all years to inspect summary statistics and yearly attendance"
 execute:
   echo: false
   warning: false
@@ -31,6 +31,10 @@ annual_visits <- read_csv(
       TRUE ~ "Historic Sites, Battlefields & Memorials"
     )
   ) |>
+  left_join(
+    read_csv("nps_locations.csv", show_col_types = FALSE),
+    by = "park"
+  ) |>
   group_by(year) |>
   mutate(
     annual_rank = min_rank(desc(recreation_visits)),
@@ -40,7 +44,7 @@ annual_visits <- read_csv(
   arrange(park, year)
 
 park_payload <- annual_visits |>
-  group_by(park, park_type) |>
+  group_by(park, park_type, state, region, city) |>
   summarize(
     years = list(year),
     visits = list(recreation_visits),
@@ -53,7 +57,7 @@ parks_json <- toJSON(park_payload, auto_unbox = TRUE)
 
 ui <- HTML(paste0(
 '
-<!-- 1. TOP BAR: Choose Park, Category Filter & Year Range -->
+<!-- 1. TOP BAR: Choose Park, Category Filter & Year Dropdown -->
 <div class="np-explore-controls">
   <div class="row g-3 align-items-end">
     <div class="col-md-5">
@@ -63,7 +67,7 @@ ui <- HTML(paste0(
       <select id="park-art-select" class="form-select" style="background-color:#FAF7F0;border-color:#C6C2B2;color:#1E382B;font-weight:600;" aria-label="Select a National Park Service unit"></select>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-4">
       <label for="park-cat-filter" style="font-size:0.78rem;text-transform:uppercase;letter-spacing:0.05em;font-weight:700;color:#4A5B51;display:block;margin-bottom:4px;">
         Filter Category
       </label>
@@ -76,18 +80,13 @@ ui <- HTML(paste0(
       </select>
     </div>
 
-    <div class="col-6 col-md-2">
-      <label for="year-start-select" style="font-size:0.78rem;text-transform:uppercase;letter-spacing:0.05em;font-weight:700;color:#4A5B51;display:block;margin-bottom:4px;">
-        Start Year
+    <div class="col-md-3">
+      <label for="year-select" style="font-size:0.78rem;text-transform:uppercase;letter-spacing:0.05em;font-weight:700;color:#4A5B51;display:block;margin-bottom:4px;">
+        Year
       </label>
-      <select id="year-start-select" class="form-select" style="background-color:#FAF7F0;border-color:#C6C2B2;color:#223028;"></select>
-    </div>
-
-    <div class="col-6 col-md-2">
-      <label for="year-end-select" style="font-size:0.78rem;text-transform:uppercase;letter-spacing:0.05em;font-weight:700;color:#4A5B51;display:block;margin-bottom:4px;">
-        End Year
-      </label>
-      <select id="year-end-select" class="form-select" style="background-color:#FAF7F0;border-color:#C6C2B2;color:#223028;"></select>
+      <select id="year-select" class="form-select" style="background-color:#FAF7F0;border-color:#C6C2B2;color:#223028;font-weight:600;">
+        <option value="ALL">All Years (2000–2025)</option>
+      </select>
     </div>
   </div>
 </div>
@@ -114,17 +113,17 @@ ui <- HTML(paste0(
     <div style="background:#FAF7F0;border:1px solid #DFDBD0;border-radius:10px;padding:12px 16px;">
       <table class="table table-sm mb-0" style="font-size:0.9rem;--bs-table-bg:transparent;color:#223028;">
         <tbody>
-          <tr><th scope="row" style="color:#4A5B51;border-color:#EAE6DA;">Years Shown</th><td id="stat-span" class="text-end fw-semibold" style="border-color:#EAE6DA;"></td></tr>
-          <tr><th scope="row" style="color:#4A5B51;border-color:#EAE6DA;">End-Year Visits</th><td id="stat-latest" class="text-end fw-semibold" style="border-color:#EAE6DA;"></td></tr>
-          <tr><th scope="row" style="color:#4A5B51;border-color:#EAE6DA;">Peak Year in Range</th><td id="stat-peak" class="text-end fw-semibold" style="border-color:#EAE6DA;"></td></tr>
-          <tr><th scope="row" style="color:#4A5B51;border-color:#EAE6DA;">Lowest Year in Range</th><td id="stat-min" class="text-end fw-semibold" style="border-color:#EAE6DA;"></td></tr>
-          <tr><th scope="row" style="color:#4A5B51;border-color:#EAE6DA;">Median Annual Visits</th><td id="stat-median" class="text-end fw-semibold" style="border-color:#EAE6DA;"></td></tr>
-          <tr><th scope="row" style="color:#4A5B51;border-bottom:none;">Total Visits in Range</th><td id="stat-total" class="text-end fw-semibold" style="border-bottom:none;"></td></tr>
+          <tr><th id="stat-lbl-1" scope="row" style="color:#4A5B51;border-color:#EAE6DA;">Years Shown</th><td id="stat-val-1" class="text-end fw-semibold" style="border-color:#EAE6DA;"></td></tr>
+          <tr><th id="stat-lbl-2" scope="row" style="color:#4A5B51;border-color:#EAE6DA;">End-Year Visits</th><td id="stat-val-2" class="text-end fw-semibold" style="border-color:#EAE6DA;"></td></tr>
+          <tr><th id="stat-lbl-3" scope="row" style="color:#4A5B51;border-color:#EAE6DA;">Peak Year in Range</th><td id="stat-val-3" class="text-end fw-semibold" style="border-color:#EAE6DA;"></td></tr>
+          <tr><th id="stat-lbl-4" scope="row" style="color:#4A5B51;border-color:#EAE6DA;">Lowest Year in Range</th><td id="stat-val-4" class="text-end fw-semibold" style="border-color:#EAE6DA;"></td></tr>
+          <tr><th id="stat-lbl-5" scope="row" style="color:#4A5B51;border-color:#EAE6DA;">Median Annual Visits</th><td id="stat-val-5" class="text-end fw-semibold" style="border-color:#EAE6DA;"></td></tr>
+          <tr><th id="stat-lbl-6" scope="row" style="color:#4A5B51;border-bottom:none;">Total Visits in Range</th><td id="stat-val-6" class="text-end fw-semibold" style="border-bottom:none;"></td></tr>
         </tbody>
       </table>
     </div>
     <p style="font-size:0.8rem;color:#5A6B60;margin:8px 2px 0 2px;line-height:1.4;">
-      Stylized park-symbol emblem: the distant sage ridge traces yearly visits across the selected span, and the sun aligns with the peak year.
+      Stylized park-symbol emblem: the sage ridge traces yearly visits, and the golden sun marks the selected year or peak attendance.
     </p>
   </div>
 </div>
@@ -620,7 +619,7 @@ ui <- HTML(paste0(
     }
   }
 
-  function buildHorizontalEmblemSVG(d, yrs, vis) {
+  function buildHorizontalEmblemSVG(d, yrs, vis, activeYear) {
     const motif = classifyMotif(d.park, d.park_type);
     const n = yrs.length;
     const maxV = Math.max(...vis, 1);
@@ -628,8 +627,14 @@ ui <- HTML(paste0(
     const peakIdx = vis.indexOf(Math.max(...vis));
     const latestIdx = n - 1;
 
-    const peakFrac = n > 1 ? peakIdx / (n - 1) : 0.5;
-    const sunX = 136 + peakFrac * 368;
+    let highlightIdx = peakIdx;
+    if (activeYear !== null && activeYear !== undefined) {
+      const foundIdx = yrs.indexOf(activeYear);
+      if (foundIdx !== -1) highlightIdx = foundIdx;
+    }
+
+    const sunFrac = n > 1 ? highlightIdx / (n - 1) : 0.5;
+    const sunX = 136 + sunFrac * 368;
     const sunY = 104;
     const sunR = 22 + 2.6 * Math.log10(maxV + 10);
 
@@ -648,6 +653,10 @@ ui <- HTML(paste0(
 
     const nameLen = d.park.length;
     const bannerFont = nameLen > 38 ? 14.5 : (nameLen > 28 ? 16.5 : 18.5);
+
+    const rightBannerText = (activeYear !== null && activeYear !== undefined)
+      ? (yrs.indexOf(activeYear) !== -1 ? `${activeYear} · ${fmt.format(vis[highlightIdx])} VISITS` : `${activeYear} · NO DATA`)
+      : `${yrs[0]}–${yrs[latestIdx]} · PEAK ${yrs[peakIdx]}`;
 
     return `
       <title id="art-svg-title">${esc(d.park)} (${yrs[0]}–${yrs[latestIdx]})</title>
@@ -685,25 +694,19 @@ ui <- HTML(paste0(
       <rect x="28" y="28" width="584" height="354" rx="8" fill="none" stroke="${C.cream}" stroke-width="2.6"/>
       <rect x="28" y="394" width="584" height="34" rx="6" fill="${C.cream}"/>
       <text x="44" y="416" fill="${C.pineDark}" font-size="${bannerFont}" font-weight="700" font-family="Georgia, Palatino, serif">${esc(d.park)}</text>
-      <text x="596" y="415" text-anchor="end" fill="#4A5B51" font-size="10.5" font-weight="600" letter-spacing="0.9" font-family="system-ui, sans-serif">${yrs[0]}–${yrs[latestIdx]} · PEAK ${yrs[peakIdx]}</text>
+      <text x="596" y="415" text-anchor="end" fill="#4A5B51" font-size="10.5" font-weight="600" letter-spacing="0.9" font-family="system-ui, sans-serif">${rightBannerText}</text>
     `;
   }
 
   const catSel = document.getElementById("park-cat-filter");
   const parkSel = document.getElementById("park-art-select");
-  const startSel = document.getElementById("year-start-select");
-  const endSel = document.getElementById("year-end-select");
+  const yearSel = document.getElementById("year-select");
 
-  for (let y = 2000; y <= 2025; y++) {
-    const o1 = document.createElement("option");
-    o1.value = y; o1.textContent = y;
-    if (y === 2000) o1.selected = true;
-    startSel.appendChild(o1);
-
-    const o2 = document.createElement("option");
-    o2.value = y; o2.textContent = y;
-    if (y === 2025) o2.selected = true;
-    endSel.appendChild(o2);
+  for (let y = 2025; y >= 2000; y--) {
+    const opt = document.createElement("option");
+    opt.value = y;
+    opt.textContent = y;
+    yearSel.appendChild(opt);
   }
 
   function populateParkDropdown(preferredPark) {
@@ -730,68 +733,92 @@ ui <- HTML(paste0(
   function renderAll() {
     const idx = Number(parkSel.value);
     const d = PARKS[idx];
-    let y0 = Number(startSel.value);
-    let y1 = Number(endSel.value);
-    if (y0 > y1) {
-      const tmp = y0; y0 = y1; y1 = tmp;
-      startSel.value = y0;
-      endSel.value = y1;
-    }
+    const selYearVal = yearSel.value;
+    const isAll = (selYearVal === "ALL");
 
-    const yrs = [], vis = [], rnks = [], unts = [];
-    for (let i = 0; i < d.years.length; i++) {
-      if (d.years[i] >= y0 && d.years[i] <= y1) {
-        yrs.push(d.years[i]);
-        vis.push(d.visits[i]);
-        rnks.push(d.ranks[i]);
-        unts.push(d.units[i]);
-      }
-    }
-
-    // Fallback if park reported only outside chosen sub-window
-    if (!yrs.length) {
-      yrs.push(...d.years);
-      vis.push(...d.visits);
-      rnks.push(...d.ranks);
-      unts.push(...d.units);
-    }
-
-    const n = yrs.length;
-    const maxVal = Math.max(...vis);
-    const minVal = Math.min(...vis);
-    const peakIdx = vis.indexOf(maxVal);
-    const minIdx = vis.indexOf(minVal);
+    const allYrs = d.years;
+    const allVis = d.visits;
+    const allRnks = d.ranks;
+    const allUnts = d.units;
+    const n = allYrs.length;
     const latestIdx = n - 1;
-    const medVal = medianValue(vis);
-    const totVal = vis.reduce((a, b) => a + b, 0);
+
+    const maxVal = Math.max(...allVis);
+    const minVal = Math.min(...allVis);
+    const peakIdx = allVis.indexOf(maxVal);
+    const minIdx = allVis.indexOf(minVal);
+    const medVal = medianValue(allVis);
+    const totVal = allVis.reduce((a, b) => a + b, 0);
 
     const motif = classifyMotif(d.park, d.park_type);
     document.getElementById("info-park-title").textContent = d.park;
     document.getElementById("park-art-category-badge").textContent = d.park_type;
-    document.getElementById("park-art-motif-badge").textContent = motif.label;
-    document.getElementById("stat-span").textContent = `${yrs[0]}–${yrs[latestIdx]} (${n} yrs)`;
-    document.getElementById("stat-latest").textContent = `${fmt.format(vis[latestIdx])} (${yrs[latestIdx]})`;
-    document.getElementById("stat-peak").textContent = `${yrs[peakIdx]} (${fmt.format(maxVal)})`;
-    document.getElementById("stat-min").textContent = `${yrs[minIdx]} (${fmt.format(minVal)})`;
-    document.getElementById("stat-median").textContent = fmt.format(medVal);
-    document.getElementById("stat-total").textContent = fmt.format(totVal);
+    const locationParts = [];
+    if (d.city) locationParts.push(d.city);
+    if (d.region) locationParts.push(d.region);
+    if (d.state) locationParts.push(d.state);
+    document.getElementById("park-art-motif-badge").textContent =
+      locationParts.length ? locationParts.join(" · ") : "Location not available";
 
-    document.getElementById("park-art-svg").innerHTML = buildHorizontalEmblemSVG(d, yrs, vis);
+    let activeYear = null;
 
-    // Update individual park Plotly chart underneath
+    if (isAll) {
+      document.getElementById("stat-lbl-1").textContent = "Years Shown";
+      document.getElementById("stat-val-1").textContent = `${allYrs[0]}–${allYrs[latestIdx]} (${n} yrs)`;
+
+      document.getElementById("stat-lbl-2").textContent = `End-Year Visits (${allYrs[latestIdx]})`;
+      document.getElementById("stat-val-2").textContent = fmt.format(allVis[latestIdx]);
+
+      document.getElementById("stat-lbl-3").textContent = "Peak Year in Range";
+      document.getElementById("stat-val-3").textContent = `${allYrs[peakIdx]} (${fmt.format(maxVal)})`;
+
+      document.getElementById("stat-lbl-4").textContent = "Lowest Year in Range";
+      document.getElementById("stat-val-4").textContent = `${allYrs[minIdx]} (${fmt.format(minVal)})`;
+
+      document.getElementById("stat-lbl-5").textContent = "Median Annual Visits";
+      document.getElementById("stat-val-5").textContent = fmt.format(medVal);
+
+      document.getElementById("stat-lbl-6").textContent = "Total Visits in Range";
+      document.getElementById("stat-val-6").textContent = fmt.format(totVal);
+    } else {
+      activeYear = Number(selYearVal);
+      const targetIdx = allYrs.indexOf(activeYear);
+
+      document.getElementById("stat-lbl-1").textContent = "Selected Year";
+      document.getElementById("stat-val-1").textContent = `${activeYear}`;
+
+      document.getElementById("stat-lbl-2").textContent = "Annual Recreation Visits";
+      document.getElementById("stat-val-2").textContent = targetIdx !== -1 ? fmt.format(allVis[targetIdx]) : "Not Reported";
+
+      document.getElementById("stat-lbl-3").textContent = "National Park System Rank";
+      document.getElementById("stat-val-3").textContent = targetIdx !== -1 ? `#${allRnks[targetIdx]} of ${allUnts[targetIdx]} units` : "N/A";
+
+      document.getElementById("stat-lbl-4").textContent = "Peak Year (2000–2025)";
+      document.getElementById("stat-val-4").textContent = `${allYrs[peakIdx]} (${fmt.format(maxVal)})`;
+
+      document.getElementById("stat-lbl-5").textContent = "Median Annual Visits";
+      document.getElementById("stat-val-5").textContent = fmt.format(medVal);
+
+      document.getElementById("stat-lbl-6").textContent = "Total Visits (2000–2025)";
+      document.getElementById("stat-val-6").textContent = fmt.format(totVal);
+    }
+
+    document.getElementById("park-art-svg").innerHTML = buildHorizontalEmblemSVG(d, allYrs, allVis, activeYear);
+
+    // Keep individual park Plotly chart on the bottom
     if (window.Plotly) {
-      const hoverTxt = yrs.map((yr, i) =>
+      const hoverTxt = allYrs.map((yr, i) =>
         `<b>${esc(d.park)}</b><br>` +
         `Calendar year: ${yr}<br>` +
-        `Annual recreation visits: ${fmt.format(vis[i])}<br>` +
-        `System rank: #${rnks[i]} of ${unts[i]} units<br>` +
+        `Annual recreation visits: ${fmt.format(allVis[i])}<br>` +
+        `System rank: #${allRnks[i]} of ${allUnts[i]} units<br>` +
         `Category: ${esc(d.park_type)}`
       );
 
       const traces = [
         {
-          x: yrs,
-          y: vis,
+          x: allYrs,
+          y: allVis,
           type: "scatter",
           mode: "lines+markers",
           name: d.park,
@@ -802,10 +829,16 @@ ui <- HTML(paste0(
           text: hoverTxt,
           hovertemplate: "%{text}<extra></extra>",
           showlegend: false
-        },
-        {
-          x: [yrs[peakIdx]],
-          y: [vis[peakIdx]],
+        }
+      ];
+
+      let chartAnnotations = [];
+      let chartTitle = `<b>${esc(d.park)} — Yearly Recreation Visits (${allYrs[0]}–${allYrs[latestIdx]})</b>`;
+
+      if (isAll) {
+        traces.push({
+          x: [allYrs[peakIdx]],
+          y: [allVis[peakIdx]],
           type: "scatter",
           mode: "markers",
           name: "Peak Year",
@@ -813,12 +846,61 @@ ui <- HTML(paste0(
           text: [hoverTxt[peakIdx]],
           hovertemplate: "<b>Peak Year</b><br>%{text}<extra></extra>",
           showlegend: false
+        });
+
+        chartAnnotations.push({
+          x: allYrs[peakIdx],
+          y: allVis[peakIdx],
+          text: `Peak (${allYrs[peakIdx]}): ${fmt.format(allVis[peakIdx])}`,
+          showarrow: true,
+          arrowhead: 2,
+          arrowsize: 0.8,
+          arrowcolor: "#1B3326",
+          ax: allYrs[peakIdx] > (allYrs[0] + allYrs[latestIdx]) / 2 ? -55 : 55,
+          ay: -28,
+          bgcolor: "#FAF7F0",
+          bordercolor: "#D89E44",
+          borderwidth: 1.2,
+          font: { size: 11.5, color: "#1E382B" }
+        });
+      } else {
+        const targetIdx = allYrs.indexOf(activeYear);
+        if (targetIdx !== -1) {
+          chartTitle = `<b>${esc(d.park)} — Yearly Recreation Visits (Highlighting ${activeYear})</b>`;
+
+          traces.push({
+            x: [activeYear],
+            y: [allVis[targetIdx]],
+            type: "scatter",
+            mode: "markers",
+            name: `Year ${activeYear}`,
+            marker: { color: "#D89E44", size: 14, line: { color: "#1B3326", width: 2.2 } },
+            text: [hoverTxt[targetIdx]],
+            hovertemplate: `<b>Selected Year: ${activeYear}</b><br>%{text}<extra></extra>`,
+            showlegend: false
+          });
+
+          chartAnnotations.push({
+            x: activeYear,
+            y: allVis[targetIdx],
+            text: `${activeYear}: ${fmt.format(allVis[targetIdx])} (Rank #${allRnks[targetIdx]})`,
+            showarrow: true,
+            arrowhead: 2,
+            arrowsize: 0.8,
+            arrowcolor: "#1B3326",
+            ax: activeYear > (allYrs[0] + allYrs[latestIdx]) / 2 ? -65 : 65,
+            ay: -32,
+            bgcolor: "#FAF7F0",
+            bordercolor: "#D89E44",
+            borderwidth: 1.4,
+            font: { size: 11.5, color: "#1E382B" }
+          });
         }
-      ];
+      }
 
       const layout = {
         title: {
-          text: `<b>${esc(d.park)} — Yearly Recreation Visits (${yrs[0]}–${yrs[latestIdx]})</b>`,
+          text: chartTitle,
           x: 0,
           xanchor: "left",
           font: { family: "Georgia, Palatino, serif", size: 17, color: "#1E382B" }
@@ -835,7 +917,7 @@ ui <- HTML(paste0(
         xaxis: {
           title: "",
           tickformat: "d",
-          dtick: yrs.length <= 12 ? 1 : (yrs.length <= 20 ? 2 : 5),
+          dtick: allYrs.length <= 12 ? 1 : (allYrs.length <= 20 ? 2 : 5),
           showgrid: false,
           zeroline: false,
           tickfont: { color: "#4A5B51", size: 12 }
@@ -847,23 +929,7 @@ ui <- HTML(paste0(
           zeroline: false,
           tickfont: { color: "#4A5B51", size: 12 }
         },
-        annotations: [
-          {
-            x: yrs[peakIdx],
-            y: vis[peakIdx],
-            text: `Peak (${yrs[peakIdx]}): ${fmt.format(vis[peakIdx])}`,
-            showarrow: true,
-            arrowhead: 2,
-            arrowsize: 0.8,
-            arrowcolor: "#1B3326",
-            ax: yrs[peakIdx] > (yrs[0] + yrs[latestIdx]) / 2 ? -55 : 55,
-            ay: -28,
-            bgcolor: "#FAF7F0",
-            bordercolor: "#D89E44",
-            borderwidth: 1.2,
-            font: { size: 11.5, color: "#1E382B" }
-          }
-        ]
+        annotations: chartAnnotations
       };
 
       window.Plotly.react("single-park-plot", traces, layout, {
@@ -882,8 +948,7 @@ ui <- HTML(paste0(
     renderAll();
   });
   parkSel.addEventListener("change", renderAll);
-  startSel.addEventListener("change", renderAll);
-  endSel.addEventListener("change", renderAll);
+  yearSel.addEventListener("change", renderAll);
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", renderAll);

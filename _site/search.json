@@ -2,37 +2,37 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About This Project",
+    "title": "About",
     "section": "",
-    "text": "National Parks, Year by Year: Visitation, 2000–2025 examines annual attendance patterns, park designation differences, and post-2020 recovery shifts across the United States National Park System."
+    "text": "About the Author\nThis project was created by Alexa Titherington as a final data science project at New College of Florida.\n\nContact: a.titherington30@ncf.edu\nGitHub: github.com/alexajt\nProject Repository: github.com/alexajt/national-parks\n\n\n\nAbout the Data\nAll visitation records used in this project come from the official National Park Service Visitor Use Statistics program, accessible through the NPS IRMA Stats Portal and the NPS Visitor Use Statistics Dashboard. The dataset covers calendar-year recreation visits from 2000 through 2025 across 400 reporting units in the National Park System, providing 9,612 verified park-year observations. Annual recreation visits measure entries into park units recorded by NPS field staff, permit systems, and automated counters."
   },
   {
-    "objectID": "about.html#project-overview",
-    "href": "about.html#project-overview",
-    "title": "About This Project",
+    "objectID": "top-parks.html",
+    "href": "top-parks.html",
+    "title": "Top Parks Over Time",
     "section": "",
-    "text": "National Parks, Year by Year: Visitation, 2000–2025 examines annual attendance patterns, park designation differences, and post-2020 recovery shifts across the United States National Park System."
+    "text": "Use the year slider to compare the 10 busiest reporting units. The ranking is based on each year’s total recreation visits, so annual counts are not adjusted for park size or number of days open.\n\n\n\n\n\n\n\n\nFigure 1: The 10 National Park Service units with the highest reported recreation visitation in each year, 2000–2025."
   },
   {
-    "objectID": "about.html#data-sources",
-    "href": "about.html#data-sources",
-    "title": "About This Project",
-    "section": "Data Sources",
-    "text": "Data Sources\n\nNPS Visitor Use Statistics Portal\nNPS Visitor Use Statistics Dashboard\n\nThe repository CSV (nps_annual_visits_1979_2025.csv) preserves the full compiled 1979–2025 National Park Service annual visitation series (16,095 park-year rows) unchanged. For consistent 21st-century comparisons across the website, pages filter that CSV in R to 2000–2025, yielding 9,612 verified park-year observations across 400 reporting NPS units."
+    "objectID": "top-parks.html#which-parks-lead-the-system",
+    "href": "top-parks.html#which-parks-lead-the-system",
+    "title": "Top Parks Over Time",
+    "section": "",
+    "text": "Use the year slider to compare the 10 busiest reporting units. The ranking is based on each year’s total recreation visits, so annual counts are not adjusted for park size or number of days open.\n\n\n\n\n\n\n\n\nFigure 1: The 10 National Park Service units with the highest reported recreation visitation in each year, 2000–2025."
   },
   {
-    "objectID": "about.html#key-limitations",
-    "href": "about.html#key-limitations",
-    "title": "About This Project",
-    "section": "Key Limitations",
-    "text": "Key Limitations\n\nAnnual granularity only: Each observation records one park unit’s calendar-year total recreation visits; monthly, seasonal, and holiday-level patterns cannot be inferred from this dataset.\nChanging unit counts: Active reporting units grew from 343 in 2000 to 400 in 2025, so the Visitation After 2020 tab restricts its 2015–2025 comparison to the 372 units that reported in every year of that window.\nDescriptive figures & grouping: Unit categories are grouped from official NPS name suffixes (NP/NPRES, NRA/PKWY/NS/NL, NM, and historic/memorial designations), and annual counts alone do not separate visitor demand from temporary closures, reservation systems, or NPS counting updates."
+    "objectID": "top-parks.html#how-to-read-this-view",
+    "href": "top-parks.html#how-to-read-this-view",
+    "title": "Top Parks Over Time",
+    "section": "How to read this view",
+    "text": "How to read this view\nThe order changes from year to year, but Great Smoky Mountains, Blue Ridge Parkway, Golden Gate, and other high-volume units often remain among the leaders. Because the plot uses an absolute visit count, a large urban or scenic recreation area can rank above a smaller National Park even though it may offer a very different visitor experience."
   },
   {
     "objectID": "explore.html",
     "href": "explore.html",
     "title": "Explore by Park: Annual Visitation, 2000–2025",
     "section": "",
-    "text": "Choose Park (400 NPS Units)\n      \n      \n    \n\n    \n      \n        Filter Category\n      \n      \n        All Categories\n        National Parks & Preserves\n        Recreation Areas, Seashores & Parkways\n        Historic Sites, Battlefields & Memorials\n        National Monuments\n      \n    \n\n    \n      \n        Start Year\n      \n      \n    \n\n    \n      \n        End Year\n      \n      \n    \n  \n\n\n\n\n  \n    \n      \n        National Park illustrated overview\n        Horizontal screenprint illustration for the selected park.\n      \n    \n  \n\n  \n    \n\n    \n      \n      \n    \n\n    \n      \n\n\n\nYears Shown\n\n\n\nEnd-Year Visits\n\n\n\nPeak Year in Range\n\n\n\nLowest Year in Range\n\n\n\nMedian Annual Visits\n\n\n\nTotal Visits in Range\n\n\n\n\n\n    \n    \n      Stylized park-symbol emblem: the distant sage ridge traces yearly visits across the selected span, and the sun aligns with the peak year.\n    \n  \n\n\n\n\n  \n  \n    Each point shows one calendar year's total recreation visits for the selected unit (hover any point for exact visits and national rank that year). Source: NPS Visitor Use Statistics (2000–2025)."
+    "text": "Choose Park (400 NPS Units)\n      \n      \n    \n\n    \n      \n        Filter Category\n      \n      \n        All Categories\n        National Parks & Preserves\n        Recreation Areas, Seashores & Parkways\n        Historic Sites, Battlefields & Memorials\n        National Monuments\n      \n    \n\n    \n      \n        Year\n      \n      \n        All Years (2000–2025)\n      \n    \n  \n\n\n\n\n  \n    \n      \n        National Park illustrated overview\n        Horizontal screenprint illustration for the selected park.\n      \n    \n  \n\n  \n    \n\n    \n      \n      \n    \n\n    \n      \n\n\n\nYears Shown\n\n\n\nEnd-Year Visits\n\n\n\nPeak Year in Range\n\n\n\nLowest Year in Range\n\n\n\nMedian Annual Visits\n\n\n\nTotal Visits in Range\n\n\n\n\n\n    \n    \n      Stylized park-symbol emblem: the sage ridge traces yearly visits, and the golden sun marks the selected year or peak attendance.\n    \n  \n\n\n\n\n  \n  \n    Each point shows one calendar year's total recreation visits for the selected unit (hover any point for exact visits and national rank that year). Source: NPS Visitor Use Statistics (2000–2025)."
   },
   {
     "objectID": "index.html",
@@ -61,5 +61,26 @@
     "title": "Visitation After 2020",
     "section": "",
     "text": "Figure 1: Annual recreation visits across the 372 NPS units that reported in every calendar year from 2015 through 2025, summed by designation category and indexed so each category’s 2019 total equals 100.\n\n\n\n\n\nThe chart above tracks combined annual recreation visits for the 372 National Park Service units that reported attendance in every single year from 2015 through 2025, indexed so each category’s 2019 total equals 100.0. In 2020, all four categories declined, but by very different margins: Recreation Areas, Seashores & Parkways (43 units) edged down to 92.9 and National Parks & Preserves (75 units) fell to 75.3, whereas Historic Sites, Battlefields & Memorials (191 units) dropped to 53.8 and National Monuments (63 units) fell to 44.0. By 2021, both National Parks & Preserves (102.9) and Recreation Areas, Seashores & Parkways (101.2) had already exceeded their 2019 totals and remained above that benchmark in 2025 (103.8 and 101.8). In contrast, Historic Sites (86.3 in 2025) and National Monuments (86.2 in 2025) stayed below their 2019 baselines in every post-2020 year.\nThis split is worth examining because system-wide totals make post-2020 attendance look nearly flat: across these same 372 continuously reporting units, total annual visits moved from 325.0 million in 2019 down to 236.4 million in 2020, back up to 326.7 million in 2024, and to 314.1 million in 2025. Holding the set of reporting units constant shows that the near-return to 2019 aggregate volume is not a uniform recovery across the park system, nor an artifact of newly added park units—higher post-2020 totals at flagship parks and recreation corridors offset persistent shortfalls across more than 250 monuments, battlefields, memorials, and historic sites.\nData source and limitations: Figures come from National Park Service Visitor Use Statistics annual reports compiled in nps_annual_visits_1979_2025.csv. Three limitations apply to this comparison: first, restricting to the 372 continuously reporting units (out of 400 units active at some point during 2015–2025) keeps the panel consistent over time but excludes 28 newer or intermittently reporting units; second, unit categories are grouped from official NPS name suffixes; and third, annual visit counts are purely descriptive—they cannot separate changes in visitor demand from operational factors such as facility closures, construction, timed-entry rules, or counting-method updates, and they provide no information on monthly or seasonal visitation within a year."
+  },
+  {
+    "objectID": "rising-falling.html",
+    "href": "rising-falling.html",
+    "title": "Rising and Falling Parks",
+    "section": "",
+    "text": "Each line compares the same park in 2019 and 2025. Solid green marks 2025 increases, terracotta marks 2025 decreases, and stone-gray marks the 2019 baseline. The two panels show the 10 largest absolute increases and 10 largest decreases.\n\n\n\n\n\n\n\n\nFigure 1: Largest absolute changes in annual recreation visits between 2019 and 2025 among parks reporting in both years."
+  },
+  {
+    "objectID": "rising-falling.html#to-2025-the-biggest-shifts",
+    "href": "rising-falling.html#to-2025-the-biggest-shifts",
+    "title": "Rising and Falling Parks",
+    "section": "",
+    "text": "Each line compares the same park in 2019 and 2025. Solid green marks 2025 increases, terracotta marks 2025 decreases, and stone-gray marks the 2019 baseline. The two panels show the 10 largest absolute increases and 10 largest decreases.\n\n\n\n\n\n\n\n\nFigure 1: Largest absolute changes in annual recreation visits between 2019 and 2025 among parks reporting in both years."
+  },
+  {
+    "objectID": "rising-falling.html#what-makes-this-story-useful",
+    "href": "rising-falling.html#what-makes-this-story-useful",
+    "title": "Rising and Falling Parks",
+    "section": "What makes this story useful?",
+    "text": "What makes this story useful?\nAbsolute changes identify the units responsible for the largest shifts in total system attendance. They do not tell us why visitation changed. Temporary closures, construction, reservation systems, counting changes, wildfires, and broader travel patterns could all contribute.\n\n\n\n\nTable 1: The 10 largest absolute increases and decreases in recreation visits from 2019 to 2025.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nchange_group\npark\n2019 visits\n2025 visits\nChange\nPercent change\n\n\n\n\nLargest absolute decreases\nIndependence NHP\n4,532,459\n1,926,580\n-2,605,879\n-57.5%\n\n\nLargest absolute decreases\nStonewall NM\n2,088,929\n298,077\n-1,790,852\n-85.7%\n\n\nLargest absolute decreases\nColonial NHP\n3,327,268\n1,582,994\n-1,744,274\n-52.4%\n\n\nLargest absolute decreases\nGateway NRA\n9,405,622\n7,696,939\n-1,708,683\n-18.2%\n\n\nLargest absolute decreases\nGrand Canyon NP\n5,974,411\n4,430,653\n-1,543,758\n-25.8%\n\n\nLargest absolute decreases\nKennesaw Mountain NBP\n2,621,050\n1,179,671\n-1,441,379\n-55.0%\n\n\nLargest absolute decreases\nLake Mead NRA\n7,499,049\n6,135,586\n-1,363,463\n-18.2%\n\n\nLargest absolute decreases\nSan Francisco Maritime NHP\n4,016,598\n2,944,483\n-1,072,115\n-26.7%\n\n\nLargest absolute decreases\nGreat Smoky Mountains NP\n12,547,743\n11,527,939\n-1,019,804\n-8.1%\n\n\nLargest absolute decreases\nWorld War II MEM\n4,831,327\n3,993,717\n-837,610\n-17.3%\n\n\nLargest absolute increases\nGulf Islands NS\n5,600,240\n7,576,923\n1,976,683\n35.3%\n\n\nLargest absolute increases\nNatchez Trace PKWY\n6,296,041\n7,994,783\n1,698,742\n27.0%\n\n\nLargest absolute increases\nBlue Ridge PKWY\n14,976,085\n16,533,753\n1,557,668\n10.4%\n\n\nLargest absolute increases\nBig Cypress NPRES\n1,007,471\n2,262,731\n1,255,260\n124.6%\n\n\nLargest absolute increases\nHot Springs NP\n1,467,153\n2,494,611\n1,027,458\n70.0%\n\n\nLargest absolute increases\nCuyahoga Valley NP\n2,237,997\n3,025,325\n787,328\n35.2%\n\n\nLargest absolute increases\nNew River Gorge NP & PRES\n1,195,721\n1,958,440\n762,719\n63.8%\n\n\nLargest absolute increases\nGolden Gate NRA\n15,002,227\n15,748,676\n746,449\n5.0%\n\n\nLargest absolute increases\nYellowstone NP\n4,020,288\n4,762,988\n742,700\n18.5%\n\n\nLargest absolute increases\nRedwood NP\n504,722\n1,202,480\n697,758\n138.2%"
   }
 ]

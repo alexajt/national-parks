@@ -4,6 +4,8 @@ project:
     - index.qmd
     - explore.qmd
     - story.qmd
+    - top-parks.qmd
+    - rising-falling.qmd
     - about.qmd
 
 website:
@@ -17,6 +19,10 @@ website:
         text: Park Attendance
       - href: story.qmd
         text: Visitation After 2020
+      - href: top-parks.qmd
+        text: Top Parks Over Time
+      - href: rising-falling.qmd
+        text: Rising and Falling
       - href: about.qmd
         text: About
 

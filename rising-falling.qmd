@@ -1,0 +1,125 @@
+---
+title: "Rising and Falling Parks"
+subtitle: "How much did individual National Park Service units change from 2019 to 2025?"
+execute:
+  echo: false
+  warning: false
+  message: false
+toc: false
+---
+
+```{r}
+#| label: setup-change
+library(tidyverse)
+
+annual_visits <- read_csv(
+  "nps_annual_visits_1979_2025.csv",
+  show_col_types = FALSE
+) |>
+  filter(year %in% c(2019, 2025)) |>
+  pivot_wider(
+    names_from = year,
+    values_from = recreation_visits,
+    names_prefix = "year_"
+  ) |>
+  filter(!is.na(year_2019), !is.na(year_2025)) |>
+  mutate(
+    absolute_change = year_2025 - year_2019,
+    percent_change = 100 * absolute_change / year_2019
+  )
+
+rising <- annual_visits |>
+  slice_max(absolute_change, n = 10, with_ties = FALSE) |>
+  mutate(change_group = "Largest absolute increases")
+
+falling <- annual_visits |>
+  slice_min(absolute_change, n = 10, with_ties = FALSE) |>
+  mutate(change_group = "Largest absolute decreases")
+
+change_sample <- bind_rows(rising, falling) |>
+  mutate(
+    park = forcats::fct_reorder(park, absolute_change),
+    change_group = factor(
+      change_group,
+      levels = c("Largest absolute increases", "Largest absolute decreases")
+    )
+  )
+```
+
+## 2019 to 2025: the biggest shifts
+
+Each line compares the same park in **2019** and **2025**. Solid green marks 2025 increases, terracotta marks 2025 decreases, and stone-gray marks the 2019 baseline. The two panels show the 10 largest absolute increases and 10 largest decreases.
+
+```{r}
+#| label: fig-rising-falling
+#| fig-cap: "Largest absolute changes in annual recreation visits between 2019 and 2025 among parks reporting in both years."
+#| fig-width: 11
+#| fig-height: 8
+
+ggplot(change_sample, aes(y = park)) +
+  geom_segment(
+    aes(x = year_2019, xend = year_2025, y = park, yend = park),
+    color = "#C6C2B2",
+    linewidth = 1.2
+  ) +
+  geom_point(
+    aes(x = year_2019),
+    color = "#8F978F",
+    size = 2.8
+  ) +
+  geom_point(
+    aes(x = year_2025, color = change_group),
+    size = 3.4
+  ) +
+  scale_color_manual(
+    values = c(
+      "Largest absolute increases" = "#2F6B48",
+      "Largest absolute decreases" = "#B06242"
+    ),
+    guide = "none"
+  ) +
+  facet_wrap(~change_group, scales = "free_y", ncol = 1) +
+  scale_x_continuous(
+    labels = scales::label_comma(scale_cut = scales::cut_short_scale()),
+    name = "Annual recreation visits"
+  ) +
+  labs(
+    x = "Annual recreation visits",
+    y = NULL,
+    caption = "Source: NPS Visitor Use Statistics. Only units reporting in both 2019 and 2025 are included."
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.background = element_rect(fill = "#FAF7F0", color = NA),
+    panel.background = element_rect(fill = "#FAF7F0", color = NA),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor = element_blank(),
+    strip.text = element_text(face = "bold", color = "#1E382B", size = 13),
+    axis.text.y = element_text(size = 9.5)
+  )
+```
+
+## What makes this story useful?
+
+Absolute changes identify the units responsible for the largest shifts in total system attendance. They do not tell us why visitation changed. Temporary closures, construction, reservation systems, counting changes, wildfires, and broader travel patterns could all contribute.
+
+```{r}
+#| label: tbl-rising-falling
+#| tbl-cap: "The 10 largest absolute increases and decreases in recreation visits from 2019 to 2025."
+
+bind_rows(rising, falling) |>
+  select(
+    change_group,
+    park,
+    `2019 visits` = year_2019,
+    `2025 visits` = year_2025,
+    `Change` = absolute_change,
+    `Percent change` = percent_change
+  ) |>
+  arrange(change_group, desc(abs(`Change`))) |>
+  mutate(
+    across(c(`2019 visits`, `2025 visits`, `Change`), scales::comma),
+    `Percent change` = scales::percent(`Percent change` / 100, accuracy = 0.1)
+  ) |>
+  knitr::kable()
+```
