@@ -53,7 +53,7 @@ Each dot below is **one National Park Service unit in one calendar year** from *
 ```{r}
 #| label: fig-park-visitation-by-type
 #| fig-cap: "9,612 annual park-year observations (2000–2025) colored by NPS designation, with solid lines showing each category's yearly median. Hover any dot for park details (drag horizontally to zoom into specific years; double-click to reset). Plotted on a pseudo-log vertical scale so smaller sites remain visible alongside multi-million-visit parks. Source: NPS Visitor Use Statistics."
-#| column: body-outset
+#| column: page-inset
 
 type_medians <- annual_visits |>
   group_by(year, park_type) |>
@@ -64,8 +64,8 @@ type_medians <- annual_visits |>
   mutate(
     y_log = log10(median_visits + 1),
     hover_label = paste0(
-      "<b>", park_type, "</b><br>",
-      year, " category median · ", scales::comma(round(median_visits)), " visits"
+      "<b>", park_type, " (Median)</b><br>",
+      year, " · ", scales::comma(round(median_visits)), " annual visits"
     )
   )
 
@@ -80,7 +80,7 @@ y_breaks <- c(0, 10000, 100000, 1000000, 10000000)
 full_x_range <- c(1999.5, 2025.5)
 full_y_range <- c(-0.15, log10(24000000 + 1))
 
-p <- plot_ly(height = 530)
+p <- plot_ly(height = 540)
 
 for (cat_name in levels(annual_visits$park_type)) {
   cat_pts <- filter(annual_visits, park_type == cat_name)
@@ -97,7 +97,12 @@ for (cat_name in levels(annual_visits$park_type)) {
       name = cat_name,
       legendgroup = cat_name,
       showlegend = FALSE,
-      marker = list(color = col_hex, size = 6.2, opacity = 0.28),
+      marker = list(
+        color = col_hex,
+        size = 6,
+        opacity = 0.32,
+        line = list(color = "#FAF7F0", width = 0.3)
+      ),
       text = ~hover_label,
       hovertemplate = "%{text}<extra></extra>"
     ) |>
@@ -106,11 +111,12 @@ for (cat_name in levels(annual_visits$park_type)) {
       x = ~year,
       y = ~y_log,
       type = "scatter",
-      mode = "lines",
+      mode = "lines+markers",
       name = cat_name,
       legendgroup = cat_name,
       showlegend = TRUE,
-      line = list(color = col_hex, width = 2.8),
+      line = list(color = col_hex, width = 3.2),
+      marker = list(color = col_hex, size = 5.5, line = list(color = "#FAF7F0", width = 1)),
       text = ~hover_label,
       hovertemplate = "%{text}<extra></extra>"
     )
@@ -127,29 +133,34 @@ p |>
       bordercolor = "#C8C2B0",
       font = list(family = "system-ui, sans-serif", size = 12.5, color = "#1E382B")
     ),
-    margin = list(t = 75, r = 20, b = 45, l = 70),
+    margin = list(t = 50, r = 25, b = 45, l = 75),
     legend = list(
       orientation = "h",
       x = 0,
-      y = 1.03,
+      y = 1.05,
       yanchor = "bottom",
-      font = list(size = 12, color = "#223028")
+      bgcolor = "rgba(250, 247, 240, 0.85)",
+      bordercolor = "#DFDBD0",
+      borderwidth = 1,
+      font = list(size = 11.5, color = "#1E382B", family = "system-ui, sans-serif")
     ),
     xaxis = list(
       title = "",
       range = full_x_range,
+      dtick = 5,
       tick0 = 2000,
       tickformat = "d",
-      showgrid = FALSE,
+      showgrid = TRUE,
+      gridcolor = "#ECE8DC",
       zeroline = FALSE,
       tickfont = list(color = "#4A5B51", size = 12)
     ),
     yaxis = list(
-      title = list(text = "Annual visits", font = list(color = "#4A5B51", size = 12.5)),
+      title = list(text = "Annual recreation visits (log scale)", font = list(color = "#4A5B51", size = 12.5)),
       range = full_y_range,
       fixedrange = TRUE,
       tickvals = log10(y_breaks + 1),
-      ticktext = c("0", "10k", "100k", "1M", "10M"),
+      ticktext = c("0", "10K", "100K", "1M", "10M"),
       gridcolor = "#E6E1D2",
       zeroline = FALSE,
       tickfont = list(color = "#4A5B51", size = 12)
@@ -167,6 +178,34 @@ p |>
 
 ## Key Takeaways (2000–2025)
 
-- **Recreation Areas, Seashores & Parkways lead in typical annual crowd size:** Across 1,109 park-year observations (44 units), scenic roadways, seashores, and urban recreation corridors record a median of **1.09 million annual visits**.
-- **National Parks & Preserves sustain strong 21st-century attendance:** Across 1,953 park-year observations (76 units), flagship National Parks and Preserves hold a median of **520,171 annual visits**, with top units exceeding 10 million visits per year.
-- **Historic Sites & National Monuments form the numerical majority of the system:** Over two-thirds of all 2000–2025 observations (**6,550 of 9,612**) belong to historic sites, battlefields, memorials, and monuments, welcoming medians of roughly **97,000 to 113,000 annual visits**.
+::: {.row .g-3 .mt-2}
+::: {.col-md-4}
+::: {.card .h-100 style="background-color:#F3EFE4; border:1px solid #D5D2C4; border-top:4px solid #4A7C82; border-radius:10px; padding:16px 18px;"}
+<h4 style="font-size:1.05rem; margin-top:0; color:#1E382B;">Recreation Areas & Parkways</h4>
+<p style="font-size:1.6rem; font-weight:700; color:#4A7C82; margin:4px 0 8px 0;">1.09M</p>
+<p style="font-size:0.88rem; color:#4A5B51; margin-bottom:0;">
+Median annual visits across 1,109 park-year observations (44 units). High-capacity scenic parkways and urban shorelines lead the system in typical volume.
+</p>
+:::
+:::
+
+::: {.col-md-4}
+::: {.card .h-100 style="background-color:#F3EFE4; border:1px solid #D5D2C4; border-top:4px solid #2F6B48; border-radius:10px; padding:16px 18px;"}
+<h4 style="font-size:1.05rem; margin-top:0; color:#1E382B;">National Parks & Preserves</h4>
+<p style="font-size:1.6rem; font-weight:700; color:#2F6B48; margin:4px 0 8px 0;">520K</p>
+<p style="font-size:0.88rem; color:#4A5B51; margin-bottom:0;">
+Median annual visits across 1,953 park-year observations (76 units). Flagship natural parks sustain strong 21st-century attendance, with top units exceeding 10M visits.
+</p>
+:::
+:::
+
+::: {.col-md-4}
+::: {.card .h-100 style="background-color:#F3EFE4; border:1px solid #D5D2C4; border-top:4px solid #C48347; border-radius:10px; padding:16px 18px;"}
+<h4 style="font-size:1.05rem; margin-top:0; color:#1E382B;">Historic Sites & Monuments</h4>
+<p style="font-size:1.6rem; font-weight:700; color:#C48347; margin:4px 0 8px 0;">~105K</p>
+<p style="font-size:0.88rem; color:#4A5B51; margin-bottom:0;">
+Median annual visits across 6,550 park-year observations. These sites comprise over two-thirds of all system units, offering focused, community-scale visitor experiences.
+</p>
+:::
+:::
+:::
