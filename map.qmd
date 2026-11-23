@@ -90,7 +90,14 @@ ui <- HTML(paste0(
   </div>
 </div>
 
-<div class="row g-3 mb-3">
+<div style="background:#FAF7F0;border:1px solid #D5D2C4;border-radius:14px;padding:12px 16px 8px;box-shadow:0 4px 16px rgba(30,56,43,0.04);">
+  <div id="state-choropleth" style="width:100%;height:min(68vh,620px);min-height:430px;" role="img" aria-label="Map of monthly National Park Service recreation visits by state"></div>
+  <p style="font-size:0.83rem;color:#5A6B60;margin:0 0 6px 4px;">
+    Darker green indicates more recreation visits. This state map includes the 50 states and D.C.; U.S. territories are not shown.
+  </p>
+</div>
+
+<div class="row g-3 my-3">
   <div class="col-sm-6 col-xl-3"><div class="h-100" style="background:#F3EFE4;border:1px solid #D5D2C4;border-top:4px solid #2F6B48;border-radius:10px;padding:14px 16px;">
     <div style="font-size:0.78rem;text-transform:uppercase;letter-spacing:0.05em;font-weight:700;color:#4A5B51;">Busiest State</div>
     <div id="map-busiest-state" style="font-size:1.35rem;font-weight:700;color:#1E382B;margin:2px 0;"></div>
@@ -111,13 +118,6 @@ ui <- HTML(paste0(
     <div id="map-top-park" style="font-size:1.02rem;font-weight:700;color:#1E382B;margin:4px 0 2px;line-height:1.25;overflow-wrap:anywhere;"></div>
     <div id="map-top-park-detail" style="font-size:0.83rem;color:#4A5B51;"></div>
   </div></div>
-</div>
-
-<div style="background:#FAF7F0;border:1px solid #D5D2C4;border-radius:14px;padding:12px 16px 8px;box-shadow:0 4px 16px rgba(30,56,43,0.04);">
-  <div id="state-choropleth" style="width:100%;height:min(68vh,620px);min-height:430px;" role="img" aria-label="Map of monthly National Park Service recreation visits by state"></div>
-  <p style="font-size:0.83rem;color:#5A6B60;margin:0 0 6px 4px;">
-    Darker green indicates more recreation visits. This state map includes the 50 states and D.C.; U.S. territories are not shown.
-  </p>
 </div>
 
 <p style="font-size:0.82rem;color:#5A6B60;margin-top:12px;">

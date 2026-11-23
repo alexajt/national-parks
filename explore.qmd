@@ -1066,6 +1066,8 @@ monthly_ui <- HTML(paste0(
       .sort((a, b) => b.visits - a.visits)
       .slice(0, 10)
       .reverse();
+    const maxVisits = Math.max(1, ...rankedRows.map(row => row.visits));
+    const visitTicks = Array.from({ length: 5 }, (_, index) => maxVisits * index / 4);
 
     Plotly.react("monthly-trend-chart", [{
       x: parkRows.map(row => monthNames[row.month]),
@@ -1096,7 +1098,14 @@ monthly_ui <- HTML(paste0(
       paper_bgcolor: "#FAF7F0",
       plot_bgcolor: "#FAF7F0",
       margin: { t: 55, r: 20, b: 80, l: 150 },
-      xaxis: { domain: [0.1, 1], title: "Recreation visits", rangemode: "tozero", gridcolor: "#E6E1D2" },
+      xaxis: {
+        range: [-maxVisits * 0.2, maxVisits * 1.05],
+        tickmode: "array",
+        tickvals: visitTicks,
+        ticktext: visitTicks.map(value => fmt.format(value)),
+        title: "Recreation visits",
+        gridcolor: "#E6E1D2"
+      },
       yaxis: { automargin: true }
     }, { responsive: true, displaylogo: false });
   }
