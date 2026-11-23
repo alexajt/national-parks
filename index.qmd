@@ -13,6 +13,8 @@ toc: false
 library(tidyverse)
 library(plotly)
 
+set.seed(2026)
+
 annual_visits <- read_csv(
   "nps_annual_visits_1979_2025.csv",
   show_col_types = FALSE
@@ -35,6 +37,7 @@ annual_visits <- read_csv(
         "National Monuments"
       )
     ),
+    year_jittered = year + runif(n(), min = -0.18, max = 0.18),
     y_log = log10(recreation_visits + 1),
     hover_label = paste0(
       "<b>", park, "</b><br>",
@@ -49,26 +52,12 @@ n_parks <- n_distinct(annual_visits$park)
 
 ## How Do Visits Vary Across Park Categories?
 
-Each dot is one NPS unit-year. Hover for the unit and visit count; drag horizontally to zoom. Lines show category medians. Use [Park Attendance](explore.qmd) for annual and monthly views, or [Visitation After 2020](story.qmd) for a fixed-period comparison.
+Each dot is one NPS unit-year, colored by park category and nudged slightly around its year to reveal overlapping observations. Hover for the unit and visit count; drag horizontally to zoom. Use [Park Attendance](explore.qmd) for annual and monthly views, or [Visitation After 2020](story.qmd) for a fixed-period comparison.
 
 ```{r}
 #| label: fig-park-visitation-by-type
-#| fig-cap: "Annual recreation visits by NPS unit category, 2000–2025. Lines show category medians; the log scale keeps small and large units visible. Source: NPS Visitor Use Statistics."
+#| fig-cap: "Annual recreation visits by NPS unit category, 2000–2025. Each colored point represents one unit-year; slight horizontal jitter reveals overlapping observations, and the log scale keeps small and large units visible. Source: NPS Visitor Use Statistics."
 #| column: page-inset
-
-type_medians <- annual_visits |>
-  group_by(year, park_type) |>
-  summarize(
-    median_visits = median(recreation_visits, na.rm = TRUE),
-    .groups = "drop"
-  ) |>
-  mutate(
-    y_log = log10(median_visits + 1),
-    hover_label = paste0(
-      "<b>", park_type, " (Median)</b><br>",
-      year, " · ", scales::comma(round(median_visits)), " annual visits"
-    )
-  )
 
 palette_cols <- c(
   "Recreation Areas, Seashores & Parkways" = "#4A7C82",
@@ -85,39 +74,24 @@ p <- plot_ly(height = 540)
 
 for (cat_name in levels(annual_visits$park_type)) {
   cat_pts <- filter(annual_visits, park_type == cat_name)
-  cat_med <- filter(type_medians, park_type == cat_name)
   col_hex <- unname(palette_cols[cat_name])
 
   p <- p |>
     add_trace(
       data = cat_pts,
-      x = ~year,
+      x = ~year_jittered,
       y = ~y_log,
       type = "scattergl",
       mode = "markers",
       name = cat_name,
       legendgroup = cat_name,
-      showlegend = FALSE,
+      showlegend = TRUE,
       marker = list(
         color = col_hex,
-        size = 6,
-        opacity = 0.32,
+        size = 6.5,
+        opacity = 0.48,
         line = list(color = "#FAF7F0", width = 0.3)
       ),
-      text = ~hover_label,
-      hovertemplate = "%{text}<extra></extra>"
-    ) |>
-    add_trace(
-      data = cat_med,
-      x = ~year,
-      y = ~y_log,
-      type = "scatter",
-      mode = "lines+markers",
-      name = cat_name,
-      legendgroup = cat_name,
-      showlegend = TRUE,
-      line = list(color = col_hex, width = 3.2),
-      marker = list(color = col_hex, size = 5.5, line = list(color = "#FAF7F0", width = 1)),
       text = ~hover_label,
       hovertemplate = "%{text}<extra></extra>"
     )

@@ -39,14 +39,14 @@
     "href": "index.html",
     "title": "National Parks, Year by Year: Visitation, 2000–2025",
     "section": "",
-    "text": "Each dot is one NPS unit-year. Hover for the unit and visit count; drag horizontally to zoom. Lines show category medians. Use Park Attendance for annual and monthly views, or Visitation After 2020 for a fixed-period comparison.\n\n\n\n\n\n\n\n\nFigure 1: Annual recreation visits by NPS unit category, 2000–2025. Lines show category medians; the log scale keeps small and large units visible. Source: NPS Visitor Use Statistics."
+    "text": "Each dot is one NPS unit-year, colored by park category and nudged slightly around its year to reveal overlapping observations. Hover for the unit and visit count; drag horizontally to zoom. Use Park Attendance for annual and monthly views, or Visitation After 2020 for a fixed-period comparison.\n\n\n\n\n\n\n\n\nFigure 1: Annual recreation visits by NPS unit category, 2000–2025. Each colored point represents one unit-year; slight horizontal jitter reveals overlapping observations, and the log scale keeps small and large units visible. Source: NPS Visitor Use Statistics."
   },
   {
     "objectID": "index.html#how-do-visits-vary-across-park-categories",
     "href": "index.html#how-do-visits-vary-across-park-categories",
     "title": "National Parks, Year by Year: Visitation, 2000–2025",
     "section": "",
-    "text": "Each dot is one NPS unit-year. Hover for the unit and visit count; drag horizontally to zoom. Lines show category medians. Use Park Attendance for annual and monthly views, or Visitation After 2020 for a fixed-period comparison.\n\n\n\n\n\n\n\n\nFigure 1: Annual recreation visits by NPS unit category, 2000–2025. Lines show category medians; the log scale keeps small and large units visible. Source: NPS Visitor Use Statistics."
+    "text": "Each dot is one NPS unit-year, colored by park category and nudged slightly around its year to reveal overlapping observations. Hover for the unit and visit count; drag horizontally to zoom. Use Park Attendance for annual and monthly views, or Visitation After 2020 for a fixed-period comparison.\n\n\n\n\n\n\n\n\nFigure 1: Annual recreation visits by NPS unit category, 2000–2025. Each colored point represents one unit-year; slight horizontal jitter reveals overlapping observations, and the log scale keeps small and large units visible. Source: NPS Visitor Use Statistics."
   },
   {
     "objectID": "index.html#key-takeaways-20002025",
