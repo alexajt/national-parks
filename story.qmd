@@ -102,27 +102,6 @@ change_sample <- bind_rows(rising, falling) |>
     label_hjust = ifelse(absolute_change > 0, -0.15, 1.15)
   )
 
-rising_rows <- rising |>
-  arrange(desc(absolute_change)) |>
-  mutate(
-    row_html = sprintf(
-      "<tr><td class='fw-semibold'>%s</td><td class='text-end'>%s</td><td class='text-end'>%s</td><td class='text-end'><span style='display:inline-block;padding:2px 8px;border-radius:999px;font-size:0.8rem;font-weight:600;background:#E2EAE3;color:#1E382B;'>+%s (+%.1f%%)</span></td></tr>",
-      park, scales::comma(year_2019), scales::comma(year_2025), scales::comma(absolute_change), percent_change
-    )
-  ) |>
-  pull(row_html) |>
-  paste(collapse = "\n")
-
-falling_rows <- falling |>
-  arrange(absolute_change) |>
-  mutate(
-    row_html = sprintf(
-      "<tr><td class='fw-semibold'>%s</td><td class='text-end'>%s</td><td class='text-end'>%s</td><td class='text-end'><span style='display:inline-block;padding:2px 8px;border-radius:999px;font-size:0.8rem;font-weight:600;background:#FBEAE5;color:#8F3820;'>%s (%.1f%%)</span></td></tr>",
-      park, scales::comma(year_2019), scales::comma(year_2025), scales::comma(absolute_change), percent_change
-    )
-  ) |>
-  pull(row_html) |>
-  paste(collapse = "\n")
 ```
 
 The 2020 pandemic triggered sharp, uneven disruptions across the National Park System. Open outdoor destinations like scenic parkways and flagship national parks rebounded quickly—surpassing pre-pandemic benchmarks by 2025. In contrast, urban monuments and historic sites took deeper hits and still trail 2019 attendance by roughly 14%. Below, trace the category-wide recovery trajectories followed by the individual park units with the largest post-2019 volume shifts.
@@ -253,48 +232,3 @@ ggplot(change_sample, aes(x = absolute_change, y = park, fill = group)) +
   )
 ```
 
-## Detailed Breakdown: Top 10 Gainers & Decliners
-
-::: {.row .g-4 .mt-2}
-::: {.col-lg-6}
-::: {.card style="background-color:#FAF7F0; border:1px solid #D5D2C4; border-top:4px solid #2F6B48; border-radius:12px; padding:18px 20px; box-shadow:0 3px 12px rgba(30,56,43,0.04);"}
-<h4 style="margin:0 0 12px 0; font-size:1.1rem; color:#1E382B; font-family:Georgia,serif;">Top 10 Attendance Increases</h4>
-<div class="table-responsive">
-<table class="table table-sm table-borderless mb-0" style="font-size:0.86rem; color:#223028;">
-  <thead>
-    <tr style="border-bottom:1.5px solid #DFDBD0; color:#4A5B51;">
-      <th>Park Unit</th>
-      <th class="text-end">2019</th>
-      <th class="text-end">2025</th>
-      <th class="text-end">Change</th>
-    </tr>
-  </thead>
-  <tbody>
-    `r HTML(rising_rows)`
-  </tbody>
-</table>
-</div>
-:::
-:::
-
-::: {.col-lg-6}
-::: {.card style="background-color:#FAF7F0; border:1px solid #D5D2C4; border-top:4px solid #B06242; border-radius:12px; padding:18px 20px; box-shadow:0 3px 12px rgba(30,56,43,0.04);"}
-<h4 style="margin:0 0 12px 0; font-size:1.1rem; color:#1E382B; font-family:Georgia,serif;">Top 10 Attendance Decreases</h4>
-<div class="table-responsive">
-<table class="table table-sm table-borderless mb-0" style="font-size:0.86rem; color:#223028;">
-  <thead>
-    <tr style="border-bottom:1.5px solid #DFDBD0; color:#4A5B51;">
-      <th>Park Unit</th>
-      <th class="text-end">2019</th>
-      <th class="text-end">2025</th>
-      <th class="text-end">Change</th>
-    </tr>
-  </thead>
-  <tbody>
-    `r HTML(falling_rows)`
-  </tbody>
-</table>
-</div>
-:::
-:::
-:::

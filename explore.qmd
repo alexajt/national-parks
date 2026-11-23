@@ -1,5 +1,5 @@
 ---
-title: "Explore by Park: Annual Visitation, 2000–2025"
+title: "Explore by Park"
 subtitle: "Compare annual visitation and system rank for individual NPS units"
 execute:
   echo: false
@@ -7,6 +7,10 @@ execute:
   message: false
 toc: false
 ---
+
+::: {.panel-tabset}
+
+## Annual Visitation
 
 Choose a category and park to view its annual trend. Select a year to highlight
 that point; choose **All Years** to see range summaries. Hover over the chart
@@ -972,20 +976,30 @@ ui <- HTML(paste0(
 attachDependencies(ui, list(plotly:::plotlyMainBundle()))
 ```
 
-## Explore Monthly Visitation
+## Monthly Visitation
 
-This export currently contains **January** records for 2000–2025. The charts
-below show January recreation visits; other months will appear here when they
-are included in the data.
+The charts below combine monthly recreation visits for 2000–2025 across all
+available NPS exports in `monthly_data/`.
 
 ```{r}
 #| label: monthly-visitation-explorer
 #| column: page-inset
 
-monthly_visits <- read_csv(
-  "monthly_data/Query Builder for Public Use Statistics (1979 - Last Calendar Year).csv",
-  show_col_types = FALSE
-) |>
+monthly_exports <- list.files(
+  "monthly_data",
+  pattern = "^Query Builder for Public Use Statistics.*\\.csv$",
+  full.names = TRUE
+)
+
+monthly_visits <- monthly_exports |>
+  map(\(file) {
+    read_csv(
+      file,
+      col_select = c(ParkName, Year, Month, RecreationVisits),
+      show_col_types = FALSE
+    )
+  }) |>
+  list_rbind() |>
   transmute(
     park = ParkName,
     year = as.integer(Year),
@@ -1043,10 +1057,10 @@ monthly_ui <- HTML(paste0(
     const month = Number(monthSelect.value);
     const year = Number(yearSelect.value);
     const park = parkSelect.value;
+    const parkRows = rows
+      .filter(row => row.park === park && row.year === year)
+      .sort((a, b) => a.month - b.month);
     const monthRows = rows.filter(row => row.month === month);
-    const parkRows = monthRows
-      .filter(row => row.park === park)
-      .sort((a, b) => a.year - b.year);
     const rankedRows = monthRows
       .filter(row => row.year === year)
       .sort((a, b) => b.visits - a.visits)
@@ -1054,7 +1068,7 @@ monthly_ui <- HTML(paste0(
       .reverse();
 
     Plotly.react("monthly-trend-chart", [{
-      x: parkRows.map(row => row.year),
+      x: parkRows.map(row => monthNames[row.month]),
       y: parkRows.map(row => row.visits),
       type: "scatter",
       mode: "lines+markers",
@@ -1062,11 +1076,11 @@ monthly_ui <- HTML(paste0(
       marker: { color: "#D89E44", size: 8 },
       hovertemplate: "%{x}: %{y:,.0f} visits<extra></extra>"
     }], {
-      title: { text: `${monthNames[month]} visits at ${park}`, x: 0, font: { color: "#1E382B", size: 16 } },
+      title: { text: `Monthly visits at ${park} — ${year}`, x: 0, font: { color: "#1E382B", size: 16 } },
       paper_bgcolor: "#FAF7F0",
       plot_bgcolor: "#FAF7F0",
       margin: { t: 55, r: 20, b: 45, l: 70 },
-      xaxis: { title: "Year", dtick: 5, showgrid: false },
+      xaxis: { title: "Month", categoryorder: "array", categoryarray: monthNames.slice(1), showgrid: false },
       yaxis: { title: "Recreation visits", rangemode: "tozero", gridcolor: "#E6E1D2" }
     }, { responsive: true, displaylogo: false });
 
@@ -1075,7 +1089,7 @@ monthly_ui <- HTML(paste0(
       y: rankedRows.map(row => row.park),
       type: "bar",
       orientation: "h",
-      marker: { color: rankedRows.map(row => row.park === park ? "#D89E44" : "#426B53") },
+      marker: { color: rankedRows.map(row => row.park === park ? "#D89E44" : "#B06242") },
       hovertemplate: "%{y}<br>%{x:,.0f} visits<extra></extra>"
     }], {
       title: { text: `Top 10 parks — ${monthNames[month]} ${year}`, x: 0, font: { color: "#1E382B", size: 16 } },
@@ -1101,3 +1115,5 @@ monthly_ui <- HTML(paste0(
 
 attachDependencies(monthly_ui, list(plotly:::plotlyMainBundle()))
 ```
+
+:::

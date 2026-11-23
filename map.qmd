@@ -9,8 +9,8 @@ toc: false
 ---
 
 Choose a month and year to see where visits were recorded across the country.
-Hover over a state for its total visits, reporting units, region, and most-visited park.
-The uploaded export currently contains January records only, so January is the only month available.
+The selectors combine all matching NPS exports in `monthly_data/`. Hover over a
+state for its total visits, reporting units, region, and most-visited park.
 
 ```{r}
 #| label: state-map-explorer
@@ -26,10 +26,25 @@ state_lookup <- tibble(
   state = c(state.name, "District of Columbia")
 )
 
-monthly_state_data <- read_csv(
-  "monthly_data/Query Builder for Public Use Statistics (1979 - Last Calendar Year).csv",
-  show_col_types = FALSE
-) |>
+monthly_exports <- list.files(
+  "monthly_data",
+  pattern = "^Query Builder for Public Use Statistics.*\\.csv$",
+  full.names = TRUE
+)
+
+if (length(monthly_exports) == 0) {
+  stop("No NPS monthly export CSV files were found in monthly_data/.")
+}
+
+monthly_visits <- monthly_exports |>
+  map(\(file) {
+    read_csv(
+      file,
+      col_select = c(ParkName, Region, State, Year, Month, RecreationVisits),
+      show_col_types = FALSE
+    )
+  }) |>
+  list_rbind() |>
   transmute(
     park = ParkName,
     region = str_trim(Region),
@@ -38,10 +53,13 @@ monthly_state_data <- read_csv(
     month = as.integer(Month),
     visits = parse_number(as.character(RecreationVisits))
   ) |>
-  filter(!is.na(year), !is.na(month), !is.na(visits)) |>
+  filter(!is.na(year), !is.na(month), between(month, 1, 12), !is.na(visits))
+
+monthly_state_data <- monthly_visits |>
   inner_join(state_lookup, by = "state_code") |>
-  group_by(year, month, state_code, state, region) |>
+  group_by(year, month, state_code, state) |>
   summarize(
+    region = str_c(sort(unique(region[nzchar(region)])), collapse = ", "),
     total_visits = sum(visits),
     n_parks = n_distinct(park),
     top_park = park[which.max(visits)],
@@ -90,7 +108,7 @@ ui <- HTML(paste0(
   </div></div>
   <div class="col-sm-6 col-xl-3"><div class="h-100" style="background:#F3EFE4;border:1px solid #D5D2C4;border-top:4px solid #A45D57;border-radius:10px;padding:14px 16px;">
     <div style="font-size:0.78rem;text-transform:uppercase;letter-spacing:0.05em;font-weight:700;color:#4A5B51;">Top Park in Busiest State</div>
-    <div id="map-top-park" style="font-size:1.02rem;font-weight:700;color:#1E382B;margin:4px 0 2px;line-height:1.25;"></div>
+    <div id="map-top-park" style="font-size:1.02rem;font-weight:700;color:#1E382B;margin:4px 0 2px;line-height:1.25;overflow-wrap:anywhere;"></div>
     <div id="map-top-park-detail" style="font-size:0.83rem;color:#4A5B51;"></div>
   </div></div>
 </div>
@@ -104,7 +122,7 @@ ui <- HTML(paste0(
 
 <h2 id="state-ranking-title" class="mt-4">Top States</h2>
 <div class="table-responsive" style="background:#FAF7F0;border:1px solid #D5D2C4;border-radius:12px;padding:10px 16px;">
-  <table class="table table-sm table-hover mb-0" style="font-size:0.9rem;color:#223028;">
+  <table id="state-ranking-table" class="table table-sm table-hover mb-0" style="font-size:0.9rem;color:#223028;">
     <thead><tr style="border-bottom:2px solid #DFDBD0;color:#1E382B;">
       <th scope="col">Rank</th><th scope="col">State</th><th scope="col">Region</th>
       <th scope="col" class="text-end">Recreation Visits</th><th scope="col" class="text-end">Units</th>
@@ -115,7 +133,7 @@ ui <- HTML(paste0(
 </div>
 
 <p style="font-size:0.82rem;color:#5A6B60;margin-top:12px;">
-  Source: NPS Visitor Use Statistics monthly export. Values reflect reported recreation visits; states without reported data for the selected period are omitted.
+  Source: NPS Visitor Use Statistics monthly exports. All matching export files in <code>monthly_data/</code> are combined; states without reported data for the selected period are omitted.
 </p>
 
 <script>
@@ -188,10 +206,12 @@ ui <- HTML(paste0(
       text: selected.map(row => row.state),
       customdata: selected.map(row => [row.n_parks, row.top_park, row.top_park_visits, row.region]),
       colorscale: [
-        [0, "#FAF7F0"],
-        [0.12, "#E0ECE2"],
-        [0.35, "#8BB197"],
-        [0.65, "#2F6B48"],
+        [0, "#F5F0E2"],
+        [0.16, "#E6BC72"],
+        [0.34, "#D89E44"],
+        [0.52, "#B06242"],
+        [0.7, "#4E7A7E"],
+        [0.86, "#2F6B48"],
         [1, "#163122"]
       ],
       marker: { line: { color: "#FAF7F0", width: 1.2 } },

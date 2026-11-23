@@ -51,7 +51,9 @@ p.subtitle, .quarto-title .subtitle {
 
 .navbar .navbar-brand {
   font-weight: 700;
-  font-size: 1.12rem;
+  font-size: 1.05rem;
+  white-space: normal;
+  line-height: 1.15;
 }
 
 .navbar .nav-link {
@@ -113,4 +115,19 @@ a:hover {
 #TOC .nav-link.active {
   color: var(--np-muted-green);
   border-left-color: var(--np-muted-green);
+}
+
+#state-ranking-table {
+  min-width: 760px;
+}
+
+#state-ranking-table th,
+#state-ranking-table td {
+  white-space: normal;
+  vertical-align: top;
+}
+
+#state-ranking-table td:last-child {
+  min-width: 190px;
+  overflow-wrap: anywhere;
 }

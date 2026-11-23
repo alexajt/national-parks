@@ -49,7 +49,7 @@ n_parks <- n_distinct(annual_visits$park)
 
 ## How Do Visits Vary Across Park Categories?
 
-Each dot is one NPS unit-year. Hover for the unit and visit count; drag horizontally to zoom. Lines show category medians. Use [Park Attendance](explore.qmd) to inspect a unit or [Visitation After 2020](story.qmd) for a fixed-period comparison.
+Each dot is one NPS unit-year. Hover for the unit and visit count; drag horizontally to zoom. Lines show category medians. Use [Park Attendance](explore.qmd) for annual and monthly views, or [Visitation After 2020](story.qmd) for a fixed-period comparison.
 
 ```{r}
 #| label: fig-park-visitation-by-type
