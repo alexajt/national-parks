@@ -1,6 +1,6 @@
 ---
-title: "National Parks, Year by Year: Visitation, 2000–2025"
-subtitle: "Annual visitation patterns across 9,612 park-year observations"
+title: "National Park Visitation Through the Years"
+subtitle: "Annual patterns from 2000 to 2025 across 9,612 park-year observations"
 execute:
   echo: false
   warning: false

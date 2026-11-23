@@ -979,7 +979,7 @@ attachDependencies(ui, list(plotly:::plotlyMainBundle()))
 ## Monthly Visitation
 
 The charts below combine monthly recreation visits for 2000–2025 across all
-available NPS exports in `monthly_data/`.
+available NPS exports.
 
 ```{r}
 #| label: monthly-visitation-explorer
@@ -1031,14 +1031,14 @@ monthly_ui <- HTML(paste0(
       <select id="monthly-park" class="form-select"></select>
     </div>
   </div>
+  <p style="font-size:0.83rem;color:#5A6B60;margin:0 0 6px 4px;">
+    Hover over a point or bar for exact recreation visits. Park rankings include
+    only units reporting data for the selected month and year.
+  </p>
   <div class="row g-3">
     <div class="col-lg-7"><div id="monthly-trend-chart" style="height:380px;"></div></div>
     <div class="col-lg-5"><div id="monthly-ranking-chart" style="height:380px;"></div></div>
   </div>
-  <p style="font-size:0.83rem;color:#5A6B60;margin:6px 0 0 4px;">
-    Hover over a point or bar for exact recreation visits. Park rankings include
-    only units reporting data for the selected month and year.
-  </p>
 </div>
 <script>
 (() => {
@@ -1095,8 +1095,8 @@ monthly_ui <- HTML(paste0(
       title: { text: `Top 10 parks — ${monthNames[month]} ${year}`, x: 0, font: { color: "#1E382B", size: 16 } },
       paper_bgcolor: "#FAF7F0",
       plot_bgcolor: "#FAF7F0",
-      margin: { t: 55, r: 20, b: 45, l: 150 },
-      xaxis: { title: "Recreation visits", rangemode: "tozero", gridcolor: "#E6E1D2" },
+      margin: { t: 55, r: 20, b: 80, l: 150 },
+      xaxis: { domain: [0.1, 1], title: "Recreation visits", rangemode: "tozero", gridcolor: "#E6E1D2" },
       yaxis: { automargin: true }
     }, { responsive: true, displaylogo: false });
   }

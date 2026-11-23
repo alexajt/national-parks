@@ -155,9 +155,10 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Choose a month and year to see where visits were recorded across the country. The selectors combine all matching NPS exports in <code>monthly_data/</code>. Hover over a state for its total visits, reporting units, region, and most-visited park.</p>
+<p>Choose a month and year to see where visits were recorded across the country. The selectors combine all matching NPS exports. Hover over a state for its total visits, reporting units, region, and most-visited park.</p>
 <div class="cell page-columns page-full">
 <div class="cell-output-display column-page-inset no-overflow-x">
+
 <div class="row g-3 align-items-end mb-3">
   <div class="col-sm-6 col-md-4">
     <label for="state-map-month" class="form-label fw-semibold" style="color:#1E382B;">Month</label>
@@ -202,28 +203,8 @@ ul.task-list li input[type="checkbox"] {
   </p>
 </div>
 
-<h2 id="state-ranking-title" class="mt-4 anchored">Top States</h2>
-<div class="table-responsive" style="background:#FAF7F0;border:1px solid #D5D2C4;border-radius:12px;padding:10px 16px;">
-  
-<table id="state-ranking-table" class="table table-sm table-hover mb-0 caption-top" style="font-size:0.9rem;color:#223028;">
-<thead>
-<tr class="header" style="border-bottom:2px solid #DFDBD0;color:#1E382B;">
-<th data-quarto-table-cell-role="th" scope="col">Rank</th>
-<th data-quarto-table-cell-role="th" scope="col">State</th>
-<th data-quarto-table-cell-role="th" scope="col">Region</th>
-<th class="text-end" data-quarto-table-cell-role="th" scope="col">Recreation Visits</th>
-<th class="text-end" data-quarto-table-cell-role="th" scope="col">Units</th>
-<th data-quarto-table-cell-role="th" scope="col">Most-visited Park</th>
-</tr>
-</thead>
-<tbody id="state-ranking-body">
-</tbody>
-</table>
-
-</div>
-
 <p style="font-size:0.82rem;color:#5A6B60;margin-top:12px;">
-  Source: NPS Visitor Use Statistics monthly exports. All matching export files in <code>monthly_data/</code> are combined; states without reported data for the selected period are omitted.
+  Source: NPS Visitor Use Statistics monthly exports. Matching export files are combined; states without reported data for the selected period are omitted.
 </p>
 
 <script>
@@ -236,13 +217,6 @@ ul.task-list li input[type="checkbox"] {
 
   function setText(id, value) {
     document.getElementById(id).textContent = value;
-  }
-
-  function addCell(row, value, className = "") {
-    const cell = document.createElement("td");
-    cell.textContent = value;
-    if (className) cell.className = className;
-    row.appendChild(cell);
   }
 
   function fillYears() {
@@ -272,21 +246,7 @@ ul.task-list li input[type="checkbox"] {
     setText("map-unit-count", fmt.format(unitCount));
     setText("map-top-park", busiest.top_park);
     setText("map-top-park-detail", `${fmt.format(busiest.top_park_visits)} visits in ${busiest.state}`);
-    setText("state-ranking-title", `Top States — ${monthLabel} ${year}`);
     setText("state-map-coverage", `${monthLabel} ${year} · ${selected.length} states reporting`);
-
-    const topStates = [...selected].slice(0, 10);
-    const tableBody = document.getElementById("state-ranking-body");
-    tableBody.replaceChildren(...topStates.map((row, index) => {
-      const tr = document.createElement("tr");
-      addCell(tr, `#${index + 1}`, "fw-semibold text-muted");
-      addCell(tr, row.state, "fw-semibold");
-      addCell(tr, row.region, "text-muted");
-      addCell(tr, fmt.format(row.total_visits), "text-end");
-      addCell(tr, fmt.format(row.n_parks), "text-end");
-      addCell(tr, row.top_park);
-      return tr;
-    }));
 
     Plotly.react("state-choropleth", [{
       type: "choropleth",
@@ -342,6 +302,7 @@ ul.task-list li input[type="checkbox"] {
   renderMap();
 })();
 </script>
+
 </div>
 </div>
 

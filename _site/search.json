@@ -25,7 +25,7 @@
     "href": "explore.html",
     "title": "Explore by Park",
     "section": "",
-    "text": "Annual VisitationMonthly Visitation\n\n\nChoose a category and park to view its annual trend. Select a year to highlight that point; choose All Years to see range summaries. Hover over the chart for visit counts and national rank. Only years with reported data are shown.\n\n\n\n\n  \n    \n      \n        Choose Park (400 NPS Units)\n      \n      \n    \n\n    \n      \n        Filter Category\n      \n      \n        All Categories\n        National Parks & Preserves\n        Recreation Areas, Seashores & Parkways\n        Historic Sites, Battlefields & Memorials\n        National Monuments\n      \n    \n\n    \n      \n        Year\n      \n      \n        All Years (2000–2025)\n      \n    \n  \n\n\n\n\n  \n    \n      \n        National Park illustrated overview\n        Horizontal screenprint illustration for the selected park.\n      \n    \n  \n\n  \n    \n\n    \n      \n      \n    \n\n    \n      \n\n\n\nYears Shown\n\n\n\nEnd-Year Visits\n\n\n\nPeak Year in Range\n\n\n\nLowest Year in Range\n\n\n\nMedian Annual Visits\n\n\n\nTotal Visits in Range\n\n\n\n\n\n    \n  \n\n\n\n\n  \n  \n    Each point shows one calendar year's total recreation visits for the selected unit (hover any point for exact visits and national rank that year). Source: NPS Visitor Use Statistics (2000–2025).\n  \n\n\n\n\n\n\n\nThe charts below combine monthly recreation visits for 2000–2025 across all available NPS exports in monthly_data/.\n\n\n\n\n  \n    \n      Month\n      \n    \n    \n      Year for park comparison\n      \n    \n    \n      Park trend\n      \n    \n  \n  \n    \n    \n  \n  \n    Hover over a point or bar for exact recreation visits. Park rankings include\n    only units reporting data for the selected month and year."
+    "text": "Annual VisitationMonthly Visitation\n\n\nChoose a category and park to view its annual trend. Select a year to highlight that point; choose All Years to see range summaries. Hover over the chart for visit counts and national rank. Only years with reported data are shown.\n\n\n\n\n  \n    \n      \n        Choose Park (400 NPS Units)\n      \n      \n    \n\n    \n      \n        Filter Category\n      \n      \n        All Categories\n        National Parks & Preserves\n        Recreation Areas, Seashores & Parkways\n        Historic Sites, Battlefields & Memorials\n        National Monuments\n      \n    \n\n    \n      \n        Year\n      \n      \n        All Years (2000–2025)\n      \n    \n  \n\n\n\n\n  \n    \n      \n        National Park illustrated overview\n        Horizontal screenprint illustration for the selected park.\n      \n    \n  \n\n  \n    \n\n    \n      \n      \n    \n\n    \n      \n\n\n\nYears Shown\n\n\n\nEnd-Year Visits\n\n\n\nPeak Year in Range\n\n\n\nLowest Year in Range\n\n\n\nMedian Annual Visits\n\n\n\nTotal Visits in Range\n\n\n\n\n\n    \n  \n\n\n\n\n  \n  \n    Each point shows one calendar year's total recreation visits for the selected unit (hover any point for exact visits and national rank that year). Source: NPS Visitor Use Statistics (2000–2025).\n  \n\n\n\n\n\n\n\nThe charts below combine monthly recreation visits for 2000–2025 across all available NPS exports.\n\n\n\n\n  \n    \n      Month\n      \n    \n    \n      Year for park comparison\n      \n    \n    \n      Park trend\n      \n    \n  \n  \n    Hover over a point or bar for exact recreation visits. Park rankings include\n    only units reporting data for the selected month and year."
   },
   {
     "objectID": "explore.html#explore-monthly-visitation",
@@ -37,21 +37,21 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "National Parks, Year by Year: Visitation, 2000–2025",
+    "title": "National Park Visitation Through the Years",
     "section": "",
     "text": "Each dot is one NPS unit-year, colored by park category and nudged slightly around its year to reveal overlapping observations. Hover for the unit and visit count; drag horizontally to zoom. Use Park Attendance for annual and monthly views, or Visitation After 2020 for a fixed-period comparison.\n\n\n\n\n\n\n\n\nFigure 1: Annual recreation visits by NPS unit category, 2000–2025. Each colored point represents one unit-year; slight horizontal jitter reveals overlapping observations, and the log scale keeps small and large units visible. Source: NPS Visitor Use Statistics."
   },
   {
     "objectID": "index.html#how-do-visits-vary-across-park-categories",
     "href": "index.html#how-do-visits-vary-across-park-categories",
-    "title": "National Parks, Year by Year: Visitation, 2000–2025",
+    "title": "National Park Visitation Through the Years",
     "section": "",
     "text": "Each dot is one NPS unit-year, colored by park category and nudged slightly around its year to reveal overlapping observations. Hover for the unit and visit count; drag horizontally to zoom. Use Park Attendance for annual and monthly views, or Visitation After 2020 for a fixed-period comparison.\n\n\n\n\n\n\n\n\nFigure 1: Annual recreation visits by NPS unit category, 2000–2025. Each colored point represents one unit-year; slight horizontal jitter reveals overlapping observations, and the log scale keeps small and large units visible. Source: NPS Visitor Use Statistics."
   },
   {
     "objectID": "index.html#key-takeaways-20002025",
     "href": "index.html#key-takeaways-20002025",
-    "title": "National Parks, Year by Year: Visitation, 2000–2025",
+    "title": "National Park Visitation Through the Years",
     "section": "Key Takeaways (2000–2025)",
     "text": "Key Takeaways (2000–2025)\n\n\n\n\nRecreation Areas & Parkways\n\n\n1.09M\n\n\nMedian annual visits across 44 units (1,109 observations). Open scenic parkways and shorelines lead the system in typical volume.\n\n\n\n\n\n\nNational Parks & Preserves\n\n\n520K\n\n\nMedian annual visits across 76 units (1,953 observations). Flagship natural parks draw sustained crowds, with leaders exceeding 10M visits.\n\n\n\n\n\n\nHistoric Sites & Memorials\n\n\n113K\n\n\nMedian annual visits across 208 units (4,922 observations). Over half of all reporting units preserve focused historical and memorial heritage.\n\n\n\n\n\n\nNational Monuments\n\n\n97K\n\n\nMedian annual visits across 72 units (1,628 observations). Protects landmark geological, archaeological, and cultural sites across the nation."
   },
@@ -60,7 +60,7 @@
     "href": "map.html",
     "title": "Explore Park Visitation Across the U.S.",
     "section": "",
-    "text": "Choose a month and year to see where visits were recorded across the country. The selectors combine all matching NPS exports in monthly_data/. Hover over a state for its total visits, reporting units, region, and most-visited park.\n\n\n\n  \n    Month\n    \n  \n  \n    Year\n    \n  \n  \n    \n  \n\n\n\n  \n    Busiest State\n    \n    \n  \n  \n    Visits Shown\n    \n    Across states with reported data\n  \n  \n    Reporting Units\n    \n    Park units reporting visits\n  \n  \n    Top Park in Busiest State\n    \n    \n  \n\n\n\n  \n  \n    Darker green indicates more recreation visits. This state map includes the 50 states and D.C.; U.S. territories are not shown.\n  \n\n\nTop States\n\n  \n\n\n\nRank\nState\nRegion\nRecreation Visits\nUnits\nMost-visited Park\n\n\n\n\n\n\n\n\n\n  Source: NPS Visitor Use Statistics monthly exports. All matching export files in monthly_data/ are combined; states without reported data for the selected period are omitted."
+    "text": "Choose a month and year to see where visits were recorded across the country. The selectors combine all matching NPS exports. Hover over a state for its total visits, reporting units, region, and most-visited park.\n\n\n\n\n  \n    Month\n    \n  \n  \n    Year\n    \n  \n  \n    \n  \n\n\n\n  \n    Busiest State\n    \n    \n  \n  \n    Visits Shown\n    \n    Across states with reported data\n  \n  \n    Reporting Units\n    \n    Park units reporting visits\n  \n  \n    Top Park in Busiest State\n    \n    \n  \n\n\n\n  \n  \n    Darker green indicates more recreation visits. This state map includes the 50 states and D.C.; U.S. territories are not shown.\n  \n\n\n\n  Source: NPS Visitor Use Statistics monthly exports. Matching export files are combined; states without reported data for the selected period are omitted."
   },
   {
     "objectID": "story.html",

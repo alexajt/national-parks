@@ -9,8 +9,8 @@ toc: false
 ---
 
 Choose a month and year to see where visits were recorded across the country.
-The selectors combine all matching NPS exports in `monthly_data/`. Hover over a
-state for its total visits, reporting units, region, and most-visited park.
+The selectors combine all matching NPS exports. Hover over a state for its total
+visits, reporting units, region, and most-visited park.
 
 ```{r}
 #| label: state-map-explorer
@@ -33,7 +33,7 @@ monthly_exports <- list.files(
 )
 
 if (length(monthly_exports) == 0) {
-  stop("No NPS monthly export CSV files were found in monthly_data/.")
+  stop("No NPS monthly export CSV files were found.")
 }
 
 monthly_visits <- monthly_exports |>
@@ -120,20 +120,8 @@ ui <- HTML(paste0(
   </p>
 </div>
 
-<h2 id="state-ranking-title" class="mt-4">Top States</h2>
-<div class="table-responsive" style="background:#FAF7F0;border:1px solid #D5D2C4;border-radius:12px;padding:10px 16px;">
-  <table id="state-ranking-table" class="table table-sm table-hover mb-0" style="font-size:0.9rem;color:#223028;">
-    <thead><tr style="border-bottom:2px solid #DFDBD0;color:#1E382B;">
-      <th scope="col">Rank</th><th scope="col">State</th><th scope="col">Region</th>
-      <th scope="col" class="text-end">Recreation Visits</th><th scope="col" class="text-end">Units</th>
-      <th scope="col">Most-visited Park</th>
-    </tr></thead>
-    <tbody id="state-ranking-body"></tbody>
-  </table>
-</div>
-
 <p style="font-size:0.82rem;color:#5A6B60;margin-top:12px;">
-  Source: NPS Visitor Use Statistics monthly exports. All matching export files in <code>monthly_data/</code> are combined; states without reported data for the selected period are omitted.
+  Source: NPS Visitor Use Statistics monthly exports. Matching export files are combined; states without reported data for the selected period are omitted.
 </p>
 
 <script>
@@ -146,13 +134,6 @@ ui <- HTML(paste0(
 
   function setText(id, value) {
     document.getElementById(id).textContent = value;
-  }
-
-  function addCell(row, value, className = "") {
-    const cell = document.createElement("td");
-    cell.textContent = value;
-    if (className) cell.className = className;
-    row.appendChild(cell);
   }
 
   function fillYears() {
@@ -182,21 +163,7 @@ ui <- HTML(paste0(
     setText("map-unit-count", fmt.format(unitCount));
     setText("map-top-park", busiest.top_park);
     setText("map-top-park-detail", `${fmt.format(busiest.top_park_visits)} visits in ${busiest.state}`);
-    setText("state-ranking-title", `Top States — ${monthLabel} ${year}`);
     setText("state-map-coverage", `${monthLabel} ${year} · ${selected.length} states reporting`);
-
-    const topStates = [...selected].slice(0, 10);
-    const tableBody = document.getElementById("state-ranking-body");
-    tableBody.replaceChildren(...topStates.map((row, index) => {
-      const tr = document.createElement("tr");
-      addCell(tr, `#${index + 1}`, "fw-semibold text-muted");
-      addCell(tr, row.state, "fw-semibold");
-      addCell(tr, row.region, "text-muted");
-      addCell(tr, fmt.format(row.total_visits), "text-end");
-      addCell(tr, fmt.format(row.n_parks), "text-end");
-      addCell(tr, row.top_park);
-      return tr;
-    }));
 
     Plotly.react("state-choropleth", [{
       type: "choropleth",

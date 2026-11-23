@@ -11,7 +11,7 @@ project:
 website:
   title: "National Parks"
   navbar:
-    title: "National Parks, Year by Year: Visitation, 2000–2025"
+    title: "National Park Visitation Through the Years"
     left:
       - href: index.qmd
         text: Home
